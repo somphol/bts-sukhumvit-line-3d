@@ -2194,3 +2194,17 @@ body.is-raining .scene-rain { opacity: 0.72; }
   .station-card-grid > div.wide { grid-column: auto; }
   .station-card-title h2 { font-size: 18px; }
 }
+
+
+.build-chip {
+  padding: 3px 5px;
+  border: 1px solid rgba(242, 201, 76, 0.28);
+  border-radius: 5px;
+  background: rgba(242, 201, 76, 0.06);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}

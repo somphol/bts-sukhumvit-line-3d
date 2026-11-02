@@ -12,7 +12,7 @@
      Constants
      ------------------------------------------------------------------------ */
 
-  const VERSION = '1.4.3';
+  const VERSION = '1.4.4';
   const APP_NAME = 'BTS Sukhumvit Line 3D';
   const WORLD_PER_M = 0.25;             // world units per displayed metre
   const TRACK_Y = 5.2;                  // viaduct deck / rail height
@@ -487,7 +487,7 @@
       'throttle', 'throttleValue', 'brakeBtn', 'emergencyBtn', 'autoBtn', 'doorBtn', 'hornBtn',
       'skipBtn', 'toasts', 'helpModal', 'helpClose', 'helpOk', 'versionLabel', 'selftestOut',
       'stationInfoBtn', 'stationModal', 'stationModalClose', 'stationModalCode', 'stationModalName', 'stationModalThai',
-      'stationModalZone', 'stationModalIx', 'stationModalLandmark', 'stationMapLink', 'stationMapQuery', 'stationJumpBtn'
+      'stationModalZone', 'stationModalIx', 'stationModalLandmark', 'stationMapLink', 'stationMapQuery', 'stationJumpBtn', 'buildBadge'
     ];
     ids.forEach((id) => { dom[id] = document.getElementById(id); });
     dom.viewButtons = $$('.view-btn');
@@ -501,6 +501,7 @@
   async function boot() {
     cacheDom();
     dom.versionLabel.textContent = 'v' + VERSION;
+    if (dom.buildBadge) dom.buildBadge.textContent = 'v' + VERSION;
     if (typeof THREE === 'undefined') {
       showBootError('Three.js could not be loaded. Check the CDN connection and reload.');
       return;
@@ -1794,7 +1795,7 @@
     const tactileGeo = new THREE.BoxGeometry(0.28, 0.07, 34);
     const tactileMat = new THREE.MeshLambertMaterial({ color: 0xf2c94c, emissive: 0x4a3b00, emissiveIntensity: 0.35 });
     const canopySlatGeo = new THREE.BoxGeometry(3.6, 0.14, 3.0);
-    const canopyMat = new THREE.MeshLambertMaterial({ color: 0x1b2b22, emissive: 0x07150d, emissiveIntensity: 0.14 });
+    const canopyMat = new THREE.MeshLambertMaterial({ color: 0x3a423e, emissive: 0x07150d, emissiveIntensity: 0.1 });
     const columnGeo = new THREE.CylinderGeometry(0.11, 0.14, 3.9, 6);
     const columnMat = new THREE.MeshLambertMaterial({ color: 0x8d9b90 });
     const benchGeo = new THREE.BoxGeometry(0.55, 0.09, 1.9);
