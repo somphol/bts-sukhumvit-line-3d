@@ -62,7 +62,7 @@ Chatuchak Park & Market, Victory Monument, Siam Skywalk, Terminal 21 and the ASO
 
 | File | Size |
 | --- | ---: |
-| `index.html` | 16,939 bytes · 326 lines |
+| `index.html` | 17,633 bytes · 333 lines |
 | `style.css` | 50,685 bytes · 1,839 lines |
 | `script.js` | 164,979 bytes · 3,913 lines |
 | `README.md` | 16,084 bytes · 343 lines |

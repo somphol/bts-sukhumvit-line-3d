@@ -48,7 +48,7 @@
     "fonts": ["Orbitron", "Rajdhani", "Noto Sans Thai"]
   },
   "files": [
-    { "path": "index.html", "bytes": 16939, "lines": 326 },
+    { "path": "index.html", "bytes": 17633, "lines": 333 },
     { "path": "style.css", "bytes": 50685, "lines": 1839 },
     { "path": "script.js", "bytes": 164979, "lines": 3913 },
     { "path": "README.md", "bytes": 16084, "lines": 343 }
