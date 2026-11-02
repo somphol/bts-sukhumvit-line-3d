@@ -12,7 +12,7 @@
      Constants
      ------------------------------------------------------------------------ */
 
-  const VERSION = '1.4.2';
+  const VERSION = '1.4.3';
   const APP_NAME = 'BTS Sukhumvit Line 3D';
   const WORLD_PER_M = 0.25;             // world units per displayed metre
   const TRACK_Y = 5.2;                  // viaduct deck / rail height
@@ -870,7 +870,8 @@
     ctx.closePath();
   }
 
-  function makeRibbon(width, y, color, opacity) {
+  function makeRibbon(width, y, color, opacity, offset) {
+    const off = offset || 0;
     const segments = 700;
     const positions = [];
     const uvs = [];
@@ -885,8 +886,8 @@
       tan.y = 0;
       tan.normalize();
       n.set(tan.z, 0, -tan.x);
-      positions.push(p.x + n.x * width / 2, y, p.z + n.z * width / 2);
-      positions.push(p.x - n.x * width / 2, y, p.z - n.z * width / 2);
+      positions.push(p.x + n.x * (off + width / 2), y, p.z + n.z * (off + width / 2));
+      positions.push(p.x + n.x * (off - width / 2), y, p.z + n.z * (off - width / 2));
       uvs.push(0, i / 8, 1, i / 8);
       if (i < segments) {
         const a = i * 2;
@@ -981,18 +982,20 @@
     scene.add(coast);
 
     // Sidewalk / road corridor beneath the viaduct.
-    const sidewalk = makeRibbon(22, 0.16, 0xffffff, 1);
-    sidewalk.name = 'Sidewalks';
     const pavingTex = makePavingTexture();
     pavingTex.anisotropy = 8;
     pavingTex.minFilter = THREE.LinearMipmapLinearFilter;
-    sidewalk.material.map = pavingTex;
-    sidewalk.material.color.setHex(0xb0b1a5);
-    sidewalk.material.polygonOffset = true;
-    sidewalk.material.polygonOffsetFactor = -1;
-    sidewalk.material.polygonOffsetUnits = -1;
-    sidewalk.material.needsUpdate = true;
-    scene.add(sidewalk);
+    for (const side of [-1, 1]) {
+      const walk = makeRibbon(3.5, 0.16, 0xffffff, 1, side * 9.5);
+      walk.name = side < 0 ? 'SidewalkLeft' : 'SidewalkRight';
+      walk.material.map = pavingTex;
+      walk.material.color.setHex(0xb0b1a5);
+      walk.material.polygonOffset = true;
+      walk.material.polygonOffsetFactor = -1;
+      walk.material.polygonOffsetUnits = -1;
+      walk.material.needsUpdate = true;
+      scene.add(walk);
+    }
 
     const road = makeRibbon(15, 0.28, 0xffffff, 1);
     road.name = 'SukhumvitRoad';
