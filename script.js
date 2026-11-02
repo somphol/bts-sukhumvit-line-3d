@@ -4559,9 +4559,9 @@
   }
 
   function openStationInfo() {
-    const st = (state.atStation && state.speed < 1)
-      ? STATIONS[state.currentIndex]
-      : STATIONS[state.nextIndex];
+    // The ⓘ button lives in the NEXT STATION block, so it must always
+    // describe the next station — even while the train is dwelling.
+    const st = STATIONS[state.nextIndex] || STATIONS[state.currentIndex];
     if (!st) return;
     const zone = ZONES[st.zone];
     const ix = st.interchange.length

@@ -7,23 +7,23 @@
   "build": {
     "sessionStartedAt": "2026-11-01T23:07:53Z",
     "startedAt": "2026-11-01T23:14:10Z",
-    "packagedAt": "2026-11-02T03:57:44Z",
-    "durationSeconds": 17014,
-    "durationHuman": "4h 43m 34s",
-    "sessionDurationSeconds": 17391,
-    "sessionDurationHuman": "4h 49m 51s",
+    "packagedAt": "2026-11-02T04:08:16Z",
+    "durationSeconds": 17646,
+    "durationHuman": "4h 54m 6s",
+    "sessionDurationSeconds": 18023,
+    "sessionDurationHuman": "5h 0m 23s",
     "timezone": "UTC",
     "includes": "Initial Three.js foundation, route survey and viaduct, four-zone procedural city, 47 stations and platform furniture, Chatuchak, Victory Monument, Siam skywalk, Terminal 21, Benchasiri Park, Erawan elephant, Khu Khot depot, Kheha terminus, four-car blue/white/red BTS train with doors and interior, passenger boarding/alighting animation, bilingual telemetry HUD, minimap, station list, four cameras, auto pilot, door interlock, terminus reversal, quiet Web Audio traction, bilingual PA voice, transit music, audio mixer, rain/thunderstorm scene, time-of-day modes, mobile layout, 36-check self-test, documentation, screenshots and GitHub packaging."
   },
   "tokens": {
-    "input": 2829751,
-    "output": 250298,
-    "reasoning": 309248,
-    "cacheRead": 213547520,
+    "input": 2832049,
+    "output": 255868,
+    "reasoning": 310874,
+    "cacheRead": 224894592,
     "cacheWrite": 1467,
-    "total": 3389297,
-    "totalWithCache": 216938284,
-    "note": "Snapshot from the OpenCode session record at 2026-11-02T03:57:44Z. total = input + output + reasoning. Cache reads/writes are context-usage figures and are reported separately. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher."
+    "total": 3398791,
+    "totalWithCache": 228294850,
+    "note": "Snapshot from the OpenCode session record at 2026-11-02T04:08:16Z. total = input + output + reasoning. Cache reads/writes are context-usage figures and are reported separately. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher."
   },
   "cost": {
     "usd": 0.0,
@@ -50,7 +50,7 @@
   "files": [
     { "path": "index.html", "bytes": 22309, "lines": 420 },
     { "path": "style.css", "bytes": 59121, "lines": 2196 },
-    { "path": "script.js", "bytes": 214748, "lines": 4973 },
+    { "path": "script.js", "bytes": 214842, "lines": 4973 },
     { "path": "README.md", "bytes": 18910, "lines": 373 },
     { "path": "audio/th", "files": 145, "bytes": 4928130 }
   ],
