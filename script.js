@@ -12,7 +12,7 @@
      Constants
      ------------------------------------------------------------------------ */
 
-  const VERSION = '1.0.0';
+  const VERSION = '1.4.0';
   const APP_NAME = 'BTS Sukhumvit Line 3D';
   const WORLD_PER_M = 0.25;             // world units per displayed metre
   const TRACK_Y = 5.2;                  // viaduct deck / rail height
@@ -2711,14 +2711,6 @@
         }
         headlightMats.push(tailMat);
       }
-
-      // Green underglow / third-rail power aesthetic.
-      const glowStrip = new THREE.Mesh(
-        new THREE.BoxGeometry(2.18, 0.035, 4.6),
-        new THREE.MeshBasicMaterial({ color: 0x3f7fd4, transparent: true, opacity: 0.16 })
-      );
-      glowStrip.position.y = 0.01;
-      car.add(glowStrip);
 
       car.userData.destSouth = destSouth;
       car.userData.destNorth = destNorth;

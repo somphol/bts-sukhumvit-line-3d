@@ -5,9 +5,9 @@
 | Project | BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator (`bts-sukhumvit-line-3d`) |
 | Session started | 2026-11-01 23:07:53 UTC |
 | Build started | 2026-11-01 23:14:10 UTC |
-| Packaged | 2026-11-02 04:08:16 UTC |
-| Build duration | **4h 54m 6s** (17,646 seconds) |
-| Full session duration | **5h 0m 23s** (18,023 seconds) |
+| Packaged | 2026-11-02 04:16:47 UTC |
+| Build duration | **5h 2m 37s** (18,157 seconds) |
+| Full session duration | **5h 8m 54s** (18,534 seconds) |
 | Harness | OpenCode 2.2.5 |
 | Model | DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`) |
 | Session | `ses_e66a17139ffeXGq2zj84mZEePL` |
@@ -18,15 +18,15 @@
 
 | Metric | Tokens |
 | --- | ---: |
-| Input | 2,832,049 |
-| Output | 255,868 |
-| Reasoning | 310,874 |
-| **Total (input + output + reasoning)** | **3,398,791** |
-| Cache read | 224,894,592 |
+| Input | 2,837,724 |
+| Output | 259,418 |
+| Reasoning | 314,674 |
+| **Total (input + output + reasoning)** | **3,411,816** |
+| Cache read | 234,064,896 |
 | Cache write | 1,467 |
-| Total including cache | 228,294,850 |
+| Total including cache | 237,478,179 |
 
-> Snapshot from the OpenCode session record at 2026-11-02 04:08:16 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
+> Snapshot from the OpenCode session record at 2026-11-02 04:16:47 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
 
 ## What was built
 
@@ -70,9 +70,9 @@ Chatuchak Park & Market, Victory Monument, Siam Skywalk, Terminal 21 and the ASO
 
 | File | Size |
 | --- | ---: |
-| `index.html` | 22,309 bytes · 420 lines |
+| `index.html` | 22,325 bytes · 420 lines |
 | `style.css` | 59,121 bytes · 2,196 lines |
-| `script.js` | 214,842 bytes · 4,973 lines |
+| `script.js` | 214,536 bytes · 4,965 lines |
 | `README.md` | 18,910 bytes · 373 lines |
 | `audio/th/` | 145 files · 5.0 MB |
 | `screenshot.png` | 1.34 MB |
