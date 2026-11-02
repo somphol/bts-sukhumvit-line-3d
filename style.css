@@ -542,7 +542,7 @@ kbd {
   align-items: center;
   gap: 12px;
   width: min(560px, 100%);
-  min-height: 62px;
+  min-height: 76px;
   padding: 9px 16px 9px 12px;
   overflow: hidden;
   border-radius: 14px;
@@ -604,6 +604,12 @@ kbd {
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.announce-text em.announce-th {
+  color: var(--gold);
+  font-family: var(--font-thai);
+  font-size: 9px;
+  font-weight: 500;
 }
 .announce-wave {
   display: flex;
@@ -1766,6 +1772,7 @@ body.is-raining .cab-wipers i { animation-duration: 1.6s; }
   .icon-btn { width: 31px; height: 31px; font-size: 12px; }
   .announce-text strong { font-size: 13px; }
   .announce-text em { font-size: 8.5px; }
+  .announce-text em.announce-th { font-size: 8px; }
   .announce-icon { width: 28px; height: 28px; }
   .telemetry {
     top: 126px;

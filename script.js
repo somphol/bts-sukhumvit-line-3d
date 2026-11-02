@@ -39,7 +39,17 @@
     PINK:   { name: 'MRT Pink Line', short: 'MRT PINK', color: '#f178b6' },
     YELLOW: { name: 'MRT Yellow Line', short: 'MRT YELLOW', color: '#f2c94c' },
     ARL:    { name: 'Airport Rail Link', short: 'ARL', color: '#e5484d' },
-    BRT:    { name: 'Bangkok BRT', short: 'BRT', color: '#f2994a' }
+    BRT:    { name: 'Bangkok BRT', short: 'BRT', color: '#f2994a' },
+    SILOM:  { name: 'BTS Silom Line', short: 'BTS SILOM', color: '#005a36' }
+  };
+
+  const INTERCHANGES_TH = {
+    MRT: 'รถไฟฟ้ามหานคร สายเฉลองรัชมงคล (สายสีน้ำเงิน)',
+    PINK: 'รถไฟฟ้าสายสีชมพู',
+    YELLOW: 'รถไฟฟ้าสายสีเหลือง',
+    ARL: 'รถไฟฟ้าแอร์พอร์ต เรล ลิงก์',
+    BRT: 'รถโดยสารด่วนพิเศษ บีอาร์ที',
+    SILOM: 'รถไฟฟ้าบีทีเอส สายสีลม'
   };
 
   const ZONES = {
@@ -79,53 +89,53 @@
 
   // 47 operational stations. N6 Sena Ruam (unopened infill) is intentionally omitted.
   const STATIONS = [
-    ['N24', 'Khu Khot', 'คูคต', 'A', [], 'Khu Khot Depot & Park', 'อู่รถไฟคูคต'],
-    ['N23', 'Yaek Kor Por Aor', 'แยกคปอ.', 'A', [], 'Kor Por Aor Market', 'ตลาดแยกคปอ.'],
-    ['N22', 'Royal Thai Air Force Museum', 'พิพิธภัณฑ์กองทัพอากาศ', 'A', [], 'Royal Thai Air Force Museum', 'พิพิธภัณฑ์กองทัพอากาศ'],
+    ['N24', 'Khu Khot', 'คูคต', 'A', [], 'Wat Sai Mai & Khu Khot Park-and-Ride', 'วัดสายไหม และอาคารจอดแล้วจรคูคต'],
+    ['N23', 'Yaek Kor Por Aor', 'แยกคปอ.', 'A', [], 'Royal Thai Air Force HQ & Park-and-Ride', 'กองบัญชาการกองทัพอากาศ และอาคารจอดแล้วจรแยก คปอ.'],
+    ['N22', 'Royal Thai Air Force Museum', 'พิพิธภัณฑ์กองทัพอากาศ', 'A', [], 'Royal Thai Air Force Museum', 'พิพิธภัณฑ์กองทัพอากาศและการบินแห่งชาติ'],
     ['N21', 'Bhumibol Adulyadej Hospital', 'โรงพยาบาลภูมิพลอดุลยเดช', 'A', [], 'Bhumibol Adulyadej Hospital', 'โรงพยาบาลภูมิพลอดุลยเดช'],
-    ['N20', 'Saphan Mai', 'สะพานใหม่', 'A', [], 'Saphan Mai Market', 'ตลาดสะพานใหม่'],
-    ['N19', 'Sai Yud', 'สายหยุด', 'A', [], 'Sai Yud Community', 'ชุมชนสายหยุด'],
-    ['N18', 'Phahon Yothin 59', 'พหลโยธิน 59', 'A', [], 'Phahon Yothin 59', 'พหลโยธิน 59'],
-    ['N17', 'Wat Phra Sri Mahathat', 'วัดพระศรีมหาธาตุ', 'A', ['PINK'], 'Wat Phra Sri Mahathat', 'วัดพระศรีมหาธาตุ'],
+    ['N20', 'Saphan Mai', 'สะพานใหม่', 'A', [], 'Ying Charoen Market', 'ตลาดยิ่งเจริญ'],
+    ['N19', 'Sai Yud', 'สายหยุด', 'A', [], 'CGH Phahon Yothin Hospital', 'โรงพยาบาลซีจีเอช พหลโยธิน'],
+    ['N18', 'Phahon Yothin 59', 'พหลโยธิน 59', 'A', [], 'Lotus Lak Si', 'โลตัส หลักสี่'],
+    ['N17', 'Wat Phra Sri Mahathat', 'วัดพระศรีมหาธาตุ', 'A', ['PINK'], 'Wat Phra Sri Mahathat & Bang Khen District Office', 'วัดพระศรีมหาธาตุวรมหาวิหาร และสำนักงานเขตบางเขน'],
     ['N16', '11th Infantry Regiment', 'กรมทหารราบที่ 11', 'A', [], '11th Infantry Regiment', 'กรมทหารราบที่ 11'],
-    ['N15', 'Bang Bua', 'บางบัว', 'A', [], 'Bang Bua Canal', 'คลองบางบัว'],
-    ['N14', 'Royal Forest Department', 'กรมป่าไม้', 'A', [], 'Royal Forest Department', 'กรมป่าไม้'],
+    ['N15', 'Bang Bua', 'บางบัว', 'A', [], 'Sripatum University & Wat Bang Bua', 'มหาวิทยาลัยศรีปทุม และวัดบางบัว'],
+    ['N14', 'Royal Forest Department', 'กรมป่าไม้', 'A', [], 'Royal Forest Department', 'กรมป่าไม้ และกรมอุทยานแห่งชาติ'],
     ['N13', 'Kasetsart University', 'มหาวิทยาลัยเกษตรศาสตร์', 'A', [], 'Kasetsart University', 'มหาวิทยาลัยเกษตรศาสตร์'],
-    ['N12', 'Sena Nikhom', 'เสนานิคม', 'A', [], 'Sena Nikhom', 'เสนานิคม'],
-    ['N11', 'Ratchayothin', 'รัชโยธิน', 'A', [], 'Ratchayothin Intersection', 'แยกรัชโยธิน'],
-    ['N10', 'Phahon Yothin 24', 'พหลโยธิน 24', 'A', [], 'Phahon Yothin 24', 'พหลโยธิน 24'],
-    ['N9', 'Ha Yaek Lat Phrao', 'ห้าแยกลาดพร้าว', 'A', ['MRT'], 'Ha Yaek Lat Phrao', 'ห้าแยกลาดพร้าว'],
-    ['N8', 'Mo Chit', 'หมอชิต', 'B', ['MRT', 'BRT'], 'Chatuchak Park & Market', 'สวนและตลาดจตุจักร'],
-    ['N7', 'Saphan Khwai', 'สะพานขวาง', 'B', [], 'Saphan Khwai', 'สะพานขวาง'],
-    ['N5', 'Ari', 'อารีย์', 'B', [], 'Ari Soi 1', 'อารีย์ซอย 1'],
-    ['N4', 'Sanam Pao', 'สนามเป้า', 'B', [], 'Sanam Pao', 'สนามเป้า'],
-    ['N3', 'Victory Monument', 'อนุสาวรีย์ชัยสมรภูมิ', 'B', [], 'Victory Monument', 'อนุสาวรีย์ชัยสมรภูมิ'],
-    ['N2', 'Phaya Thai', 'พญาไท', 'B', ['ARL'], 'Phaya Thai Airport Rail Link', 'พญาไท แอร์พอร์ตเรลลิงก์'],
-    ['N1', 'Ratchathewi', 'ราชเทวี', 'B', [], 'Ratchathewi', 'ราชเทวี'],
-    ['CEN', 'Siam', 'สยาม', 'B', ['MRT'], 'Siam Skywalk & Paragon', 'สกายวอล์คสยาม'],
-    ['E1', 'Chit Lom', 'ชิดลม', 'B', [], 'Central Embassy & Chit Lom', 'เซ็นทรัลเอ็มบาสซี'],
-    ['E2', 'Phloen Chit', 'เพลินจิต', 'B', [], 'Phloen Chit Embassies', 'สถานทูตเพลินจิต'],
-    ['E3', 'Nana', 'นานา', 'B', [], 'Nana & Soi 4', 'นานาและซอย 4'],
-    ['E4', 'Asok', 'อโศก', 'C', ['MRT'], 'Terminal 21 & MRT Asok', 'เทอร์มินัล 21 และ MRT อโศก'],
-    ['E5', 'Phrom Phong', 'พร้อมพงษ์', 'C', [], 'Benchasiri Park & Emporium', 'สวนเบญจสิริและเอ็มโพเรียม'],
+    ['N12', 'Sena Nikhom', 'เสนานิคม', 'A', [], 'Paolo Kaset Hospital & Bang Khen Market', 'โรงพยาบาลเปาโล เกษตร และตลาดบางเขน'],
+    ['N11', 'Ratchayothin', 'รัชโยธิน', 'A', [], 'Major Cineplex Ratchayothin & Elephant Tower', 'เมเจอร์ ซีนีเพล็กซ์ รัชโยธิน และตึกช้าง'],
+    ['N10', 'Phahon Yothin 24', 'พหลโยธิน 24', 'A', [], 'Horwang School & Shinawatra Tower 3', 'โรงเรียนหอวัง และตึกชินวัตร 3'],
+    ['N9', 'Ha Yaek Lat Phrao', 'ห้าแยกลาดพร้าว', 'A', ['MRT'], 'Central Ladprao & Union Mall', 'เซ็นทรัล ลาดพร้าว และยูเนี่ยน มอลล์'],
+    ['N8', 'Mo Chit', 'หมอชิต', 'B', ['MRT', 'BRT'], 'Chatuchak Market & Vachirabenjatas Park', 'ตลาดนัดจตุจักร และสวนวชิรเบญจทัศ'],
+    ['N7', 'Saphan Khwai', 'สะพานขวาง', 'B', [], 'Paolo Phahon Yothin Hospital & Or Tor Kor Market', 'โรงพยาบาลเปาโล พหลโยธิน และตลาด อ.ต.ก.'],
+    ['N5', 'Ari', 'อารีย์', 'B', [], 'Ari lifestyle district & Pearl Bangkok', 'ย่านอารีย์ และอาคารเพิร์ล แบงก์ค็อก'],
+    ['N4', 'Sanam Pao', 'สนามเป้า', 'B', [], 'Phyathai 2 Hospital & Channel 5', 'โรงพยาบาลพญาไท 2 และสถานีวิทยุโทรทัศน์กองทัพบกช่อง 5'],
+    ['N3', 'Victory Monument', 'อนุสาวรีย์ชัยสมรภูมิ', 'B', [], 'Victory Monument & Center One', 'อนุสาวรีย์ชัยสมรภูมิ และเซ็นเตอร์ วัน'],
+    ['N2', 'Phaya Thai', 'พญาไท', 'B', ['ARL'], 'Phaya Thai Palace & Wannasorn Building', 'พระราชวังพญาไท และอาคารวรรณสรณ์'],
+    ['N1', 'Ratchathewi', 'ราชเทวี', 'B', [], 'Hua Chang Bridge & Baiyoke Tower 2', 'สะพานหัวช้าง และตึกใบหยก 2'],
+    ['CEN', 'Siam', 'สยาม', 'B', ['SILOM', 'MRT'], 'Siam Paragon, Siam Square & BACC', 'สยามพารากอน สยามสแควร์ และหอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร'],
+    ['E1', 'Chit Lom', 'ชิดลม', 'B', [], 'Erawan Shrine & CentralWorld', 'ศาลท้าวมหาพรหมเอราวัณ และเซ็นทรัลเวิลด์'],
+    ['E2', 'Phloen Chit', 'เพลินจิต', 'B', [], 'Central Embassy & Park Ventures', 'เซ็นทรัล เอ็มบาสซี และอาคารปาร์คเวนเชอร์'],
+    ['E3', 'Nana', 'นานา', 'B', [], 'Nana Square & Sukhumvit Soi 11', 'นานาสแควร์ และซอยสุขุมวิท 11'],
+    ['E4', 'Asok', 'อโศก', 'C', ['MRT'], 'Terminal 21 & Benjakitti Park', 'เทอร์มินัล 21 และสวนเบญจกิติ'],
+    ['E5', 'Phrom Phong', 'พร้อมพงษ์', 'C', [], 'The Em District & Benchasiri Park', 'เดอะเอ็มดิสทริค (เอ็มโพเรียม/เอ็มควอเทียร์/เอ็มสเฟียร์) และสวนเบญจสิริ'],
     ['E6', 'Thong Lo', 'ทองหล่อ', 'C', [], 'Thong Lo Soi 55', 'ทองหล่อซอย 55'],
-    ['E7', 'Ekkamai', 'เอกมัย', 'C', [], 'Ekkamai Eastern Bus Terminal', 'สถานีขนส่งเอกมัย'],
-    ['E8', 'Phra Khanong', 'พระโขนง', 'D', [], 'Phra Khanong Market', 'ตลาดพระโขนง'],
-    ['E9', 'On Nut', 'อ่อนนุช', 'D', [], 'On Nut Night Market', 'ตลาดกลางคืนอ่อนนุช'],
-    ['E10', 'Bang Chak', 'บางจาก', 'D', [], 'Bang Chak', 'บางจาก'],
-    ['E11', 'Punnawithi', 'ปุณณวิถี', 'D', [], 'Punnawithi', 'ปุณณวิถี'],
-    ['E12', 'Udom Suk', 'อุดมสุข', 'D', [], 'Udom Suk', 'อุดมสุข'],
-    ['E13', 'Bang Na', 'บางนา', 'D', [], 'Bang Na Intersection', 'แยกบางนา'],
-    ['E14', 'Bearing', 'แบริ่ง', 'D', [], 'Bearing Market', 'ตลาดแบริ่ง'],
-    ['E15', 'Samrong', 'สำโรง', 'D', ['YELLOW'], 'Samrong Yellow Line', 'สำโรง สายสีเหลือง'],
-    ['E16', 'Pu Chao', 'ปู่เจ้า', 'D', [], 'Pu Chao', 'ปู่เจ้า'],
-    ['E17', 'Chang Erawan', 'ช้างเอราวัณ', 'D', [], 'Erawan Museum Elephant', 'พิพิธภัณฑ์ช้างเอราวัณ'],
-    ['E18', 'Royal Thai Naval Academy', 'ราชนาวี', 'D', [], 'Royal Thai Naval Academy', 'โรงเรียนนายเรือ'],
-    ['E19', 'Pak Nam', 'ปากน้ำ', 'D', [], 'Pak Nam Market', 'ตลาดปากน้ำ'],
-    ['E20', 'Srinagarindra', 'ศรีนครินทร์', 'D', [], 'Srinagarindra', 'ศรีนครินทร์'],
-    ['E21', 'Phraek Sa', 'แพรกษา', 'D', [], 'Phraek Sa', 'แพรกษา'],
-    ['E22', 'Sai Luat', 'สายลวด', 'D', [], 'Sai Luat', 'สายลวด'],
-    ['E23', 'Kheha', 'เคหะฯ', 'D', [], 'Kheha Terminus & Park', 'สถานีปลายทางเคหะฯ']
+    ['E7', 'Ekkamai', 'เอกมัย', 'C', [], 'Eastern Bus Terminal & Bangkok Planetarium', 'สถานีขนส่งเอกมัย และท้องฟ้าจำลองกรุงเทพ'],
+    ['E8', 'Phra Khanong', 'พระโขนง', 'D', [], 'W District', 'ดับบลิว ดิสทริค'],
+    ['E9', 'On Nut', 'อ่อนนุช', 'D', [], 'Lotus Sukhumvit 50 & Century Movie Plaza', 'โลตัส สุขุมวิท 50 และเซ็นจูรี มูฟวี่ พลาซ่า'],
+    ['E10', 'Bang Chak', 'บางจาก', 'D', [], 'Bangchak Headquarters & Bang Chak Market', 'สำนักงานใหญ่บางจาก และตลาดบางจาก'],
+    ['E11', 'Punnawithi', 'ปุณณวิถี', 'D', [], 'True Digital Park', 'ทรู ดิจิทัล พาร์ค'],
+    ['E12', 'Udom Suk', 'อุดมสุข', 'D', [], 'Udom Suk Market & Mega Bangna shuttle', 'ตลาดอุดมสุข และรถรับส่งเมกะบางนา'],
+    ['E13', 'Bang Na', 'บางนา', 'D', [], 'BITEC Bangna & Meteorological Department', 'ไบเทค บางนา และกรมอุตุนิยมวิทยา'],
+    ['E14', 'Bearing', 'แบริ่ง', 'D', [], 'Saint Joseph Bangna & Bangkok Patana School', 'โรงเรียนเซนต์โยเซฟบางนา และโรงเรียนนานาชาติบางกอกพัฒนา'],
+    ['E15', 'Samrong', 'สำโรง', 'D', ['YELLOW'], 'Imperial World Samrong & Samrong Market', 'อิมพีเรียล เวิลด์ สำโรง และตลาดสำโรง'],
+    ['E16', 'Pu Chao', 'ปู่เจ้า', 'D', [], 'Big C Samrong 2 & Toyota showroom', 'บิ๊กซี สำโรง 2 และโชว์รูมโตโยต้า'],
+    ['E17', 'Chang Erawan', 'ช้างเอราวัณ', 'D', [], 'Erawan Museum', 'พิพิธภัณฑ์ช้างเอราวัณ'],
+    ['E18', 'Royal Thai Naval Academy', 'ราชนาวี', 'D', [], 'Royal Thai Naval Academy & Naval Museum', 'โรงเรียนนายเรือ และพิพิธภัณฑ์ทหารเรือ'],
+    ['E19', 'Pak Nam', 'ปากน้ำ', 'D', [], 'Samut Prakan Observation Tower & Pak Nam Market', 'หอชมเมืองสมุทรปราการ และตลาดปากน้ำ'],
+    ['E20', 'Srinagarindra', 'ศรีนครินทร์', 'D', [], 'Paolo Samut Prakan Hospital', 'โรงพยาบาลเปาโล สมุทรปราการ'],
+    ['E21', 'Phraek Sa', 'แพรกษา', 'D', [], 'Robinson Samut Prakan & Big C', 'โรบินสัน สมุทรปราการ และบิ๊กซี'],
+    ['E22', 'Sai Luat', 'สายลวด', 'D', [], 'Sai Luat Bus Depot & Community', 'อู่รถเมล์สาย 25 และ 142 และชุมชนซอยสายลวด'],
+    ['E23', 'Kheha', 'เคหะฯ', 'D', [], 'Ancient City & Bang Pu Recreation Center', 'เมืองโบราณ และสถานตากอากาศบางปู']
   ].map(([code, en, th, zone, interchange, landmark, landmarkTh], i) => ({
     index: i, code, en, th, zone, interchange, landmark, landmarkTh
   }));
@@ -378,6 +388,7 @@
     touristInfo: true,
     voiceUnlocked: false,
     speechTimer: null,
+    speechToken: 0,
     lastSpeech: '',
     firstAnnouncement: false,
     rain: false,
@@ -449,7 +460,7 @@
       'introLang', 'langBtn', 'todBtn', 'rainBtn', 'audioBtn', 'mixBtn', 'helpBtn', 'fullscreenBtn',
       'audioMixer', 'mixClose', 'engineVol', 'engineVolVal', 'paVol', 'paVolVal',
       'musicVol', 'musicVolVal', 'voiceToggle', 'touristToggle', 'musicToggle', 'testPA', 'lightning',
-      'announce', 'announceKicker', 'announceName', 'announceDetail',
+      'announce', 'announceKicker', 'announceName', 'announceDetail', 'announceDetailTh',
       'telemetry', 'telemetryToggle', 'speedRing', 'speedValue', 'modeChip', 'doorChip',
       'tractionBars', 'signalChip', 'nextCode', 'nextName', 'nextThai', 'distanceValue',
       'etaValue', 'zoneValue', 'routeProgress', 'zoneChip', 'zoneDesc', 'interchangeChips',
@@ -3281,6 +3292,14 @@
         if (!this.ctx) return;
         const now = this.ctx.currentTime;
         this.tone(1250, now, 0.045, 0.022, 'square');
+      },
+
+      doorBeeps() {
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [0, 0.18, 0.36].forEach((offset) => {
+          this.tone(1180, now + offset, 0.09, 0.085, 'square');
+        });
       }
     };
   }
@@ -3353,8 +3372,10 @@
     const synth = window.speechSynthesis;
     if (state.speechTimer) clearTimeout(state.speechTimer);
     synth.cancel();
+    const token = ++state.speechToken;
     state.lastSpeech = thText + ' / ' + enText;
     state.speechTimer = setTimeout(() => {
+      if (token !== state.speechToken) return;
       if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) return;
       const th = new SpeechSynthesisUtterance(thText);
       th.lang = 'th-TH';
@@ -3372,37 +3393,73 @@
       en.pitch = 1.0;
       en.volume = state.paVolume;
 
+      let englishSpoken = false;
+      const speakEnglish = () => {
+        if (englishSpoken || token !== state.speechToken) return;
+        englishSpoken = true;
+        if (!state.voiceEnabled || state.muted) return;
+        synth.speak(en);
+      };
+      th.onend = speakEnglish;
+      th.onerror = speakEnglish;
       synth.speak(th);
-      synth.speak(en);
+      // Safety net for browsers that never fire onend for a missing Thai voice.
+      setTimeout(() => {
+        if (token === state.speechToken && !synth.speaking && !synth.pending) speakEnglish();
+      }, 7000);
     }, 720);
   }
 
   function stationAnnouncement(st, arrival) {
-    const lines = st.interchange.map((key) => INTERCHANGES[key].name).join(' and ');
-    const side = st.index % 2 === 0 ? 'left' : 'right';
-    const sideTh = side === 'left' ? 'ซ้าย' : 'ขวา';
-    let th = arrival ? 'ถึงสถานี ' + st.th + ' แล้ว' : 'สถานีต่อไป ' + st.th;
-    let en = arrival ? 'Now arriving at ' + st.en + '.' : 'Next station, ' + st.en + '.';
-    if (!arrival && state.firstAnnouncement) {
-      const bound = state.direction > 0 ? STATIONS[STATIONS.length - 1] : STATIONS[0];
-      th = 'ยินดีต้อนรับสู่รถไฟฟ้าบีทีเอส สายสุขุมวิท ขบวนนี้มุ่งหน้าไปยัง ' + bound.th + ' ' + th;
-      en = 'Welcome aboard the BTS Sukhumvit Line. This train is bound for ' + bound.en + '. ' + en;
+    const linesEn = st.interchange.map((key) => INTERCHANGES[key].name).join(' and ');
+    const linesTh = st.interchange.map((key) => INTERCHANGES_TH[key]).join(' และ ');
+    const isTerminus = st.index === 0 || st.index === STATIONS.length - 1;
+    const doorSide = st.code === 'CEN' ? 'right' : (st.index % 6 === 0 ? 'right' : 'left');
+    let th;
+    let en;
+
+    if (arrival) {
+      th = 'สถานี' + st.th;
+      en = st.en + ' Station.';
+      if (doorSide === 'right') {
+        th += ' ประตูรถจะเปิดทางด้านขวา';
+        en += ' Doors will open on the right hand side.';
+      }
+      th += ' โปรดใช้ความระมัดระวังขณะก้าวออกจากรถ';
+      en += ' Please mind the gap between train and platform.';
+      if (isTerminus) {
+        th += ' สถานีปลายทาง ขอบคุณที่ใช้บริการรถไฟฟ้าบีทีเอส';
+        en += ' This is the terminal station. Thank you for travelling with BTS.';
+      }
+      return { th, en };
     }
+
+    if (st.code === 'CEN') {
+      return {
+        th: 'สถานีต่อไป สยาม สถานีเชื่อมต่อระหว่างสายสุขุมวิทและสายสีลม ผู้โดยสารที่ต้องการเดินทางไปสถานีสนามกีฬาแห่งชาติ หรือไปทางสถานีบางหว้า โปรดเปลี่ยนเส้นทางที่สถานีนี้ ประตูรถจะเปิดทางด้านขวาค่ะ',
+        en: 'Next station, Siam. Interchange between the Sukhumvit Line and the Silom Line. Passengers travelling to National Stadium or Bang Wa, please change at this station. Doors will open on the right hand side.'
+      };
+    }
+
+    th = 'สถานีต่อไป ' + st.th;
+    en = 'Next station, ' + st.en + '.';
     if (st.interchange.length) {
-      th += ' เปลี่ยนรถไฟได้ที่สถานีนี้';
-      en += ' Change here for the ' + lines + '.';
+      th += ' ผู้โดยสารสามารถเปลี่ยนเส้นทางไป ' + linesTh + ' ได้ที่สถานีนี้';
+      en += ' Interchange with ' + linesEn + '.';
+    }
+    if (isTerminus) {
+      return {
+        th: 'สถานีต่อไป ' + st.th + ' ซึ่งเป็นสถานีปลายทาง ผู้โดยสารทุกท่านโปรดนำสัมภาระและสิ่งของมีค่าออกจากรถไฟฟ้า ขอบคุณค่ะ',
+        en: 'Next station, ' + st.en + ', the terminal station. Please ensure you have all your personal belongings with you. Thank you.'
+      };
+    }
+    if (state.firstAnnouncement) {
+      th = 'สวัสดีค่ะ รถไฟฟ้าบีทีเอสยินดีต้อนรับค่ะ ' + th;
+      en = 'Welcome aboard the BTS Sukhumvit Line. ' + en;
     }
     if (state.touristInfo) {
       th += ' สถานที่ใกล้เคียง ' + st.landmarkTh;
       en += ' Nearby: ' + st.landmark + '.';
-    }
-    if (arrival) {
-      th += ' ประตูจะเปิดทางด้าน' + sideTh + ' กรุณาระวังช่องว่างระหว่างรถไฟกับชานชาลา';
-      en += ' Doors will open on the ' + side + '. Please mind the gap between the train and the platform.';
-    }
-    if (st.index === 0 || st.index === STATIONS.length - 1) {
-      th += ' สถานีปลายทาง ขอบคุณที่ใช้บริการรถไฟฟ้าบีทีเอส';
-      en += ' This is the terminus. Thank you for travelling with BTS.';
     }
     return { th, en };
   }
@@ -3592,8 +3649,9 @@
     if (!state.doorsOpen) return true;
     state.doorsOpen = false;
     if (auto) state.autoState = 'closing';
-    playDoorChime(false);
-    if (state.started) speakAnnouncement('ประตูกำลังปิด กรุณาถอยออกจากประตู', 'Doors closing. Please stand clear of the doors.');
+    if (audio && audio.doorBeeps) audio.doorBeeps();
+    else playDoorChime(false);
+    if (state.started) speakAnnouncement('โปรดระวัง ประตูรถกำลังจะปิด', 'Please stand clear of the doors.');
     toast(t('doorsClosing'));
     updateHUD(true);
     return true;
@@ -3702,7 +3760,8 @@
     else state.speed = Math.max(target, state.speed - BRAKE_DECEL * dt);
     state.speed = clamp(state.speed, 0, MAX_SPEED);
 
-    if (distToNext < 3.0 && state.speed < 0.45) {
+    if (distToNext < 5.0 && state.speed < 2.8) {
+      state.speed = 0;
       arriveAtStation(state.nextIndex);
     }
   }
@@ -3757,6 +3816,19 @@
       if (state.speed > 0.8) state.atStation = false;
     }
     state.distance = clamp(state.distance, 0, displayTotal);
+
+    // Positive station snap: catch the stop even if the train crept a few
+    // centimetres past the chainage before the next-index update.
+    if (state.auto && !state.atStation && state.speed < 3.2) {
+      const approach = STATIONS[state.nextIndex];
+      if (approach) {
+        const approachDist = Math.abs(approach.chainage - state.distance);
+        if (approachDist < 6.0) {
+          state.speed = 0;
+          arriveAtStation(state.nextIndex);
+        }
+      }
+    }
 
     state.currentIndex = findCurrentIndex();
     state.nextIndex = findNextIndex();
@@ -4057,14 +4129,13 @@
     dom.landmarkName.textContent = state.lang === 'th' ? focus.landmarkTh : focus.landmark;
     dom.throttleValue.textContent = Math.round(state.throttle) + ' km/h';
 
-    if (state.lang === 'th') {
-      dom.announceDetail.textContent = next.interchange.length
+    dom.announceDetail.textContent = next.interchange.length
+      ? fill(t('interchanges'), { lines: next.interchange.map((k) => INTERCHANGES[k].name).join(' · ') })
+      : zone.label + ' · ' + zone.desc;
+    if (dom.announceDetailTh) {
+      dom.announceDetailTh.textContent = next.interchange.length
         ? fill(t('interchanges'), { lines: next.interchange.map((k) => INTERCHANGES[k].name).join(' · ') })
         : zone.th + ' · ' + zone.thDesc;
-    } else {
-      dom.announceDetail.textContent = next.interchange.length
-        ? fill(t('interchanges'), { lines: next.interchange.map((k) => INTERCHANGES[k].name).join(' · ') })
-        : zone.label + ' · ' + zone.desc;
     }
 
     dom.cabSpeed.textContent = String(Math.round(state.speed));
@@ -4185,14 +4256,13 @@
     const zone = ZONES[next.zone];
     dom.announceKicker.textContent = t('nextStation');
     dom.announceName.textContent = next.en + ' (' + next.code + ') · ' + next.th;
-    if (state.lang === 'th') {
-      dom.announceDetail.textContent = next.interchange.length
+    dom.announceDetail.textContent = next.interchange.length
+      ? fill(t('interchanges'), { lines: next.interchange.map((k) => INTERCHANGES[k].name).join(' · ') })
+      : zone.label + ' · ' + zone.desc;
+    if (dom.announceDetailTh) {
+      dom.announceDetailTh.textContent = next.interchange.length
         ? fill(t('interchanges'), { lines: next.interchange.map((k) => INTERCHANGES[k].name).join(' · ') })
         : zone.th + ' · ' + zone.thDesc;
-    } else {
-      dom.announceDetail.textContent = next.interchange.length
-        ? fill(t('interchanges'), { lines: next.interchange.map((k) => INTERCHANGES[k].name).join(' · ') })
-        : zone.label + ' · ' + zone.desc;
     }
     dom.announce.classList.remove('is-alert');
     if (state.started) {
@@ -4209,7 +4279,8 @@
     const zone = ZONES[st.zone];
     dom.announceKicker.textContent = t('arriving');
     dom.announceName.textContent = st.en + ' (' + st.code + ') · ' + st.th;
-    dom.announceDetail.textContent = state.lang === 'th' ? zone.th + ' · ' + zone.thDesc : zone.label + ' · ' + zone.desc;
+    dom.announceDetail.textContent = zone.label + ' · ' + zone.desc;
+    if (dom.announceDetailTh) dom.announceDetailTh.textContent = zone.th + ' · ' + zone.thDesc;
     dom.announce.classList.add('is-alert');
     if (state.started) {
       playPAChime();
@@ -4338,7 +4409,7 @@
   function toggleMute() {
     state.muted = !state.muted;
     if (audio) audio.setMuted(state.muted);
-    if (state.muted && window.speechSynthesis) window.speechSynthesis.cancel();
+    if (state.muted && window.speechSynthesis) { state.speechToken++; window.speechSynthesis.cancel(); }
     dom.audioBtn.textContent = state.muted ? '🔇' : '🔊';
     dom.audioBtn.classList.toggle('is-active', state.muted);
     toast(state.muted ? t('audioOff') : t('audioOn'));
@@ -4404,7 +4475,7 @@
     });
     dom.voiceToggle.addEventListener('click', () => {
       state.voiceEnabled = !state.voiceEnabled;
-      if (!state.voiceEnabled && window.speechSynthesis) window.speechSynthesis.cancel();
+      if (!state.voiceEnabled && window.speechSynthesis) { state.speechToken++; window.speechSynthesis.cancel(); }
       updateAudioMixerUI();
       saveAudioSettings();
       toast(state.voiceEnabled ? t('voiceOnToast') : t('voiceOffToast'), state.voiceEnabled ? 'gold' : '');
@@ -4697,6 +4768,7 @@
     setLanguage,
     setTimeOfDay,
     setRain,
+    stationAnnouncement,
     openDoors,
     closeDoors,
     toggleDoors,

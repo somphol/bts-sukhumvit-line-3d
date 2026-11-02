@@ -99,7 +99,7 @@ N24 Khu Khot · N23 Yaek Kor Por Aor · N22 Royal Thai Air Force Museum · N21 B
 <details>
 <summary><b>Zone B — Central Commercial Core (11 stations)</b></summary>
 
-N8 Mo Chit *(MRT Blue · BRT)* · N7 Saphan Khwai · N5 Ari · N4 Sanam Pao · N3 Victory Monument · N2 Phaya Thai *(ARL)* · N1 Ratchathewi · CEN Siam *(MRT Blue via skywalk)* · E1 Chit Lom · E2 Phloen Chit · E3 Nana
+N8 Mo Chit *(MRT Blue · BRT)* · N7 Saphan Khwai · N5 Ari · N4 Sanam Pao · N3 Victory Monument · N2 Phaya Thai *(ARL)* · N1 Ratchathewi · CEN Siam *(BTS Silom · MRT Blue via skywalk)* · E1 Chit Lom · E2 Phloen Chit · E3 Nana
 
 </details>
 
@@ -184,7 +184,9 @@ All audio is generated with the **Web Audio API**; there are no sound files.
 - Two-tone horn.
 - Brake squeal filtered noise when braking at speed.
 - Low city ambience and a soft original transit music loop.
-- Bilingual Thai/English PA voice: next station, interchange, nearby landmark, arrival, door side, mind-the-gap and doors closing.
+- Bilingual Thai/English PA voice following the BTS pattern: next station, interchange, station-name arrival, right-side door warning, mind-the-gap, doors closing and the terminal message.
+- Station-specific nearby-place callouts for all 47 stations, including the special Siam/Silom interchange announcement.
+- Three-beep door-closing warning before the doors close.
 - Independent engine / announcement / music mixer, PA voice toggle and tourist-info toggle.
 - Mute (`M`) with a master gain fade.
 
