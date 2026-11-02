@@ -5,9 +5,9 @@
 | Project | BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator (`bts-sukhumvit-line-3d`) |
 | Session started | 2026-11-01 23:07:53 UTC |
 | Build started | 2026-11-01 23:14:10 UTC |
-| Packaged | 2026-11-02 03:40:25 UTC |
-| Build duration | **4h 26m 15s** (15,975 seconds) |
-| Full session duration | **4h 32m 32s** (16,352 seconds) |
+| Packaged | 2026-11-02 03:46:05 UTC |
+| Build duration | **4h 31m 55s** (16,315 seconds) |
+| Full session duration | **4h 38m 12s** (16,692 seconds) |
 | Harness | OpenCode 2.2.5 |
 | Model | DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`) |
 | Session | `ses_e66a17139ffeXGq2zj84mZEePL` |
@@ -18,15 +18,15 @@
 
 | Metric | Tokens |
 | --- | ---: |
-| Input | 2,083,182 |
-| Output | 238,230 |
-| Reasoning | 302,929 |
-| **Total (input + output + reasoning)** | **2,624,341** |
-| Cache read | 195,063,168 |
+| Input | 2,086,285 |
+| Output | 242,429 |
+| Reasoning | 304,129 |
+| **Total (input + output + reasoning)** | **2,632,843** |
+| Cache read | 203,142,272 |
 | Cache write | 1,467 |
-| Total including cache | 197,688,976 |
+| Total including cache | 205,776,582 |
 
-> Snapshot from the OpenCode session record at 2026-11-02 03:40:25 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
+> Snapshot from the OpenCode session record at 2026-11-02 03:46:05 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
 
 ## What was built
 
