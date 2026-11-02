@@ -26,7 +26,7 @@
   const COAST_DECEL = 0.85;
   const AUTO_CRUISE = 80;
   const AUTO_DECEL = 1.2;              // display m/s²
-  const DWELL_SECONDS = 6.0;
+  const DWELL_SECONDS = 16.0;
   const STATION_STOP_TOLERANCE = 20;    // display metres
   const DOOR_INTERLOCK = 0.04;
   const PARAMS = new URLSearchParams(location.search);
@@ -187,7 +187,9 @@
       voiceOnToast: 'PA voice enabled.', voiceOffToast: 'PA voice muted.', touristOnToast: 'Tourist commentary enabled.', touristOffToast: 'Tourist commentary disabled.',
       rainOn: 'Bangkok storm · rain and thunder.', rainOff: 'Rain cleared.',
       doorsLocked: 'Doors locked while the train is moving.', notAtStation: 'Doors can only open at a platform.',
-      doorsOpening: 'Doors opening · passengers boarding and alighting.', doorsClosing: 'Doors closing · stand clear.',
+      doorsOpening: 'Doors opening · passengers boarding and alighting.',
+      doorsAfterPAOpen: 'PA announcement playing · doors will open after it finishes.',
+      doorsAfterPAClose: 'PA announcement playing · doors will close after it finishes.', doorsClosing: 'Doors closing · stand clear.',
       autoOn: 'Auto pilot engaged · next stop {station}.', autoOff: 'Manual control · you have the train.',
       brakeOn: 'Service brake applied.', brakeOff: 'Service brake released.',
       emergencyStop: 'EMERGENCY BRAKE · train stopped.', terminusReversed: 'Terminus · direction reversed. Next stop {station}.',
@@ -243,7 +245,9 @@
       voiceOnToast: 'เปิดเสียงประกาศแล้ว', voiceOffToast: 'ปิดเสียงประกาศแล้ว', touristOnToast: 'เปิดข้อมูลท่องเที่ยวแล้ว', touristOffToast: 'ปิดข้อมูลท่องเที่ยวแล้ว',
       rainOn: 'พายุฝนกรุงเทพฯ · ฝนและฟ้าร้อง', rainOff: 'ฝนหยุดแล้ว',
       doorsLocked: 'ประตูล็อกขณะรถไฟเคลื่อนที่', notAtStation: 'เปิดประตูได้ที่ชานชาลาเท่านั้น',
-      doorsOpening: 'ประตูกำลังเปิด · ผู้โดยสารขึ้นและลงรถ', doorsClosing: 'ประตูกำลังปิด · กรุณาถอย',
+      doorsOpening: 'ประตูกำลังเปิด · ผู้โดยสารขึ้นและลงรถ',
+      doorsAfterPAOpen: 'กำลังประกาศ · ประตูจะเปิดหลังประกาศจบ',
+      doorsAfterPAClose: 'กำลังประกาศ · ประตูจะปิดหลังประกาศจบ', doorsClosing: 'ประตูกำลังปิด · กรุณาถอย',
       autoOn: 'เปิดโหมดอัตโนมัติ · สถานีต่อไป {station}', autoOff: 'ควบคุมเอง · คุณถือพวงมาลัย',
       brakeOn: 'ใช้เบรกบริการ', brakeOff: 'ปล่อยเบรกบริการ',
       emergencyStop: 'เบรกฉุกเฉิน · รถหยุดแล้ว', terminusReversed: 'ปลายทาง · กลับทิศทางแล้ว สถานีต่อไป {station}',
@@ -396,6 +400,9 @@
     voiceUnlocked: false,
     speechTimer: null,
     speechToken: 0,
+    speechBusy: false,
+    pendingDoorAction: null,
+    doorsClosingPending: false,
     lastSpeech: '',
     firstAnnouncement: false,
     rain: false,
@@ -3382,17 +3389,40 @@
     return voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(prefix)) || null;
   }
 
-  function speakAnnouncement(thText, enText) {
-    if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) return;
-    if (!('speechSynthesis' in window)) return;
+  function speakAnnouncement(thText, enText, onDone) {
+    const flushPendingDoor = () => {
+      const action = state.pendingDoorAction;
+      state.pendingDoorAction = null;
+      if (action === 'open') openDoors(false);
+      else if (action === 'close') closeDoors(false);
+    };
+    const finish = () => {
+      if (state.speechFinished) return;
+      state.speechFinished = true;
+      state.speechBusy = false;
+      state.speechOnDone = null;
+      if (onDone) onDone();
+      flushPendingDoor();
+    };
+    state.speechFinished = false;
+    state.speechOnDone = finish;
+
+    if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked || !('speechSynthesis' in window)) {
+      finish();
+      return;
+    }
     const synth = window.speechSynthesis;
     if (state.speechTimer) clearTimeout(state.speechTimer);
     synth.cancel();
     const token = ++state.speechToken;
+    state.speechBusy = true;
     state.lastSpeech = thText + ' / ' + enText;
     state.speechTimer = setTimeout(() => {
       if (token !== state.speechToken) return;
-      if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) return;
+      if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) {
+        finish();
+        return;
+      }
 
       const th = new SpeechSynthesisUtterance(thText);
       th.lang = 'th-TH';
@@ -3410,11 +3440,19 @@
       en.pitch = 1.0;
       en.volume = state.paVolume;
 
+      const done = () => {
+        if (token !== state.speechToken) return;
+        finish();
+      };
       if (state.paLang === 'th') {
+        th.onend = done;
+        th.onerror = done;
         synth.speak(th);
         return;
       }
       if (state.paLang === 'en') {
+        en.onend = done;
+        en.onerror = done;
         synth.speak(en);
         return;
       }
@@ -3423,7 +3461,9 @@
       const speakEnglish = () => {
         if (englishSpoken || token !== state.speechToken) return;
         englishSpoken = true;
-        if (!state.voiceEnabled || state.muted) return;
+        if (!state.voiceEnabled || state.muted) { done(); return; }
+        en.onend = done;
+        en.onerror = done;
         synth.speak(en);
       };
       th.onend = speakEnglish;
@@ -3431,7 +3471,11 @@
       synth.speak(th);
       // Safety net for browsers that never fire onend for a missing Thai voice.
       setTimeout(() => {
-        if (token === state.speechToken && !synth.speaking && !synth.pending) speakEnglish();
+        if (token !== state.speechToken) return;
+        if (!synth.speaking && !synth.pending) {
+          if (!englishSpoken) speakEnglish();
+          else done();
+        }
       }, 7000);
     }, 720);
   }
@@ -3462,7 +3506,7 @@
 
     if (st.code === 'CEN') {
       return {
-        th: 'สถานีต่อไป สยาม สถานีเชื่อมต่อระหว่างสายสุขุมวิทและสายสีลม ผู้โดยสารที่ต้องการเดินทางไปสถานีสนามกีฬาแห่งชาติ หรือไปทางสถานีบางหว้า โปรดเปลี่ยนเส้นทางที่สถานีนี้ ประตูรถจะเปิดทางด้านขวาค่ะ',
+        th: 'สถานีต่อไป สยาม สถานีเชื่อมต่อสายสุขุมวิทและสายสีลม ผู้โดยสารไปสนามกีฬาแห่งชาติหรือบางหว้า โปรดเปลี่ยนเส้นทางที่สถานีนี้ ประตูรถจะเปิดทางด้านขวาค่ะ',
         en: 'Next station, Siam. Interchange between the Sukhumvit Line and the Silom Line. Passengers travelling to National Stadium or Bang Wa, please change at this station. Doors will open on the right hand side.'
       };
     }
@@ -3585,6 +3629,10 @@
     state.atStation = true;
     state.dwell = 0;
     state.autoState = 'idle';
+    state.speechBusy = false;
+    state.pendingDoorAction = null;
+    state.doorsClosingPending = false;
+    if (window.speechSynthesis) { state.speechToken++; window.speechSynthesis.cancel(); }
     state.currentIndex = index;
     state.direction = index === STATIONS.length - 1 ? -1 : 1;
     state.nextIndex = findNextIndex();
@@ -3659,16 +3707,7 @@
     updateHUD(true);
   }
 
-  function openDoors(auto) {
-    if (state.speed > 0.5) {
-      toast(t('doorsLocked'), 'danger');
-      return false;
-    }
-    if (!isAtPlatform()) {
-      toast(t('notAtStation'), 'danger');
-      return false;
-    }
-    if (state.doorsOpen) return true;
+  function performOpenDoors(auto) {
     state.doorsOpen = true;
     state.atStation = true;
     if (auto) state.autoState = 'dwell';
@@ -3679,15 +3718,48 @@
     return true;
   }
 
-  function closeDoors(auto) {
-    if (!state.doorsOpen) return true;
+  function openDoors(auto) {
+    if (state.speed > 0.5) {
+      toast(t('doorsLocked'), 'danger');
+      return false;
+    }
+    if (!isAtPlatform()) {
+      toast(t('notAtStation'), 'danger');
+      return false;
+    }
+    if (state.doorsOpen) return true;
+    if (state.speechBusy) {
+      state.pendingDoorAction = 'open';
+      toast(t('doorsAfterPAOpen'), 'gold');
+      return true;
+    }
+    return performOpenDoors(auto);
+  }
+
+  function performCloseDoors(auto) {
     state.doorsOpen = false;
+    state.doorsClosingPending = false;
     if (auto) state.autoState = 'closing';
     if (audio && audio.doorBeeps) audio.doorBeeps();
     else playDoorChime(false);
-    if (state.started) speakAnnouncement('โปรดระวัง ประตูรถกำลังจะปิด', 'Please stand clear of the doors.');
     toast(t('doorsClosing'));
     updateHUD(true);
+    return true;
+  }
+
+  function closeDoors(auto) {
+    if (!state.doorsOpen) return true;
+    if (state.doorsClosingPending) return true;
+    if (state.speechBusy) {
+      state.pendingDoorAction = 'close';
+      toast(t('doorsAfterPAClose'), 'gold');
+      return true;
+    }
+    state.doorsClosingPending = true;
+    if (auto) state.autoState = 'closingAnnounce';
+    speakAnnouncement('โปรดระวัง ประตูรถกำลังจะปิด', 'Please stand clear of the doors.', () => {
+      performCloseDoors(auto);
+    });
     return true;
   }
 
@@ -3738,11 +3810,11 @@
 
     if (state.doorsOpen) {
       state.speed = 0;
+      if (state.autoState === 'closingAnnounce') return;
       if (state.autoState === 'dwell') {
         state.dwell -= dt;
         if (state.dwell <= 0) {
           closeDoors(true);
-          state.autoState = 'closing';
         }
       } else if (state.autoState === 'closing' && state.doorAnim < 0.03) {
         state.atStation = false;
@@ -3768,6 +3840,7 @@
     }
 
     if (state.atStation && state.speed < 0.4) {
+      if (state.speechBusy || state.doorsClosingPending) return;
       if (state.autoState !== 'dwell' && state.autoState !== 'closing') {
         openDoors(true);
         state.dwell = DWELL_SECONDS;
@@ -3810,12 +3883,7 @@
     state.atStation = true;
     state.dwell = 0;
     state.nextIndex = findNextIndex();
-    if (state.auto) {
-      state.autoState = 'idle';
-      openDoors(true);
-      state.dwell = DWELL_SECONDS;
-      state.autoState = 'dwell';
-    }
+    if (state.auto) state.autoState = 'idle';
     if (state.started) {
       announceArrival(index);
     }
@@ -4326,11 +4394,12 @@
       const line = stationAnnouncement(st, true);
       speakAnnouncement(line.th, line.en);
     }
-    if (state.announceTimer) clearTimeout(state.announceTimer);
-    state.announceTimer = setTimeout(() => {
-      dom.announce.classList.remove('is-alert');
-      announceStation(true);
-    }, 5200);
+    // Keep the arrival banner until the next station announcement after departure.
+    // The old 5.2 s revert cancelled long Thai/English arrival announcements.
+    if (state.announceTimer) {
+      clearTimeout(state.announceTimer);
+      state.announceTimer = null;
+    }
   }
 
   function toast(message, tone) {
@@ -4448,7 +4517,17 @@
   function toggleMute() {
     state.muted = !state.muted;
     if (audio) audio.setMuted(state.muted);
-    if (state.muted && window.speechSynthesis) { state.speechToken++; window.speechSynthesis.cancel(); }
+    if (state.muted) {
+      if (state.speechOnDone) {
+        const done = state.speechOnDone;
+        state.speechOnDone = null;
+        state.speechBusy = false;
+        done();
+      } else if (window.speechSynthesis) {
+        state.speechToken++;
+        window.speechSynthesis.cancel();
+      }
+    }
     dom.audioBtn.textContent = state.muted ? '🔇' : '🔊';
     dom.audioBtn.classList.toggle('is-active', state.muted);
     toast(state.muted ? t('audioOff') : t('audioOn'));

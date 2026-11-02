@@ -165,6 +165,7 @@ The HUD is a crisp transit overlay in BTS light green, dark green and gold.
 - Four articulated BTS-style cars with a blue lower body, white upper body, black window band, red-framed black cab mask, gold royal emblem, BTS roundel, roof air-conditioning units, bogies, wheels, current-collector shoes, headlights, tail lights and orange LED destination displays.
 - **Sliding doors** with two leaves per side, animated openings, warm interior door lights, door chime and a **door interlock** that blocks traction until the doors are closed.
 - **Passenger exchange** — alighting passengers walk from the train doors to the platform while boarding passengers walk from the platform into the train whenever the doors open.
+- **PA-first doors** — doors wait for the current announcement to finish. Opening waits for the arrival PA; closing waits for the “please stand clear” PA. Manual door presses during a PA are queued instead of interrupting it.
 - **Throttle 0–100 km/h**, service brake, emergency brake and coasting.
 - **Auto pilot is on by default at both termini** (`A`). It accelerates, brakes into every platform, creeps to the stop mark, opens the doors, waits for the passenger exchange, closes the doors, departs and reverses at the terminus. Move the throttle or press **A** / **TAKE MANUAL** to drive yourself.
 - **Terminus reversal** — at Kheha or Khu Khot the auto pilot flips direction and runs the line back; press `R` at a terminus when driving manually.
