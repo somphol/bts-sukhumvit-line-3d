@@ -188,6 +188,7 @@
         <div class="next-kicker">
           <span data-i18n="nextStation">NEXT STATION</span>
           <span id="nextCode" class="code-chip">CEN</span>
+          <button id="stationInfoBtn" class="info-btn" type="button" title="Station information and Google Maps">ⓘ</button>
         </div>
         <div class="next-name" id="nextName">Siam</div>
         <div class="next-th" id="nextThai">สยาม</div>
@@ -327,6 +328,38 @@
 
     <!-- Toasts -->
     <div id="toasts" class="toasts" aria-live="polite"></div>
+
+    <!-- Station information card -->
+    <div id="stationModal" class="modal" hidden>
+      <div class="modal-card station-card glass">
+        <div class="station-card-head">
+          <div class="station-card-title">
+            <span id="stationModalCode" class="code-chip">CEN</span>
+            <div>
+              <span class="station-card-kicker" data-i18n="stationInfo">STATION INFO</span>
+              <h2 id="stationModalName">Siam</h2>
+              <p id="stationModalThai">สยาม</p>
+            </div>
+          </div>
+          <button id="stationModalClose" class="icon-btn" type="button" aria-label="Close station info">✕</button>
+        </div>
+        <div class="station-card-grid">
+          <div><span data-i18n="zone">ZONE</span><strong id="stationModalZone">B · Central Commercial Core</strong></div>
+          <div><span data-i18n="interchange">INTERCHANGE</span><strong id="stationModalIx">BTS Silom · MRT Blue</strong></div>
+          <div class="wide"><span data-i18n="nearby">NEARBY</span><strong id="stationModalLandmark">Siam Paragon, Siam Square &amp; BACC</strong></div>
+        </div>
+        <div class="station-card-actions">
+          <a id="stationMapLink" class="btn btn-primary" href="https://www.google.com/maps/" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="openMaps">OPEN IN GOOGLE MAPS ↗</span>
+            <em id="stationMapQuery">BTS Siam Station CEN Bangkok</em>
+          </a>
+          <button id="stationJumpBtn" class="btn btn-ghost" type="button">
+            <span data-i18n="jumpHere">JUMP TRAIN HERE</span>
+            <em data-i18n="jumpHereHint">Move the train to this station</em>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Help -->
     <div id="helpModal" class="modal" hidden>

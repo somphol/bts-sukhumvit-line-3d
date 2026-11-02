@@ -177,6 +177,7 @@
       creditsTitle: 'CREDITS',
       creditsBody: 'Built with OpenCode 2.2.5 and DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash). Three.js r128 + OrbitControls (MIT). No image, audio or model assets: every building, train, sign and sound is generated in the browser.',
       close: 'CLOSE',
+      stationInfo: 'STATION INFO', openMaps: 'OPEN IN GOOGLE MAPS ↗', jumpHere: 'JUMP TRAIN HERE', jumpHereHint: 'Move the train to this station',
       autoHint: 'AUTO PILOT ACTIVE · Move the throttle or press A to drive manually',
       paLanguage: 'PA LANGUAGE', thaiVoice: 'Thai voice: {name}', thaiVoiceMissing: 'No Thai voice found — install a Thai system voice for Thai PA.',
       takeManual: 'TAKE MANUAL', autoDefaultHint: 'Auto pilot is on by default. Take manual control anytime.',
@@ -235,6 +236,7 @@
       creditsTitle: 'เครดิต',
       creditsBody: 'สร้างด้วย OpenCode 2.2.5 และ DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash) ใช้ Three.js r128 + OrbitControls (MIT) ไม่มีไฟล์ภาพ เสียง หรือโมเดลสำเร็จรูป ทุกอาคาร รถไฟ ป้าย และเสียงสร้างในเบราว์เซอร์',
       close: 'ปิด',
+      stationInfo: 'ข้อมูลสถานี', openMaps: 'เปิดใน Google Maps ↗', jumpHere: 'ย้ายรถไฟมาที่นี่', jumpHereHint: 'ย้ายรถไฟมาที่สถานีนี้',
       autoHint: 'อัตโนมัติกำลังขับ · ขยับคันเร่งหรือกด A เพื่อขับเอง',
       paLanguage: 'ภาษาประกาศ', thaiVoice: 'เสียงไทย: {name}', thaiVoiceMissing: 'ไม่พบเสียงภาษาไทย — ติดตั้งเสียงไทยในระบบเพื่อฟังประกาศภาษาไทย',
       takeManual: 'ขับเอง', autoDefaultHint: 'ค่าเริ่มต้นเป็นโหมดอัตโนมัติ สามารถขับเองได้ทุกเมื่อ',
@@ -483,7 +485,9 @@
       'cabSpeed', 'cabSignal', 'cabSignalText', 'cabDoor', 'cabWarning', 'cabOverlay',
       'passengerStation', 'stationCamName', 'stationCamEta',
       'throttle', 'throttleValue', 'brakeBtn', 'emergencyBtn', 'autoBtn', 'doorBtn', 'hornBtn',
-      'skipBtn', 'toasts', 'helpModal', 'helpClose', 'helpOk', 'versionLabel', 'selftestOut'
+      'skipBtn', 'toasts', 'helpModal', 'helpClose', 'helpOk', 'versionLabel', 'selftestOut',
+      'stationInfoBtn', 'stationModal', 'stationModalClose', 'stationModalCode', 'stationModalName', 'stationModalThai',
+      'stationModalZone', 'stationModalIx', 'stationModalLandmark', 'stationMapLink', 'stationMapQuery', 'stationJumpBtn'
     ];
     ids.forEach((id) => { dom[id] = document.getElementById(id); });
     dom.viewButtons = $$('.view-btn');
@@ -4453,6 +4457,7 @@
     announceStation(true);
     updateControlsUI();
     updateAudioMixerUI();
+    if (dom.stationModal && !dom.stationModal.hidden) openStationInfo();
     if (!silent) toast(state.lang === 'th' ? 'เปลี่ยนภาษาเป็นไทย' : 'Language: English');
   }
 
@@ -4551,6 +4556,28 @@
     dom.audioBtn.textContent = state.muted ? '🔇' : '🔊';
     dom.audioBtn.classList.toggle('is-active', state.muted);
     toast(state.muted ? t('audioOff') : t('audioOn'));
+  }
+
+  function openStationInfo() {
+    const st = (state.atStation && state.speed < 1)
+      ? STATIONS[state.currentIndex]
+      : STATIONS[state.nextIndex];
+    if (!st) return;
+    const zone = ZONES[st.zone];
+    const ix = st.interchange.length
+      ? st.interchange.map((key) => INTERCHANGES[key].name).join(' · ')
+      : t('noInterchange');
+    dom.stationModalCode.textContent = st.code;
+    dom.stationModalName.textContent = st.en;
+    dom.stationModalThai.textContent = st.th;
+    dom.stationModalZone.textContent = zone.key + ' · ' + (state.lang === 'th' ? zone.th : zone.label);
+    dom.stationModalIx.textContent = ix;
+    dom.stationModalLandmark.textContent = state.lang === 'th' ? st.landmarkTh : st.landmark;
+    const query = 'BTS ' + st.en + ' Station ' + st.code + ' Bangkok';
+    dom.stationMapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
+    dom.stationMapQuery.textContent = query;
+    dom.stationJumpBtn.dataset.index = String(st.index);
+    dom.stationModal.hidden = false;
   }
 
   function openHelp() {
@@ -4654,6 +4681,15 @@
       speakAnnouncement('สถานีต่อไป สยาม สถานที่ใกล้เคียง สกายวอล์คสยาม', 'Next station, Siam. Nearby: Siam Skywalk and Paragon.', null, 'test');
     });
     dom.helpBtn.addEventListener('click', openHelp);
+    dom.stationInfoBtn.addEventListener('click', openStationInfo);
+    dom.stationModalClose.addEventListener('click', () => { dom.stationModal.hidden = true; });
+    dom.stationModal.addEventListener('click', (e) => { if (e.target === dom.stationModal) dom.stationModal.hidden = true; });
+    dom.stationJumpBtn.addEventListener('click', () => {
+      const index = Number(dom.stationJumpBtn.dataset.index);
+      dom.stationModal.hidden = true;
+      ensureAudio();
+      setStation(index);
+    });
     dom.helpClose.addEventListener('click', closeHelp);
     dom.helpOk.addEventListener('click', closeHelp);
     dom.helpModal.addEventListener('click', (e) => { if (e.target === dom.helpModal) closeHelp(); });
@@ -4767,7 +4803,7 @@
       return;
     }
     if (k === '?' || (k === '/' && e.shiftKey)) { openHelp(); return; }
-    if (k === 'escape') { closeHelp(); return; }
+    if (k === 'escape') { closeHelp(); if (dom.stationModal) dom.stationModal.hidden = true; return; }
   }
 
   /* ---------------------------------------------------------------------------

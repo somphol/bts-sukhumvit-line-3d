@@ -2082,3 +2082,115 @@ body.is-raining .scene-rain { opacity: 0.72; }
   font-size: 9px;
   font-weight: 700;
 }
+
+
+/* --------------------------------------------------------------------------
+   Station information card
+   -------------------------------------------------------------------------- */
+
+.info-btn {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: rgba(46, 212, 122, 0.08);
+  color: var(--green-bright);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+.info-btn:hover { background: rgba(46, 212, 122, 0.2); }
+.station-card {
+  width: min(560px, 100%);
+  padding: 20px 22px 18px;
+}
+.station-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.station-card-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.station-card-title .code-chip { margin-top: 2px; }
+.station-card-kicker {
+  display: block;
+  color: var(--green-bright);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+.station-card-title h2 {
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+.station-card-title p {
+  margin-top: 1px;
+  color: var(--gold);
+  font-family: var(--font-thai);
+  font-size: 13px;
+}
+.station-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 14px 0;
+}
+.station-card-grid > div {
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.16);
+}
+.station-card-grid > div.wide { grid-column: 1 / -1; }
+.station-card-grid span {
+  display: block;
+  color: var(--muted-2);
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.station-card-grid strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--ice);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.station-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+.station-card-actions .btn {
+  flex: 1 1 210px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+.station-card-actions .btn em {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+@media (max-width: 680px) {
+  .station-card { padding: 16px; }
+  .station-card-grid { grid-template-columns: 1fr; }
+  .station-card-grid > div.wide { grid-column: auto; }
+  .station-card-title h2 { font-size: 18px; }
+}

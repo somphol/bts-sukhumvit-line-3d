@@ -150,6 +150,7 @@ The HUD is a crisp transit overlay in BTS light green, dark green and gold.
 - **Nearby landmark** callout.
 - **Route progress** and a live **line minimap** with zone-coloured segments and a train marker.
 - **Station list** with all 47 stations; click any station to jump the train there.
+- **Station information card** — station code, English/Thai names, zone, interchanges, nearby landmark, a direct **Google Maps** search link and a **Jump Train Here** action.
 - **Bilingual EN ⇄ TH** switcher (`L` or the TH/EN button). Station names, zone descriptions, control labels, toasts and announcements all translate.
 - **Announcement bar** with next-station and arrival messaging, PA chime and a bilingual subtitle.
 
