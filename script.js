@@ -12,7 +12,7 @@
      Constants
      ------------------------------------------------------------------------ */
 
-  const VERSION = '1.4.1';
+  const VERSION = '1.4.2';
   const APP_NAME = 'BTS Sukhumvit Line 3D';
   const WORLD_PER_M = 0.25;             // world units per displayed metre
   const TRACK_Y = 5.2;                  // viaduct deck / rail height
@@ -640,7 +640,7 @@
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xa9c3bf, 380, 2700);
 
-    camera = new THREE.PerspectiveCamera(62, window.innerWidth / window.innerHeight, 0.08, 16000);
+    camera = new THREE.PerspectiveCamera(62, window.innerWidth / window.innerHeight, 0.08, 24000);
     camera.position.set(32, 26, 42);
 
     const canvas = document.getElementById('scene');
@@ -672,7 +672,7 @@
     skyMat = new THREE.ShaderMaterial({
       uniforms: {
         topColor: { value: new THREE.Color(0x0f5a8c) },
-        bottomColor: { value: new THREE.Color(0xb7d2d0) },
+        bottomColor: { value: new THREE.Color(0xa9c3bf) },
         offset: { value: 220 },
         exponent: { value: 0.72 }
       },
@@ -698,7 +698,7 @@
       side: THREE.BackSide,
       depthWrite: false
     });
-    const sky = new THREE.Mesh(new THREE.SphereGeometry(7000, 32, 18), skyMat);
+    const sky = new THREE.Mesh(new THREE.SphereGeometry(14000, 32, 18), skyMat);
     sky.name = 'SkyDome';
     scene.add(sky);
 
@@ -949,35 +949,35 @@
       new THREE.MeshLambertMaterial({ color: 0x3f5238 })
     );
     ground.rotation.x = -Math.PI / 2;
-    ground.position.y = -0.08;
+    ground.position.y = -0.4;
     ground.name = 'Ground';
     scene.add(ground);
 
     // Chao Phraya / coastal delta water to the south-east.
     const water = new THREE.Mesh(
       new THREE.PlaneGeometry(15000, 6200),
-      new THREE.MeshLambertMaterial({ color: 0x2e6d79, transparent: true, opacity: 0.92 })
+      new THREE.MeshLambertMaterial({ color: 0x2e6d79, transparent: true, opacity: 0.92, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 })
     );
     water.rotation.x = -Math.PI / 2;
-    water.position.set(600, -0.04, 4350);
+    water.position.set(600, -0.2, 4350);
     water.name = 'GulfOfThailand';
     scene.add(water);
 
     const river = new THREE.Mesh(
       new THREE.PlaneGeometry(520, 9000),
-      new THREE.MeshLambertMaterial({ color: 0x2e6d79, transparent: true, opacity: 0.86 })
+      new THREE.MeshLambertMaterial({ color: 0x2e6d79, transparent: true, opacity: 0.86, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 })
     );
     river.rotation.x = -Math.PI / 2;
     river.rotation.z = 0.18;
-    river.position.set(-2400, -0.02, 900);
+    river.position.set(-2400, -0.15, 900);
     scene.add(river);
 
     const coast = new THREE.Mesh(
       new THREE.PlaneGeometry(15000, 60),
-      new THREE.MeshLambertMaterial({ color: 0xb9ab85 })
+      new THREE.MeshLambertMaterial({ color: 0xb9ab85, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 })
     );
     coast.rotation.x = -Math.PI / 2;
-    coast.position.set(500, 0.01, 1260);
+    coast.position.set(500, -0.1, 1260);
     scene.add(coast);
 
     // Sidewalk / road corridor beneath the viaduct.
@@ -1638,7 +1638,7 @@
 
     const pond = new THREE.Mesh(
       new THREE.CircleGeometry(Math.min(w, d) * 0.16, 24),
-      new THREE.MeshLambertMaterial({ color: 0x2e6d79, transparent: true, opacity: 0.92 })
+      new THREE.MeshLambertMaterial({ color: 0x2e6d79, transparent: true, opacity: 0.92, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 })
     );
     pond.rotation.x = -Math.PI / 2;
     pond.position.set(w * 0.18, 0.06, d * 0.12);
@@ -2947,7 +2947,7 @@
     const dusk = state.tod === 'dusk';
     if (skyMat) {
       skyMat.uniforms.topColor.value.setHex(night ? 0x050d14 : dusk ? 0x20202c : 0x18272f);
-      skyMat.uniforms.bottomColor.value.setHex(night ? 0x12222b : dusk ? 0x6b5a5a : 0x788d92);
+      skyMat.uniforms.bottomColor.value.setHex(night ? 0x0d171d : dusk ? 0x5b4d4d : 0x5f7379);
     }
     if (scene && scene.fog) {
       scene.fog.color.setHex(night ? 0x0d171d : dusk ? 0x5b4d4d : 0x5f7379);
@@ -4467,17 +4467,17 @@
   function setTimeOfDay(mode, silent) {
     const modes = {
       day: {
-        top: 0x0f5a8c, bottom: 0xb7d2d0, fog: 0xa9c3bf, fogNear: 380, fogFar: 2700,
+        top: 0x0f5a8c, bottom: 0xa9c3bf, fog: 0xa9c3bf, fogNear: 380, fogFar: 2700,
         hemi: 0.45, sun: 0.9, ambient: 0.12, exposure: 0.76,
         building: 0.055, glass: 0.12, neon: 0.82, head: 0.9, sunOpacity: 0.95, sunScale: 520
       },
       dusk: {
-        top: 0x1a2450, bottom: 0xff8a5c, fog: 0x8a5f5a, fogNear: 150, fogFar: 1350,
+        top: 0x1a2450, bottom: 0xff8a5c, fog: 0xff8a5c, fogNear: 150, fogFar: 1350,
         hemi: 0.3, sun: 0.36, ambient: 0.11, exposure: 0.78,
         building: 0.5, glass: 0.48, neon: 1.25, head: 2.0, sunOpacity: 0.8, sunScale: 420
       },
       night: {
-        top: 0x020612, bottom: 0x0e2433, fog: 0x08131d, fogNear: 110, fogFar: 1100,
+        top: 0x020612, bottom: 0x08131d, fog: 0x08131d, fogNear: 110, fogFar: 1100,
         hemi: 0.16, sun: 0.06, ambient: 0.08, exposure: 0.72,
         building: 0.92, glass: 0.62, neon: 1.45, head: 3.2, sunOpacity: 0.08, sunScale: 260
       }
