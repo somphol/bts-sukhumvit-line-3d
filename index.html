@@ -33,7 +33,10 @@
       <canvas id="scene"></canvas>
       <div class="scene-vignette"></div>
       <div class="scene-grain"></div>
+      <div class="scene-rain"></div>
     </div>
+
+    <div id="lightning" class="lightning" aria-hidden="true"></div>
 
     <!-- Loading -->
     <div id="loadingScreen" class="loading-screen">
@@ -109,11 +112,43 @@
       <div class="top-actions glass">
         <button id="langBtn" class="icon-btn" type="button" title="English / ไทย (L)" aria-label="Switch language">TH</button>
         <button id="todBtn" class="icon-btn" type="button" title="Time of day" aria-label="Time of day">☀</button>
+        <button id="rainBtn" class="icon-btn" type="button" title="Rain" aria-label="Toggle rain">🌧</button>
         <button id="audioBtn" class="icon-btn" type="button" title="Sound (M)" aria-label="Toggle sound">🔊</button>
+        <button id="mixBtn" class="icon-btn" type="button" title="Audio mixer" aria-label="Audio mixer">🎚</button>
         <button id="helpBtn" class="icon-btn" type="button" title="Help (?)" aria-label="Help">?</button>
         <button id="fullscreenBtn" class="icon-btn" type="button" title="Fullscreen (F)" aria-label="Fullscreen">⛶</button>
       </div>
     </header>
+
+    <!-- Audio mixer -->
+    <div id="audioMixer" class="audio-mixer glass" hidden>
+      <div class="mix-head">
+        <span data-i18n="audioMixer">AUDIO MIXER</span>
+        <button id="mixClose" class="icon-btn" type="button" aria-label="Close audio mixer">✕</button>
+      </div>
+      <label class="mix-slider" for="engineVol">
+        <span data-i18n="engineSound">ENGINE</span>
+        <b id="engineVolVal">15%</b>
+        <input id="engineVol" type="range" min="0" max="100" step="1" value="15" />
+      </label>
+      <label class="mix-slider" for="paVol">
+        <span data-i18n="announcements">ANNOUNCEMENTS</span>
+        <b id="paVolVal">100%</b>
+        <input id="paVol" type="range" min="0" max="100" step="1" value="100" />
+      </label>
+      <label class="mix-slider" for="musicVol">
+        <span data-i18n="music">MUSIC</span>
+        <b id="musicVolVal">18%</b>
+        <input id="musicVol" type="range" min="0" max="100" step="1" value="18" />
+      </label>
+      <div class="mix-actions">
+        <button id="voiceToggle" class="chip" type="button">PA VOICE ON</button>
+        <button id="touristToggle" class="chip" type="button">TOURIST INFO ON</button>
+        <button id="musicToggle" class="chip" type="button">MUSIC ON</button>
+        <button id="testPA" class="chip" type="button" data-i18n="testPA">TEST PA</button>
+      </div>
+      <p class="mix-hint" data-i18n="mixerHint">Bilingual Thai / English station announcements.</p>
+    </div>
 
     <!-- Left telemetry -->
     <aside id="telemetry" class="telemetry glass" aria-label="Live train telemetry">
@@ -196,6 +231,7 @@
     <!-- Driver cab overlay -->
     <div id="cabOverlay" class="cab-overlay" aria-hidden="true">
       <div class="cab-glass"></div>
+      <div class="cab-rain"></div>
       <div class="cab-wipers"><i></i><i></i></div>
       <div class="cab-pillar left"></div>
       <div class="cab-pillar right"></div>
@@ -238,8 +274,8 @@
           <span data-i18n="throttle">THROTTLE</span>
           <strong id="throttleValue">0 km/h</strong>
         </label>
-        <input id="throttle" type="range" min="0" max="80" step="1" value="0" />
-        <div class="throttle-ticks"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span></div>
+        <input id="throttle" type="range" min="0" max="100" step="1" value="0" />
+        <div class="throttle-ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
       </div>
 
       <div class="control-buttons">
@@ -299,6 +335,7 @@
               <li><kbd>L</kbd><span data-i18n="helpLang">English ⇄ ไทย</span></li>
               <li><kbd>M</kbd><span data-i18n="helpMute">Mute / unmute</span></li>
               <li><kbd>F</kbd><span data-i18n="helpFullscreen">Fullscreen</span></li>
+              <li><kbd>K</kbd><span data-i18n="helpRain">Rain / storm</span></li>
               <li><kbd>R</kbd><span data-i18n="helpReverse">Reverse direction at a terminus</span></li>
             </ul>
           </div>

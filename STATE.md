@@ -5,9 +5,9 @@
 | Project | BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator (`bts-sukhumvit-line-3d`) |
 | Session started | 2026-11-01 23:07:53 UTC |
 | Build started | 2026-11-01 23:14:10 UTC |
-| Packaged | 2026-11-02 00:18:38 UTC |
-| Build duration | **1h 4m 28s** (3,868 seconds) |
-| Full session duration | **1h 10m 45s** (4,245 seconds) |
+| Packaged | 2026-11-02 01:17:10 UTC |
+| Build duration | **2h 3m 0s** (7,380 seconds) |
+| Full session duration | **2h 9m 17s** (7,757 seconds) |
 | Harness | OpenCode 2.2.5 |
 | Model | DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`) |
 | Session | `ses_e66a17139ffeXGq2zj84mZEePL` |
@@ -18,15 +18,15 @@
 
 | Metric | Tokens |
 | --- | ---: |
-| Input | 481,473 |
-| Output | 129,919 |
-| Reasoning | 143,855 |
-| **Total (input + output + reasoning)** | **755,247** |
-| Cache read | 51,972,992 |
+| Input | 703,611 |
+| Output | 185,142 |
+| Reasoning | 225,920 |
+| **Total (input + output + reasoning)** | **1,114,673** |
+| Cache read | 122,081,280 |
 | Cache write | 1,467 |
-| Total including cache | 52,729,706 |
+| Total including cache | 123,197,420 |
 
-> Snapshot from the OpenCode session record at 2026-11-02 00:18:38 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
+> Snapshot from the OpenCode session record at 2026-11-02 01:17:10 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
 
 ## What was built
 
@@ -37,15 +37,18 @@ A complete, self-contained 3D Bangkok Skytrain simulator in three modular source
 - **47 operational stations** — Khu Khot (N24) to Kheha (E23), with real station codes, English and Thai names, zone assignments and interchanges. N6 Sena Ruam is intentionally omitted because it is an unopened infill station.
 - **Four city zones** — northern suburbs, central commercial core, Sukhumvit lifestyle corridor and the southern industrial/coastal delta, with zone-aware building density, height, palette, glass ratio, trees and landmarks.
 - **Elevated third-rail railway** — continuous viaduct, deck, parapets, concrete piers, ballastless track bed, running rails, glowing third rail, track-side signals and 47 side-platform stations with canopies, name boards, benches, lamps, lifts and waiting passengers.
-- **Four-car BTS train** — white bodywork, green waistline, gold pinstripe, BTS roundels, dark window band, sliding doors with interior openings and door lights, interior seats and poles, bogies, wheels, current-collector shoes, headlights, tail lights and destination displays.
+- **Four-car BTS train** — blue lower body, white upper body, black window band, red-framed black cab mask, gold royal emblem, BTS roundel, sliding doors with interior openings and door lights, interior seats and poles, bogies, wheels, current-collector shoes, headlights, tail lights and orange LED destination displays.
 - **Driver controls** — throttle 0–80 km/h, service brake, emergency brake, auto pilot, doors, horn, Next Stop and terminus reversal.
-- **Auto pilot** — accelerates, brakes into every platform, opens and closes the doors, dwells six seconds, departs and reverses at either terminus.
+- **Auto pilot** — accelerates, brakes into every platform, creeps to the stop mark, opens and closes the doors, waits for the passenger exchange, departs and reverses at either terminus.
 - **Four cameras** — first-person driver cab with cockpit overlay and drag-to-look, passenger scenic window, 360° orbit camera and fixed platform arrival cam.
 - **Bilingual EN/TH HUD** — station names, zone descriptions, controls, toasts and announcements; live speed, distance, ETA, zone, interchange chips, nearby landmark, route progress, minimap and a clickable 47-station list.
-- **Web Audio synthesis** — variable-pitch motor hum, inverter whine, track-joint thuds, door chime, PA chime, two-tone horn, brake squeal and city ambience.
+- **Web Audio synthesis and PA** — quiet high-frequency traction whine with no low drone, track-joint thuds, door/PA chimes, two-tone horn, brake squeal, city ambience, original transit music, rain bed and thunder; bilingual Thai/English station, interchange, landmark, arrival, door-side and doors-closing announcements.
 - **Day / golden hour / night** — lit windows, neon signs, stars, headlights and a darker HUD at night.
+- **Rain / thunderstorm** — 3D rain, screen rain, wet glass, faster wipers, lightning, thunder and rain audio.
+- **Passenger exchange** — alighting and boarding passengers walk between train doors and platform.
+- **Audio mixer** — independent engine, announcement and music levels; PA voice and tourist commentary toggles.
 - **Mobile layout** — minimised telemetry, reflowed control dock and touch orbit at 390 × 844 with no horizontal overflow.
-- **Built-in self-test** — `?selftest=1`, 33/33 PASS.
+- **Built-in self-test** — `?selftest=1`, 36/36 PASS.
 
 ### Landmarks
 
@@ -53,8 +56,8 @@ Chatuchak Park & Market, Victory Monument, Siam Skywalk, Terminal 21 and the ASO
 
 ## Verification
 
-- **33/33** self-tests pass in headless Chrome (`?selftest=1`).
-- Checks include the Three.js renderer, 47 stations and unique codes, four zones, route survey, station positions, four-car train, 24+ door panels, 47 signal heads, 1,000+ procedural buildings, glass towers, third rail, four landmarks, 47-row station list, minimap, Web Audio engine, four cameras, Thai/English switching, station jump, auto pilot, doors, platform camera and zero uncaught errors.
+- **36/36** self-tests pass in headless Chrome (`?selftest=1`).
+- Checks include the Three.js renderer, 47 stations and unique codes, four zones, route survey, station positions, four-car train, 24+ door panels, 47 signal heads, 1,000+ procedural buildings, glass towers, third rail, four landmarks, 47-row station list, minimap, Web Audio engine, four cameras, Thai/English switching, station jump, auto pilot, doors, platform camera, rain system, passenger exchange pool, audio mixer methods and zero uncaught errors.
 - Screenshots captured at **1600 × 1000** desktop and **390 × 844** mobile from the running build with headless Chrome and SwiftShader WebGL.
 - Live URLs are expected to return HTTP 200 for HTML, CSS, JS, screenshots and favicon after the GitHub Pages deployment.
 
@@ -62,19 +65,19 @@ Chatuchak Park & Market, Victory Monument, Siam Skywalk, Terminal 21 and the ASO
 
 | File | Size |
 | --- | ---: |
-| `index.html` | 17,633 bytes · 333 lines |
-| `style.css` | 50,685 bytes · 1,839 lines |
-| `script.js` | 164,979 bytes · 3,913 lines |
-| `README.md` | 16,084 bytes · 343 lines |
-| `screenshot.png` | 1.19 MB |
-| `screenshot-night.png` | 1.19 MB |
-| `screenshot-cab.png` | 1.06 MB |
-| `screenshot-platform.png` | 1.33 MB |
-| `screenshot-zone-a.png` | 1.11 MB |
-| `screenshot-erawan.png` | 1.14 MB |
-| `screenshot-dusk.png` | 1.16 MB |
-| `screenshot-intro.png` | 819 KB |
-| `screenshot-mobile.png` | 1.01 MB |
+| `index.html` | 19,569 bytes · 370 lines |
+| `style.css` | 54,757 bytes · 1,999 lines |
+| `script.js` | 198,896 bytes · 4,713 lines |
+| `README.md` | 17,552 bytes · 367 lines |
+| `screenshot.png` | 1.34 MB |
+| `screenshot-night.png` | 1.34 MB |
+| `screenshot-cab.png` | 1.28 MB |
+| `screenshot-platform.png` | 1.43 MB |
+| `screenshot-zone-a.png` | 1.27 MB |
+| `screenshot-erawan.png` | 1.29 MB |
+| `screenshot-dusk.png` | 1.36 MB |
+| `screenshot-intro.png` | 936 KB |
+| `screenshot-mobile.png` | 1.04 MB |
 
 ## How to run
 

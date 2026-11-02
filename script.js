@@ -19,13 +19,13 @@
   const CAR_LEN = 5.2;                  // 20.8 display metres
   const CAR_GAP = 0.55;
   const CAR_PITCH = CAR_LEN + CAR_GAP;
-  const MAX_SPEED = 80;                 // km/h
-  const ACCEL = 3.4;                    // km/h per second
-  const BRAKE_DECEL = 4.6;
-  const EMERGENCY_DECEL = 10.5;
+  const MAX_SPEED = 100;                // km/h
+  const ACCEL = 4.2;                    // km/h per second
+  const BRAKE_DECEL = 5.2;
+  const EMERGENCY_DECEL = 11.5;
   const COAST_DECEL = 0.85;
-  const AUTO_CRUISE = 62;
-  const AUTO_DECEL = 1.05;              // display m/s²
+  const AUTO_CRUISE = 80;
+  const AUTO_DECEL = 1.2;              // display m/s²
   const DWELL_SECONDS = 6.0;
   const STATION_STOP_TOLERANCE = 20;    // display metres
   const DOOR_INTERLOCK = 0.04;
@@ -156,7 +156,7 @@
       helpEmergency: 'Emergency brake', helpAuto: 'Auto pilot on / off',
       helpDoors: 'Open / close doors at a platform', helpHorn: 'Horn',
       helpCameras: 'Cab / window / orbit / platform camera', helpLang: 'English ⇄ ไทย',
-      helpMute: 'Mute / unmute', helpFullscreen: 'Fullscreen', helpReverse: 'Reverse direction at a terminus',
+      helpMute: 'Mute / unmute', helpFullscreen: 'Fullscreen', helpReverse: 'Reverse direction at a terminus', helpRain: 'Rain / storm',
       theLine: 'THE LINE',
       helpLine: 'The Sukhumvit Line runs 47 stations from Khu Khot (N24) in the north to Kheha (E23) in Samut Prakan. The simulation compresses the route into a continuous elevated viaduct and scales distances for playability. N6 Sena Ruam, an unopened infill station, is not included.',
       zonesTitle: 'FOUR CITY ZONES',
@@ -167,8 +167,14 @@
       creditsTitle: 'CREDITS',
       creditsBody: 'Built with OpenCode 2.2.5 and DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash). Three.js r128 + OrbitControls (MIT). No image, audio or model assets: every building, train, sign and sound is generated in the browser.',
       close: 'CLOSE',
+      audioMixer: 'AUDIO MIXER', engineSound: 'ENGINE', announcements: 'ANNOUNCEMENTS', music: 'MUSIC',
+      musicOn: 'MUSIC ON', musicOff: 'MUSIC OFF', musicOnToast: 'Transit music enabled.', musicOffToast: 'Transit music muted.',
+      testPA: 'TEST PA', mixerHint: 'Bilingual Thai / English station announcements. Lower the engine to hear the PA clearly.',
+      paVoiceOn: 'PA VOICE ON', paVoiceOff: 'PA VOICE OFF', touristOn: 'TOURIST INFO ON', touristOff: 'TOURIST INFO OFF',
+      voiceOnToast: 'PA voice enabled.', voiceOffToast: 'PA voice muted.', touristOnToast: 'Tourist commentary enabled.', touristOffToast: 'Tourist commentary disabled.',
+      rainOn: 'Bangkok storm · rain and thunder.', rainOff: 'Rain cleared.',
       doorsLocked: 'Doors locked while the train is moving.', notAtStation: 'Doors can only open at a platform.',
-      doorsOpening: 'Doors opening · mind the gap.', doorsClosing: 'Doors closing · stand clear.',
+      doorsOpening: 'Doors opening · passengers boarding and alighting.', doorsClosing: 'Doors closing · stand clear.',
       autoOn: 'Auto pilot engaged · next stop {station}.', autoOff: 'Manual control · you have the train.',
       brakeOn: 'Service brake applied.', brakeOff: 'Service brake released.',
       emergencyStop: 'EMERGENCY BRAKE · train stopped.', terminusReversed: 'Terminus · direction reversed. Next stop {station}.',
@@ -176,7 +182,7 @@
       jumpStation: 'Jumped to {station}.', welcome: 'Welcome aboard · {station}.',
       audioOff: 'Sound muted.', audioOn: 'Sound on.', todDay: 'Daylight', todDusk: 'Golden hour', todNight: 'Night',
       interchanges: 'Interchange · {lines}', terminus: 'Terminus', doorsOpenAt: 'Doors open · {station}',
-      speedLimit: 'Speed limit 80 km/h', ready: 'Ready to depart · {station}',
+      speedLimit: 'Speed limit 100 km/h', ready: 'Ready to depart · {station}',
       autoArriving: 'Auto pilot braking into {station}.', autoDepart: 'Auto pilot departing {station}.',
       noInterchange: 'No rail interchange', platformCam: 'PLATFORM CAM', arrivingIn: 'ARRIVING IN {time}',
       stationAhead: '{station} ahead', passed: 'Passed {station}', reverseHint: 'Press R to reverse at the terminus.',
@@ -203,7 +209,7 @@
       helpEmergency: 'เบรกฉุกเฉิน', helpAuto: 'เปิด / ปิดโหมดอัตโนมัติ',
       helpDoors: 'เปิด / ปิดประตูที่ชานชาลา', helpHorn: 'แตร',
       helpCameras: 'กล้องคนขับ / หน้าต่าง / รอบนอก / ชานชาลา', helpLang: 'English ⇄ ไทย',
-      helpMute: 'ปิด / เปิดเสียง', helpFullscreen: 'เต็มจอ', helpReverse: 'กลับทิศทางที่สถานีปลายทาง',
+      helpMute: 'ปิด / เปิดเสียง', helpFullscreen: 'เต็มจอ', helpReverse: 'กลับทิศทางที่สถานีปลายทาง', helpRain: 'ฝน / พายุ',
       theLine: 'เส้นทาง',
       helpLine: 'สายสุขุมวิทมี 47 สถานี จากคูคต (N24) ทางเหนือถึงเคหะฯ (E23) ในสมุทรปราการ เกมนี้ย่อเส้นทางเป็นทางลอยฟ้าต่อเนื่องและปรับระยะทางให้เล่นสนุก โดยไม่รวมสถานี N6 เสนารวมที่ยังไม่เปิด',
       zonesTitle: 'สี่โซนเมือง',
@@ -214,8 +220,14 @@
       creditsTitle: 'เครดิต',
       creditsBody: 'สร้างด้วย OpenCode 2.2.5 และ DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash) ใช้ Three.js r128 + OrbitControls (MIT) ไม่มีไฟล์ภาพ เสียง หรือโมเดลสำเร็จรูป ทุกอาคาร รถไฟ ป้าย และเสียงสร้างในเบราว์เซอร์',
       close: 'ปิด',
+      audioMixer: 'มิกซ์เสียง', engineSound: 'เสียงเครื่องยนต์', announcements: 'เสียงประกาศ', music: 'เพลงบรรเลง',
+      musicOn: 'เพลงเปิด', musicOff: 'เพลงปิด', musicOnToast: 'เปิดเพลงบรรเลงแล้ว', musicOffToast: 'ปิดเพลงบรรเลงแล้ว',
+      testPA: 'ทดสอบประกาศ', mixerHint: 'ประกาศสถานีสองภาษา ไทย / อังกฤษ ลดเสียงเครื่องยนต์เพื่อฟังประกาศให้ชัด',
+      paVoiceOn: 'เสียงประกาศเปิด', paVoiceOff: 'เสียงประกาศปิด', touristOn: 'ข้อมูลท่องเที่ยวเปิด', touristOff: 'ข้อมูลท่องเที่ยวปิด',
+      voiceOnToast: 'เปิดเสียงประกาศแล้ว', voiceOffToast: 'ปิดเสียงประกาศแล้ว', touristOnToast: 'เปิดข้อมูลท่องเที่ยวแล้ว', touristOffToast: 'ปิดข้อมูลท่องเที่ยวแล้ว',
+      rainOn: 'พายุฝนกรุงเทพฯ · ฝนและฟ้าร้อง', rainOff: 'ฝนหยุดแล้ว',
       doorsLocked: 'ประตูล็อกขณะรถไฟเคลื่อนที่', notAtStation: 'เปิดประตูได้ที่ชานชาลาเท่านั้น',
-      doorsOpening: 'ประตูกำลังเปิด · ระวังช่องว่าง', doorsClosing: 'ประตูกำลังปิด · กรุณาถอย',
+      doorsOpening: 'ประตูกำลังเปิด · ผู้โดยสารขึ้นและลงรถ', doorsClosing: 'ประตูกำลังปิด · กรุณาถอย',
       autoOn: 'เปิดโหมดอัตโนมัติ · สถานีต่อไป {station}', autoOff: 'ควบคุมเอง · คุณถือพวงมาลัย',
       brakeOn: 'ใช้เบรกบริการ', brakeOff: 'ปล่อยเบรกบริการ',
       emergencyStop: 'เบรกฉุกเฉิน · รถหยุดแล้ว', terminusReversed: 'ปลายทาง · กลับทิศทางแล้ว สถานีต่อไป {station}',
@@ -223,7 +235,7 @@
       jumpStation: 'ย้ายไปสถานี {station}', welcome: 'ยินดีต้อนรับ · {station}',
       audioOff: 'ปิดเสียง', audioOn: 'เปิดเสียง', todDay: 'กลางวัน', todDusk: 'แสงทอง', todNight: 'กลางคืน',
       interchanges: 'เปลี่ยนสาย · {lines}', terminus: 'สถานีปลายทาง', doorsOpenAt: 'ประตูเปิด · {station}',
-      speedLimit: 'จำกัดความเร็ว 80 กม./ชม.', ready: 'พร้อมออกจากสถานี {station}',
+      speedLimit: 'จำกัดความเร็ว 100 กม./ชม.', ready: 'พร้อมออกจากสถานี {station}',
       autoArriving: 'อัตโนมัติกำลังเบรกเข้าสถานี {station}', autoDepart: 'อัตโนมัติออกจากสถานี {station}',
       noInterchange: 'ไม่มีรถไฟสายอื่น', platformCam: 'กล้องชานชาลา', arrivingIn: 'จะถึงใน {time}',
       stationAhead: 'ข้างหน้า {station}', passed: 'ผ่านสถานี {station}', reverseHint: 'กด R เพื่อกลับทิศทางที่ปลายทาง',
@@ -295,6 +307,58 @@
     }));
   }
 
+  function makeAsphaltTexture() {
+    return canvasTexture(makeCanvas(512, 512, (ctx, w, h) => {
+      ctx.fillStyle = '#202522';
+      ctx.fillRect(0, 0, w, h);
+      for (let i = 0; i < 9000; i++) {
+        const v = Math.random();
+        ctx.fillStyle = v > 0.5
+          ? 'rgba(255,255,255,' + (0.012 + Math.random() * 0.035).toFixed(3) + ')'
+          : 'rgba(0,0,0,' + (0.02 + Math.random() * 0.08).toFixed(3) + ')';
+        ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
+      }
+      ctx.fillStyle = 'rgba(225,225,205,0.62)';
+      ctx.fillRect(8, 0, 5, h);
+      ctx.fillRect(w - 13, 0, 5, h);
+      ctx.fillStyle = 'rgba(230,198,88,0.72)';
+      ctx.fillRect(w / 2 - 7, 0, 4, h);
+      ctx.fillRect(w / 2 + 3, 0, 4, h);
+      for (const x of [w * 0.25, w * 0.75]) {
+        for (let y = 0; y < h; y += 52) {
+          ctx.fillStyle = 'rgba(225,225,210,0.5)';
+          ctx.fillRect(x - 2, y, 4, 26);
+        }
+      }
+      ctx.fillStyle = 'rgba(0,0,0,0.16)';
+      for (let i = 0; i < 18; i++) {
+        ctx.fillRect(Math.random() * w, Math.random() * h, 12 + Math.random() * 45, 2 + Math.random() * 5);
+      }
+    }), 1, 1);
+  }
+
+  function makePavingTexture() {
+    return canvasTexture(makeCanvas(256, 256, (ctx, w, h) => {
+      ctx.fillStyle = '#74776b';
+      ctx.fillRect(0, 0, w, h);
+      for (let i = 0; i < 3500; i++) {
+        const v = Math.random();
+        ctx.fillStyle = v > 0.5 ? 'rgba(255,255,255,0.035)' : 'rgba(0,0,0,0.055)';
+        ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
+      }
+      ctx.strokeStyle = 'rgba(42,48,42,0.36)';
+      ctx.lineWidth = 2;
+      for (let x = 0; x <= w; x += 32) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+      for (let y = 0; y <= h; y += 32) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      for (let y = 0; y <= h; y += 32) ctx.fillRect(0, y + 1, w, 1);
+    }), 1, 1);
+  }
+
   /* ---------------------------------------------------------------------------
      Global state and DOM cache
      ------------------------------------------------------------------------ */
@@ -306,6 +370,18 @@
     view: 1,
     tod: 'day',
     muted: false,
+    engineVolume: 0.15,
+    paVolume: 1.0,
+    musicVolume: 0.18,
+    musicEnabled: true,
+    voiceEnabled: true,
+    touristInfo: true,
+    voiceUnlocked: false,
+    speechTimer: null,
+    lastSpeech: '',
+    firstAnnouncement: false,
+    rain: false,
+    lightningTimer: 0,
     speed: 0,
     throttle: 0,
     brake: false,
@@ -320,6 +396,9 @@
     atStation: false,
     dwell: 0,
     autoState: 'idle',
+    autoTarget: 0,
+    autoDist: 0,
+    autoDt: 0,
     lastJoint: 0,
     travelled: 0,
     lastAnnouncedNext: -1,
@@ -357,12 +436,19 @@
   let trainHeadlights = [];
   let minimapCtx;
   let audio = null;
+  let rainRoot = null;
+  let rainGeo = null;
+  let rainData = [];
+  const RAIN_COUNT = 900;
+  let dynamicPeds = [];
   let selftestResults = [];
 
   function cacheDom() {
     const ids = [
       'loadingScreen', 'loadingBar', 'loadingCopy', 'intro', 'startSiam', 'startKhuKhot',
-      'introLang', 'langBtn', 'todBtn', 'audioBtn', 'helpBtn', 'fullscreenBtn',
+      'introLang', 'langBtn', 'todBtn', 'rainBtn', 'audioBtn', 'mixBtn', 'helpBtn', 'fullscreenBtn',
+      'audioMixer', 'mixClose', 'engineVol', 'engineVolVal', 'paVol', 'paVolVal',
+      'musicVol', 'musicVolVal', 'voiceToggle', 'touristToggle', 'musicToggle', 'testPA', 'lightning',
       'announce', 'announceKicker', 'announceName', 'announceDetail',
       'telemetry', 'telemetryToggle', 'speedRing', 'speedValue', 'modeChip', 'doorChip',
       'tractionBars', 'signalChip', 'nextCode', 'nextName', 'nextThai', 'distanceValue',
@@ -462,6 +548,7 @@
 
     setStation(startIndex, { silent: true });
     setTimeOfDay(PARAMS.get('tod') || 'day', true);
+    if (PARAMS.get('rain') === '1' || PARAMS.has('rain')) setRain(true, true);
 
     const viewParam = parseInt(PARAMS.get('view') || '0', 10);
     if (viewParam >= 1 && viewParam <= 4) setView(viewParam, true);
@@ -500,7 +587,7 @@
     controls.autoRotate = false;
     setView(1, true);
     ensureAudio();
-    playDoorChime(false);
+    state.firstAnnouncement = true;
     toast(fill(t('welcome'), { station: STATIONS[index].en + ' (' + STATIONS[index].code + ')' }), 'gold');
     announceStation(true);
     updateHUD(true);
@@ -536,7 +623,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.84;
+    renderer.toneMappingExposure = 0.76;
     renderer.shadowMap.enabled = false;
     renderer.domElement.style.touchAction = 'none';
 
@@ -618,13 +705,13 @@
     }));
     scene.add(starField);
 
-    hemiLight = new THREE.HemisphereLight(0xc6e2f0, 0x3f5040, 0.55);
+    hemiLight = new THREE.HemisphereLight(0xc6e2f0, 0x3f5040, 0.45);
     scene.add(hemiLight);
 
-    ambientLight = new THREE.AmbientLight(0xffffff, 0.16);
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.12);
     scene.add(ambientLight);
 
-    sunLight = new THREE.DirectionalLight(0xffefc4, 1.05);
+    sunLight = new THREE.DirectionalLight(0xffefc4, 0.9);
     sunLight.position.set(420, 780, 260);
     scene.add(sunLight);
 
@@ -737,6 +824,21 @@
     return min;
   }
 
+  function roundRectPath(ctx, x, y, w, h, r) {
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+
   function makeRibbon(width, y, color, opacity) {
     const segments = 700;
     const positions = [];
@@ -813,7 +915,7 @@
   function buildGroundAndViaduct() {
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(17000, 17000),
-      new THREE.MeshLambertMaterial({ color: 0x465a3f })
+      new THREE.MeshLambertMaterial({ color: 0x3f5238 })
     );
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = -0.08;
@@ -848,40 +950,62 @@
     scene.add(coast);
 
     // Sidewalk / road corridor beneath the viaduct.
-    const sidewalk = makeRibbon(20, 0.025, 0x7f8074, 1);
+    const sidewalk = makeRibbon(22, 0.02, 0xffffff, 1);
     sidewalk.name = 'Sidewalks';
+    sidewalk.material.map = makePavingTexture();
+    sidewalk.material.color.setHex(0xb0b1a5);
+    sidewalk.material.polygonOffset = true;
+    sidewalk.material.polygonOffsetFactor = -1;
+    sidewalk.material.polygonOffsetUnits = -1;
+    sidewalk.material.needsUpdate = true;
     scene.add(sidewalk);
 
-    const road = makeRibbon(14, 0.045, 0x2a302d, 1);
+    const road = makeRibbon(15, 0.12, 0xffffff, 1);
     road.name = 'SukhumvitRoad';
+    road.material.map = makeAsphaltTexture();
+    road.material.color.setHex(0xffffff);
+    road.material.polygonOffset = true;
+    road.material.polygonOffsetFactor = -2;
+    road.material.polygonOffsetUnits = -2;
+    road.material.needsUpdate = true;
     scene.add(road);
 
-    const edgeL = makeRibbon(0.32, 0.06, 0xe8e0b0, 1);
-    scene.add(edgeL);
+    // Soft shade beneath the viaduct keeps the road from looking flat and glowing.
+    const underShade = makeRibbon(12, 0.17, 0x000000, 0.2);
+    underShade.material.depthWrite = false;
+    underShade.material.polygonOffset = true;
+    underShade.material.polygonOffsetFactor = -3;
+    underShade.material.polygonOffsetUnits = -3;
+    underShade.renderOrder = 1;
+    scene.add(underShade);
 
-    // Dashed lane line.
-    const dashCount = Math.floor(routeLengthWorld / 9);
-    const dashGeo = new THREE.BoxGeometry(0.12, 0.02, 2.2);
-    const dashMat = new THREE.MeshBasicMaterial({ color: 0xd8d2a0 });
-    const dashes = new THREE.InstancedMesh(dashGeo, dashMat, dashCount);
     const dummy = new THREE.Object3D();
     const p = new THREE.Vector3();
     const tan = new THREE.Vector3();
-    for (let i = 0; i < dashCount; i++) {
-      const u = (i * 9 + 4) / routeLengthWorld;
+
+    // Raised curbs between the road and the paved footways.
+    const curbCount = Math.floor(routeLengthWorld / 6);
+    const curbGeo = new THREE.BoxGeometry(1, 1, 1);
+    const curbMat = new THREE.MeshLambertMaterial({ color: 0x8b8c80 });
+    const curbs = new THREE.InstancedMesh(curbGeo, curbMat, curbCount * 2);
+    for (let i = 0; i < curbCount; i++) {
+      const u = (i * 6 + 3) / routeLengthWorld;
       routeCurve.getPointAt(Math.min(1, u), p);
       routeCurve.getTangentAt(Math.min(1, u), tan);
       tan.y = 0;
       tan.normalize();
-      dummy.position.set(p.x, 0.07, p.z);
-      dummy.quaternion.setFromUnitVectors(FORWARD_Z, tan);
-      dummy.scale.set(1, 1, 1);
-      dummy.updateMatrix();
-      dashes.setMatrixAt(i, dummy.matrix);
+      const n = new THREE.Vector3(tan.z, 0, -tan.x);
+      for (const side of [-1, 1]) {
+        dummy.position.set(p.x + n.x * side * 7.65, 0.22, p.z + n.z * side * 7.65);
+        dummy.quaternion.setFromUnitVectors(FORWARD_Z, tan);
+        dummy.scale.set(0.34, 0.2, 6.1);
+        dummy.updateMatrix();
+        curbs.setMatrixAt(i * 2 + (side > 0 ? 1 : 0), dummy.matrix);
+      }
     }
-    dashes.instanceMatrix.needsUpdate = true;
-    dashes.frustumCulled = false;
-    scene.add(dashes);
+    curbs.instanceMatrix.needsUpdate = true;
+    curbs.frustumCulled = false;
+    scene.add(curbs);
 
     // Viaduct deck.
     const deck = makeRibbon(8.1, TRACK_Y, 0x7f877f, 1);
@@ -2196,37 +2320,117 @@
     return canvasTexture(makeCanvas(512, 96, (ctx, w, h) => {
       ctx.fillStyle = '#050c08';
       ctx.fillRect(0, 0, w, h);
-      ctx.strokeStyle = 'rgba(46,212,122,0.55)';
+      ctx.strokeStyle = 'rgba(255,157,46,0.65)';
       ctx.lineWidth = 3;
       ctx.strokeRect(3, 3, w - 6, h - 6);
-      ctx.fillStyle = '#f2c94c';
+      ctx.fillStyle = '#ff9d2e';
       ctx.font = '900 40px Orbitron, Arial Black, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(text, w / 2, 42, w - 40);
-      ctx.fillStyle = '#2ed47a';
+      ctx.fillStyle = '#ffb347';
       ctx.font = '700 17px Rajdhani, sans-serif';
       ctx.fillText(sub, w / 2, 72, w - 40);
     }));
   }
 
+  function makeBtsLogoTexture() {
+    return canvasTexture(makeCanvas(256, 128, (ctx, w, h) => {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#1c4f9c';
+      ctx.font = '900 64px Orbitron, Arial Black, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('BTS', w / 2, 46);
+      ctx.lineWidth = 8;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#c8102e';
+      ctx.beginPath();
+      ctx.arc(w / 2 - 22, 94, 20, Math.PI * 0.15, Math.PI * 0.95);
+      ctx.stroke();
+      ctx.strokeStyle = '#1c4f9c';
+      ctx.beginPath();
+      ctx.arc(w / 2 + 22, 94, 20, Math.PI * 0.05, Math.PI * 0.85);
+      ctx.stroke();
+    }));
+  }
+
+  function makeFrontMaskTexture() {
+    return canvasTexture(makeCanvas(512, 320, (ctx, w, h) => {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#c8102e';
+      roundRectPath(ctx, 4, 4, w - 8, h - 8, 38);
+      ctx.fill();
+      ctx.fillStyle = '#080b0e';
+      roundRectPath(ctx, 16, 16, w - 32, h - 32, 30);
+      ctx.fill();
+      // Transparent windshield aperture.
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      roundRectPath(ctx, 92, 58, w - 184, 150, 22);
+      ctx.fill();
+      ctx.restore();
+      // Gold royal emblem.
+      const gx = w / 2;
+      const gy = 116;
+      const gold = ctx.createRadialGradient(gx, gy, 2, gx, gy, 34);
+      gold.addColorStop(0, '#fff3bd');
+      gold.addColorStop(0.45, '#e8c76a');
+      gold.addColorStop(1, '#8a6720');
+      ctx.fillStyle = gold;
+      ctx.beginPath();
+      ctx.arc(gx, gy, 30, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#5d4515';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(gx, gy, 24, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = '#5d4515';
+      ctx.beginPath();
+      ctx.moveTo(gx, gy - 46);
+      ctx.lineTo(gx - 10, gy - 24);
+      ctx.lineTo(gx + 10, gy - 24);
+      ctx.closePath();
+      ctx.fill();
+      // BTS logo under the mask.
+      ctx.fillStyle = '#1c4f9c';
+      ctx.font = '900 38px Orbitron, Arial Black, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('BTS', w / 2, 258);
+      ctx.lineWidth = 6;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#c8102e';
+      ctx.beginPath();
+      ctx.arc(w / 2 - 18, 286, 14, Math.PI * 0.15, Math.PI * 0.95);
+      ctx.stroke();
+      ctx.strokeStyle = '#1c4f9c';
+      ctx.beginPath();
+      ctx.arc(w / 2 + 18, 286, 14, Math.PI * 0.05, Math.PI * 0.85);
+      ctx.stroke();
+    }));
+  }
+
   function buildTrain() {
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0xdde3dd, roughness: 0.55, metalness: 0.14 });
-    const lowerMat = new THREE.MeshStandardMaterial({ color: 0xc4cbc5, roughness: 0.58, metalness: 0.12 });
-    const greenMat = new THREE.MeshStandardMaterial({ color: 0x00a651, roughness: 0.38, metalness: 0.22, emissive: 0x00301a, emissiveIntensity: 0.22 });
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0xf3f5f1, roughness: 0.5, metalness: 0.12 });
+    const lowerMat = new THREE.MeshStandardMaterial({ color: 0x1c4f9c, roughness: 0.38, metalness: 0.28 });
+    const blueMat = new THREE.MeshStandardMaterial({ color: 0x1c4f9c, roughness: 0.38, metalness: 0.28 });
+    const redMat = new THREE.MeshStandardMaterial({ color: 0xc8102e, roughness: 0.4, metalness: 0.2 });
+    const blackMat = new THREE.MeshStandardMaterial({ color: 0x080b0e, roughness: 0.34, metalness: 0.22, side: THREE.FrontSide });
     const goldMat = new THREE.MeshStandardMaterial({ color: 0xf2c94c, roughness: 0.32, metalness: 0.55, emissive: 0x3d2c00, emissiveIntensity: 0.35 });
     const darkMat = new THREE.MeshStandardMaterial({ color: 0x1b2426, roughness: 0.7, metalness: 0.2 });
-    const roofMat = new THREE.MeshStandardMaterial({ color: 0xb9c1bb, roughness: 0.65, metalness: 0.1 });
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0xd6dbd7, roughness: 0.62, metalness: 0.1 });
     const glassMat = new THREE.MeshPhongMaterial({
-      color: 0x0b1d26, transparent: true, opacity: 0.24, shininess: 120,
+      color: 0x0a1118, transparent: true, opacity: 0.56, shininess: 140,
       specular: 0x9ed8ff, side: THREE.FrontSide
     });
     const interiorMat = new THREE.MeshLambertMaterial({ color: 0x23352d });
     const seatMat = new THREE.MeshLambertMaterial({ color: 0x1f5f4a });
     const lightMat = new THREE.MeshBasicMaterial({ color: 0xd9fff0 });
-    const doorMat = new THREE.MeshStandardMaterial({ color: 0xe6ece6, roughness: 0.45, metalness: 0.16 });
+    const doorMat = new THREE.MeshStandardMaterial({ color: 0x1c4f9c, roughness: 0.4, metalness: 0.24 });
     const doorGlassMat = new THREE.MeshPhongMaterial({
-      color: 0x0b1d26, transparent: true, opacity: 0.7, shininess: 110, side: THREE.DoubleSide
+      color: 0x0a1118, transparent: true, opacity: 0.82, shininess: 130, side: THREE.DoubleSide
     });
     const headMat = new THREE.MeshStandardMaterial({ color: 0xfff4cf, emissive: 0xffe6a0, emissiveIntensity: 1.2, roughness: 0.3 });
     const tailMat = new THREE.MeshStandardMaterial({ color: 0xff3048, emissive: 0xff2038, emissiveIntensity: 1.0, roughness: 0.3 });
@@ -2249,17 +2453,11 @@
     });
     const headGlowTex = canvasTexture(headGlowCanvas);
 
-    const logoCanvas = makeCanvas(128, 128, (ctx, w, h) => {
-      ctx.fillStyle = '#00a651';
-      ctx.fillRect(8, 8, w - 16, h - 16);
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 42px Orbitron, Arial Black, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('BTS', w / 2, h / 2 + 2);
-    });
-    const logoTex = canvasTexture(logoCanvas);
+    const logoTex = makeBtsLogoTexture();
     const logoMat = new THREE.MeshBasicMaterial({ map: logoTex, transparent: true, side: THREE.FrontSide });
+    const frontMaskMat = new THREE.MeshBasicMaterial({
+      map: makeFrontMaskTexture(), transparent: true, side: THREE.FrontSide, depthWrite: false
+    });
 
     for (let c = 0; c < 4; c++) {
       const car = new THREE.Group();
@@ -2273,13 +2471,18 @@
       skirt.position.y = 0.32;
       car.add(skirt);
 
-      const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.64, 0.24, 5.22), greenMat);
-      stripe.position.y = 0.82;
-      car.add(stripe);
+      // BTS blue lower body and black window band.
+      const blueBand = new THREE.Mesh(new THREE.BoxGeometry(2.62, 1.0, 5.21), blueMat);
+      blueBand.position.y = 0.72;
+      car.add(blueBand);
 
-      const pin = new THREE.Mesh(new THREE.BoxGeometry(2.65, 0.045, 5.23), goldMat);
-      pin.position.y = 0.67;
-      car.add(pin);
+      const waistLine = new THREE.Mesh(new THREE.BoxGeometry(2.63, 0.04, 5.22), bodyMat);
+      waistLine.position.y = 1.23;
+      car.add(waistLine);
+
+      const windowBand = new THREE.Mesh(new THREE.BoxGeometry(2.63, 0.84, 5.18), blackMat);
+      windowBand.position.y = 1.66;
+      car.add(windowBand);
 
       const roof = new THREE.Mesh(new THREE.BoxGeometry(2.46, 0.18, 5.02), roofMat);
       roof.position.y = 2.42;
@@ -2295,18 +2498,15 @@
       under.position.y = 0.08;
       car.add(under);
 
-      // Continuous dark window band, side glazing and BTS roundel.
+      // Side glazing and the BTS logo on the white upper body.
       for (const side of [-1, 1]) {
-        const band = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.76, 4.86), glassMat);
-        band.position.set(side * 1.301, 1.66, 0);
-        car.add(band);
         for (const z of [-1.75, 0, 1.75]) {
           const win = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.64, 1.26), glassMat);
-          win.position.set(side * 1.305, 1.66, z);
+          win.position.set(side * 1.318, 1.66, z);
           car.add(win);
         }
-        const logo = new THREE.Mesh(new THREE.PlaneGeometry(0.38, 0.38), logoMat);
-        logo.position.set(side * 1.322, 1.02, 0);
+        const logo = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.22), logoMat);
+        logo.position.set(side * 1.323, 2.21, 1.72);
         logo.rotation.y = side > 0 ? Math.PI / 2 : -Math.PI / 2;
         car.add(logo);
       }
@@ -2325,15 +2525,15 @@
       for (const side of [-1, 1]) {
         for (const z0 of [-1.15, 1.15]) {
           const doorway = new THREE.Mesh(new THREE.BoxGeometry(0.025, 1.72, 0.86), doorwayMat);
-          doorway.position.set(side * 1.302, 1.34, z0);
+          doorway.position.set(side * 1.318, 1.34, z0);
           car.add(doorway);
           const doorwayLight = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.07, 0.76), lightMat);
-          doorwayLight.position.set(side * 1.304, 2.16, z0);
+          doorwayLight.position.set(side * 1.32, 2.16, z0);
           car.add(doorwayLight);
           for (const dir of [-1, 1]) {
             const panel = new THREE.Group();
             const baseZ = z0 + dir * 0.225;
-            panel.position.set(side * 1.33, 1.34, baseZ);
+            panel.position.set(side * 1.342, 1.34, baseZ);
             const leaf = new THREE.Mesh(new THREE.BoxGeometry(0.07, 1.72, 0.43), doorMat);
             panel.add(leaf);
             const dglass = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.52, 0.3), doorGlassMat);
@@ -2400,51 +2600,67 @@
         car.add(coupler);
       }
 
-      // Lead cab details.
+      // Lead cab details: black mask, red frame, gold emblem and BTS livery.
       if (c === 0) {
-        const frameMat = new THREE.MeshStandardMaterial({ color: 0x22302a, roughness: 0.5, metalness: 0.35 });
         const windshield = new THREE.Mesh(new THREE.PlaneGeometry(2.08, 0.82), new THREE.MeshPhongMaterial({
-          color: 0x0b1d26, transparent: true, opacity: 0.1, shininess: 120, side: THREE.DoubleSide
+          color: 0x071018, transparent: true, opacity: 0.86, shininess: 140, side: THREE.FrontSide
         }));
-        windshield.position.set(0, 1.78, 2.615);
+        windshield.position.set(0, 1.78, 2.605);
         car.add(windshield);
-        const topBar = new THREE.Mesh(new THREE.BoxGeometry(2.24, 0.09, 0.1), frameMat);
-        topBar.position.set(0, 2.24, 2.62);
+
+        const frontMask = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 1.6), frontMaskMat);
+        frontMask.position.set(0, 1.45, 2.62);
+        car.add(frontMask);
+
+        const topBar = new THREE.Mesh(new THREE.BoxGeometry(2.34, 0.07, 0.08), redMat);
+        topBar.position.set(0, 2.27, 2.645);
         car.add(topBar);
-        const bottomBar = new THREE.Mesh(new THREE.BoxGeometry(2.24, 0.11, 0.1), frameMat);
-        bottomBar.position.set(0, 1.32, 2.62);
+        const bottomBar = new THREE.Mesh(new THREE.BoxGeometry(2.34, 0.08, 0.08), redMat);
+        bottomBar.position.set(0, 0.66, 2.645);
         car.add(bottomBar);
-        const sideBarL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.94, 0.1), frameMat);
-        sideBarL.position.set(-1.08, 1.78, 2.62);
+        const sideBarL = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.62, 0.08), redMat);
+        sideBarL.position.set(-1.17, 1.45, 2.645);
         car.add(sideBarL);
         const sideBarR = sideBarL.clone();
-        sideBarR.position.x = 1.08;
+        sideBarR.position.x = 1.17;
         car.add(sideBarR);
 
-        const dest = new THREE.Mesh(new THREE.PlaneGeometry(1.75, 0.32), frontSignMat);
-        dest.position.set(0, 2.29, 2.625);
+        const dest = new THREE.Mesh(new THREE.PlaneGeometry(1.75, 0.3), frontSignMat);
+        dest.position.set(0, 2.2, 2.65);
         car.add(dest);
 
-        const bumper = new THREE.Mesh(new THREE.BoxGeometry(2.38, 0.2, 0.14), greenMat);
-        bumper.position.set(0, 0.44, 2.62);
+        const bumper = new THREE.Mesh(new THREE.BoxGeometry(2.44, 0.24, 0.16), blueMat);
+        bumper.position.set(0, 0.42, 2.63);
         car.add(bumper);
+        const redStripe = new THREE.Mesh(new THREE.BoxGeometry(2.46, 0.07, 0.02), redMat);
+        redStripe.position.set(0, 0.57, 2.65);
+        car.add(redStripe);
+
+        // Sloped front roof fairing gives the cab a rounded, determined profile.
+        const noseRoof = new THREE.Mesh(new THREE.BoxGeometry(2.28, 0.16, 0.95), bodyMat);
+        noseRoof.position.set(0, 2.38, 2.3);
+        noseRoof.rotation.x = -0.14;
+        car.add(noseRoof);
 
         for (const x of [-0.82, 0.82]) {
+          const surround = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.23, 0.02), redMat);
+          surround.position.set(x, 0.92, 2.642);
+          car.add(surround);
           const head = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.15, 0.06), headMat);
-          head.position.set(x, 0.92, 2.635);
+          head.position.set(x, 0.92, 2.66);
           car.add(head);
           const glow = new THREE.Sprite(new THREE.SpriteMaterial({
             map: headGlowTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.9
           }));
           glow.scale.set(1.35, 1.35, 1);
-          glow.position.set(x, 0.92, 2.78);
+          glow.position.set(x, 0.92, 2.8);
           car.add(glow);
           headlightSprites.push(glow);
         }
         headlightMats.push(headMat);
 
         // Dashboard lip inside the cab.
-        const dash = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.18, 0.55), frameMat);
+        const dash = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.18, 0.55), blackMat);
         dash.position.set(0, 1.14, 2.18);
         car.add(dash);
       }
@@ -2462,7 +2678,7 @@
       // Green underglow / third-rail power aesthetic.
       const glowStrip = new THREE.Mesh(
         new THREE.BoxGeometry(2.18, 0.035, 4.6),
-        new THREE.MeshBasicMaterial({ color: 0x2ed47a, transparent: true, opacity: 0.22 })
+        new THREE.MeshBasicMaterial({ color: 0x3f7fd4, transparent: true, opacity: 0.16 })
       );
       glowStrip.position.y = 0.01;
       car.add(glowStrip);
@@ -2472,6 +2688,8 @@
       scene.add(car);
       cars.push(car);
     }
+    initRain();
+    initDynamicPassengers();
   }
 
   function updateTrainTransform() {
@@ -2509,6 +2727,234 @@
   }
 
   /* ---------------------------------------------------------------------------
+     Passenger exchange at platforms
+     ------------------------------------------------------------------------ */
+
+  function initDynamicPassengers() {
+    if (dynamicPeds.length) return;
+    const bodyGeo = new THREE.CylinderGeometry(0.14, 0.18, 0.68, 6);
+    const headGeo = new THREE.SphereGeometry(0.12, 6, 4);
+    const legGeo = new THREE.CylinderGeometry(0.055, 0.07, 0.42, 5);
+    const armGeo = new THREE.CylinderGeometry(0.04, 0.05, 0.38, 5);
+    const skinMat = new THREE.MeshLambertMaterial({ color: 0xd9a77c });
+    const colors = [0xe8e2d2, 0x2d4f6e, 0xb84a4a, 0x4d7c62, 0xd9b15e, 0x7a6a9a, 0xe2e8e4, 0x3b3f44];
+    for (let i = 0; i < 28; i++) {
+      const group = new THREE.Group();
+      const color = colors[i % colors.length];
+      const body = new THREE.Mesh(bodyGeo, new THREE.MeshLambertMaterial({ color }));
+      body.position.y = 0.7;
+      group.add(body);
+      const head = new THREE.Mesh(headGeo, skinMat);
+      head.position.y = 1.1;
+      group.add(head);
+      const legL = new THREE.Mesh(legGeo, new THREE.MeshLambertMaterial({ color: 0x2c3430 }));
+      legL.position.set(-0.075, 0.21, 0);
+      group.add(legL);
+      const legR = legL.clone();
+      legR.position.x = 0.075;
+      group.add(legR);
+      const armL = new THREE.Mesh(armGeo, skinMat);
+      armL.position.set(-0.2, 0.75, 0);
+      armL.rotation.z = 0.08;
+      group.add(armL);
+      const armR = armL.clone();
+      armR.position.x = 0.2;
+      armR.rotation.z = -0.08;
+      group.add(armR);
+      if (i % 4 === 0) {
+        const bag = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.22, 0.1), new THREE.MeshLambertMaterial({ color: 0x8c5a35 }));
+        bag.position.set(0.22, 0.62, -0.08);
+        group.add(bag);
+      }
+      group.visible = false;
+      group.frustumCulled = false;
+      scene.add(group);
+      dynamicPeds.push({
+        group, legL, legR, armL, armR,
+        active: false, t: 0, duration: 1.8,
+        start: new THREE.Vector3(), end: new THREE.Vector3(), phase: rand(0, Math.PI * 2)
+      });
+    }
+  }
+
+  function spawnPedestrian(start, end, duration) {
+    const ped = dynamicPeds.find((p) => !p.active);
+    if (!ped) return;
+    ped.active = true;
+    ped.t = 0;
+    ped.duration = duration;
+    ped.start.copy(start);
+    ped.end.copy(end);
+    ped.phase = rand(0, Math.PI * 2);
+    ped.group.position.copy(start);
+    ped.group.visible = true;
+    const dir = end.clone().sub(start);
+    ped.group.rotation.y = Math.atan2(dir.x, dir.z);
+  }
+
+  function spawnPassengerExchange() {
+    if (!cars.length || !dynamicPeds.length) return;
+    const doorX = 1.55;
+    const platformX = 4.7;
+    for (let c = 0; c < cars.length; c++) {
+      const car = cars[c];
+      for (const z0 of [-1.15, 1.15]) {
+        const door = car.localToWorld(new THREE.Vector3(doorX, 0, z0));
+        door.y = TRACK_Y + 0.24;
+        const platform = car.localToWorld(new THREE.Vector3(platformX, 0, z0 + rand(-1.4, 1.4)));
+        platform.y = TRACK_Y + 0.24;
+        // Alighting passenger walks from the door to the platform.
+        spawnPedestrian(door, platform, rand(1.5, 2.2));
+        // Boarding passenger walks from the platform into the train.
+        const platform2 = car.localToWorld(new THREE.Vector3(platformX + rand(0.2, 1.2), 0, z0 + rand(-1.2, 1.2)));
+        platform2.y = TRACK_Y + 0.24;
+        spawnPedestrian(platform2, door, rand(1.6, 2.4));
+      }
+    }
+  }
+
+  function updateDynamicPassengers(dt) {
+    for (const ped of dynamicPeds) {
+      if (!ped.active) continue;
+      ped.t += dt / ped.duration;
+      const e = clamp(ped.t, 0, 1);
+      ped.group.position.lerpVectors(ped.start, ped.end, e);
+      ped.group.position.y += Math.sin(e * Math.PI) * 0.025;
+      const swing = Math.sin(e * Math.PI * 9 + ped.phase) * 0.55;
+      ped.legL.rotation.x = swing;
+      ped.legR.rotation.x = -swing;
+      ped.armL.rotation.x = -swing * 0.7;
+      ped.armR.rotation.x = swing * 0.7;
+      if (ped.t >= 1) {
+        ped.active = false;
+        ped.group.visible = false;
+      }
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+     Rain / storm scene
+     ------------------------------------------------------------------------ */
+
+  function initRain() {
+    if (rainRoot) return;
+    const positions = new Float32Array(RAIN_COUNT * 6);
+    rainData = [];
+    for (let i = 0; i < RAIN_COUNT; i++) {
+      const x = rand(-105, 105);
+      const y = rand(-12, 78);
+      const z = rand(-105, 105);
+      const len = rand(1.2, 4.4);
+      const speed = rand(26, 46);
+      positions[i * 6] = x;
+      positions[i * 6 + 1] = y;
+      positions[i * 6 + 2] = z;
+      positions[i * 6 + 3] = x;
+      positions[i * 6 + 4] = y - len;
+      positions[i * 6 + 5] = z;
+      rainData.push({ x, y, z, len, speed });
+    }
+    rainGeo = new THREE.BufferGeometry();
+    rainGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    rainRoot = new THREE.LineSegments(rainGeo, new THREE.LineBasicMaterial({
+      color: 0xbfe6ff,
+      transparent: true,
+      opacity: 0.52,
+      depthWrite: false
+    }));
+    rainRoot.visible = false;
+    rainRoot.frustumCulled = false;
+    rainRoot.name = 'Rain';
+    scene.add(rainRoot);
+  }
+
+  function updateRain(dt) {
+    if (!state.rain || !rainRoot) return;
+    const arr = rainGeo.attributes.position.array;
+    for (let i = 0; i < RAIN_COUNT; i++) {
+      const d = rainData[i];
+      d.y -= d.speed * dt;
+      if (d.y < -14) {
+        d.y = rand(58, 84);
+        d.x = rand(-105, 105);
+        d.z = rand(-105, 105);
+      }
+      const o = i * 6;
+      arr[o] = d.x;
+      arr[o + 1] = d.y;
+      arr[o + 2] = d.z;
+      arr[o + 3] = d.x;
+      arr[o + 4] = d.y - d.len;
+      arr[o + 5] = d.z;
+    }
+    rainGeo.attributes.position.needsUpdate = true;
+    if (cars.length) rainRoot.position.copy(cars[0].position);
+
+    state.lightningTimer -= dt;
+    if (state.lightningTimer <= 0) {
+      flashLightning();
+      state.lightningTimer = rand(8, 18);
+    }
+  }
+
+  function flashLightning() {
+    if (!dom.lightning) return;
+    dom.lightning.classList.remove('flash');
+    void dom.lightning.offsetWidth;
+    dom.lightning.classList.add('flash');
+    if (audio) setTimeout(() => audio.thunder(), 260);
+    setTimeout(() => dom.lightning.classList.remove('flash'), 700);
+  }
+
+  function applyStormLighting() {
+    const night = state.tod === 'night';
+    const dusk = state.tod === 'dusk';
+    if (skyMat) {
+      skyMat.uniforms.topColor.value.setHex(night ? 0x050d14 : dusk ? 0x20202c : 0x18272f);
+      skyMat.uniforms.bottomColor.value.setHex(night ? 0x12222b : dusk ? 0x6b5a5a : 0x788d92);
+    }
+    if (scene && scene.fog) {
+      scene.fog.color.setHex(night ? 0x0d171d : dusk ? 0x5b4d4d : 0x5f7379);
+      scene.fog.near = 90;
+      scene.fog.far = 980;
+    }
+    if (hemiLight) hemiLight.intensity = 0.34;
+    if (sunLight) {
+      sunLight.intensity = 0.22;
+      sunLight.color.setHex(0xaebfc9);
+    }
+    if (ambientLight) ambientLight.intensity = 0.13;
+    if (renderer) renderer.toneMappingExposure = 0.76;
+    if (buildingMat) buildingMat.emissiveIntensity = night ? 0.65 : 0.16;
+    if (lowriseMat) lowriseMat.emissiveIntensity = night ? 0.5 : 0.1;
+    if (glassMat) glassMat.emissiveIntensity = night ? 0.4 : 0.22;
+    if (billboardMats) billboardMats.forEach((m) => { m.userData.base = night ? 1.3 : 0.85; });
+    if (headlightMats) headlightMats.forEach((m) => { m.emissiveIntensity = 2.4; });
+    if (headlightSprites) headlightSprites.forEach((s) => { s.material.opacity = 0.95; });
+    if (sunSprite) sunSprite.material.opacity = 0.02;
+    if (starField) starField.material.opacity = night ? 0.45 : 0;
+    if (rainRoot) rainRoot.material.opacity = night ? 0.42 : 0.52;
+  }
+
+  function setRain(active, silent) {
+    state.rain = !!active;
+    document.body.classList.toggle('is-raining', state.rain);
+    if (dom.rainBtn) {
+      dom.rainBtn.classList.toggle('is-active', state.rain);
+      dom.rainBtn.textContent = state.rain ? '🌧' : '🌦';
+    }
+    if (rainRoot) rainRoot.visible = state.rain;
+    if (audio) audio.setRain(state.rain);
+    if (state.rain) {
+      state.lightningTimer = rand(4, 10);
+      applyStormLighting();
+    } else {
+      setTimeOfDay(state.tod, true);
+    }
+    if (!silent) toast(state.rain ? t('rainOn') : t('rainOff'), state.rain ? 'gold' : '');
+  }
+
+  /* ---------------------------------------------------------------------------
      Web Audio synthesizer
      ------------------------------------------------------------------------ */
 
@@ -2524,7 +2970,16 @@
       whineOsc: null,
       brakeGain: null,
       ambientGain: null,
+      engineBus: null,
+      paGain: null,
+      compressor: null,
+      rainGain: null,
+      musicGain: null,
+      musicTimer: null,
+      musicStep: 0,
       noiseBuffer: null,
+      engineLevel: 0.15,
+      paLevel: 1.0,
       muted: false,
 
       start() {
@@ -2536,8 +2991,27 @@
         if (!AC) return;
         this.ctx = new AC();
         this.master = this.ctx.createGain();
-        this.master.gain.value = this.muted ? 0 : 0.8;
-        this.master.connect(this.ctx.destination);
+        this.master.gain.value = this.muted ? 0 : 0.75;
+        this.compressor = this.ctx.createDynamicsCompressor();
+        this.compressor.threshold.value = -18;
+        this.compressor.knee.value = 20;
+        this.compressor.ratio.value = 6;
+        this.compressor.attack.value = 0.003;
+        this.compressor.release.value = 0.25;
+        this.master.connect(this.compressor);
+        this.compressor.connect(this.ctx.destination);
+
+        // Separate buses keep the traction hum under the PA.
+        this.engineBus = this.ctx.createGain();
+        this.engineBus.gain.value = state.engineVolume;
+        this.engineBus.connect(this.master);
+        this.paGain = this.ctx.createGain();
+        this.paGain.gain.value = state.paVolume;
+        this.paGain.connect(this.master);
+        this.musicGain = this.ctx.createGain();
+        this.musicGain.gain.value = state.musicVolume;
+        this.musicGain.connect(this.master);
+        if (state.musicEnabled) this.startMusic();
 
         // Noise buffer for track joints, brake squeal and city ambience.
         const len = Math.floor(this.ctx.sampleRate * 1.4);
@@ -2549,19 +3023,19 @@
         this.motorGain = this.ctx.createGain();
         this.motorGain.gain.value = 0.0;
         this.motorFilter = this.ctx.createBiquadFilter();
-        this.motorFilter.type = 'lowpass';
-        this.motorFilter.frequency.value = 260;
-        this.motorFilter.Q.value = 0.8;
+        this.motorFilter.type = 'bandpass';
+        this.motorFilter.frequency.value = 620;
+        this.motorFilter.Q.value = 0.55;
         this.motorOsc1 = this.ctx.createOscillator();
-        this.motorOsc1.type = 'sawtooth';
-        this.motorOsc1.frequency.value = 40;
+        this.motorOsc1.type = 'sine';
+        this.motorOsc1.frequency.value = 180;
         this.motorOsc2 = this.ctx.createOscillator();
-        this.motorOsc2.type = 'sine';
-        this.motorOsc2.frequency.value = 80;
+        this.motorOsc2.type = 'triangle';
+        this.motorOsc2.frequency.value = 360;
         this.motorOsc1.connect(this.motorFilter);
         this.motorOsc2.connect(this.motorFilter);
         this.motorFilter.connect(this.motorGain);
-        this.motorGain.connect(this.master);
+        this.motorGain.connect(this.engineBus);
         this.motorOsc1.start();
         this.motorOsc2.start();
 
@@ -2569,9 +3043,9 @@
         this.whineGain.gain.value = 0.0;
         this.whineOsc = this.ctx.createOscillator();
         this.whineOsc.type = 'sine';
-        this.whineOsc.frequency.value = 480;
+        this.whineOsc.frequency.value = 900;
         this.whineOsc.connect(this.whineGain);
-        this.whineGain.connect(this.master);
+        this.whineGain.connect(this.engineBus);
         this.whineOsc.start();
 
         // Brake squeal.
@@ -2586,7 +3060,7 @@
         brakeNoise.loop = true;
         brakeNoise.connect(brakeFilter);
         brakeFilter.connect(this.brakeGain);
-        this.brakeGain.connect(this.master);
+        this.brakeGain.connect(this.engineBus);
         brakeNoise.start();
 
         // City ambience.
@@ -2600,29 +3074,138 @@
         ambNoise.loop = true;
         ambNoise.connect(ambFilter);
         ambFilter.connect(this.ambientGain);
-        this.ambientGain.connect(this.master);
+        this.ambientGain.connect(this.engineBus);
         ambNoise.start();
+
+        // Rain bed (activated by the storm toggle).
+        this.rainGain = this.ctx.createGain();
+        this.rainGain.gain.value = state.rain ? 0.034 : 0;
+        const rainHP = this.ctx.createBiquadFilter();
+        rainHP.type = 'highpass';
+        rainHP.frequency.value = 700;
+        const rainLP = this.ctx.createBiquadFilter();
+        rainLP.type = 'lowpass';
+        rainLP.frequency.value = 5200;
+        const rainNoise = this.ctx.createBufferSource();
+        rainNoise.buffer = this.noiseBuffer;
+        rainNoise.loop = true;
+        rainNoise.connect(rainHP);
+        rainHP.connect(rainLP);
+        rainLP.connect(this.rainGain);
+        this.rainGain.connect(this.master);
+        rainNoise.start();
       },
 
       setMuted(muted) {
         this.muted = muted;
         if (this.ctx && this.master) {
-          this.master.gain.setTargetAtTime(muted ? 0 : 0.8, this.ctx.currentTime, 0.04);
+          this.master.gain.setTargetAtTime(muted ? 0 : 0.75, this.ctx.currentTime, 0.04);
         }
+        if (muted && window.speechSynthesis) window.speechSynthesis.cancel();
+      },
+
+      setEngineVolume(value) {
+        this.engineLevel = value;
+        if (this.ctx && this.engineBus) {
+          this.engineBus.gain.setTargetAtTime(value, this.ctx.currentTime, 0.12);
+        }
+      },
+
+      setAnnounceVolume(value) {
+        this.paLevel = value;
+        if (this.ctx && this.paGain) {
+          this.paGain.gain.setTargetAtTime(value, this.ctx.currentTime, 0.08);
+        }
+      },
+
+      setMusicVolume(value) {
+        if (this.ctx && this.musicGain) {
+          this.musicGain.gain.setTargetAtTime(value, this.ctx.currentTime, 0.2);
+        }
+      },
+
+      setMusicEnabled(on) {
+        if (on) {
+          this.startMusic();
+        } else if (this.musicTimer) {
+          clearInterval(this.musicTimer);
+          this.musicTimer = null;
+        }
+      },
+
+      musicNote(freq, start, dur, gainValue, type) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+        osc.connect(gain);
+        gain.connect(this.musicGain);
+        osc.start(start);
+        osc.stop(start + dur + 0.02);
+      },
+
+      startMusic() {
+        if (this.musicTimer || !this.ctx || !this.musicGain) return;
+        const patternA = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.0, 698.46, 523.25, 659.25, 783.99, 1046.5, 880.0, 783.99, 659.25, 587.33];
+        const patternB = [659.25, 783.99, 880.0, 783.99, 698.46, 587.33, 523.25, 587.33, 659.25, 880.0, 1046.5, 880.0, 783.99, 698.46, 587.33, 523.25];
+        this.musicStep = 0;
+        this.musicTimer = setInterval(() => {
+          if (!this.ctx || this.ctx.state !== 'running') return;
+          if (!state.musicEnabled || state.muted) return;
+          const pattern = Math.floor(this.musicStep / 16) % 2 === 0 ? patternA : patternB;
+          const freq = pattern[this.musicStep % 16];
+          const now = this.ctx.currentTime;
+          this.musicNote(freq, now, 0.9, 0.032, 'sine');
+          this.musicNote(freq * 2, now + 0.02, 0.7, 0.012, 'triangle');
+          if (this.musicStep % 4 === 0) {
+            this.musicNote(freq / 2, now, 2.0, 0.016, 'sine');
+          }
+          if (this.musicStep % 8 === 0) {
+            [261.63, 329.63, 392.0].forEach((f, i) => this.musicNote(f, now + i * 0.06, 3.0, 0.01, 'sine'));
+          }
+          this.musicStep++;
+        }, 620);
+      },
+
+      setRain(active) {
+        if (!this.ctx || !this.rainGain) return;
+        this.rainGain.gain.setTargetAtTime(active ? 0.034 : 0, this.ctx.currentTime, 0.5);
+      },
+
+      thunder() {
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const src = this.ctx.createBufferSource();
+        src.buffer = this.noiseBuffer;
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 180;
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.14, now + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.6);
+        src.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.master);
+        src.start(now);
+        src.stop(now + 1.7);
       },
 
       setSpeed(kmh, braking, emergency) {
         if (!this.ctx) return;
         const now = this.ctx.currentTime;
         const moving = kmh > 0.5;
-        this.motorGain.gain.setTargetAtTime(moving ? 0.012 + kmh * 0.00085 : 0, now, 0.16);
-        this.motorOsc1.frequency.setTargetAtTime(38 + kmh * 1.75, now, 0.16);
-        this.motorOsc2.frequency.setTargetAtTime(76 + kmh * 3.5, now, 0.16);
-        this.motorFilter.frequency.setTargetAtTime(210 + kmh * 8.5, now, 0.16);
-        this.whineGain.gain.setTargetAtTime(moving ? 0.0025 + kmh * 0.00007 : 0, now, 0.2);
-        this.whineOsc.frequency.setTargetAtTime(430 + kmh * 7.2, now, 0.2);
-        this.brakeGain.gain.setTargetAtTime((braking || emergency) && kmh > 4 ? 0.018 + kmh * 0.0003 : 0, now, 0.12);
-        this.ambientGain.gain.setTargetAtTime(0.009, now, 0.5);
+        this.motorGain.gain.setTargetAtTime(moving ? 0.005 + kmh * 0.00022 : 0, now, 0.18);
+        this.motorOsc1.frequency.setTargetAtTime(170 + kmh * 3.2, now, 0.18);
+        this.motorOsc2.frequency.setTargetAtTime(340 + kmh * 6.4, now, 0.18);
+        this.motorFilter.frequency.setTargetAtTime(540 + kmh * 3.0, now, 0.18);
+        this.whineGain.gain.setTargetAtTime(moving ? 0.001 + kmh * 0.000022 : 0, now, 0.22);
+        this.whineOsc.frequency.setTargetAtTime(820 + kmh * 6.8, now, 0.22);
+        this.brakeGain.gain.setTargetAtTime((braking || emergency) && kmh > 4 ? 0.004 + kmh * 0.00008 : 0, now, 0.14);
+        this.ambientGain.gain.setTargetAtTime(0.004, now, 0.5);
       },
 
       thud() {
@@ -2634,7 +3217,7 @@
         filter.frequency.value = 150;
         const gain = this.ctx.createGain();
         const now = this.ctx.currentTime;
-        gain.gain.setValueAtTime(0.16, now);
+        gain.gain.setValueAtTime(0.06, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
         src.connect(filter);
         filter.connect(gain);
@@ -2653,7 +3236,7 @@
         gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.015);
         gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
         osc.connect(gain);
-        gain.connect(this.master);
+        gain.connect(this.paGain);
         osc.start(start);
         osc.stop(start + dur + 0.02);
       },
@@ -2662,12 +3245,12 @@
         if (!this.ctx) return;
         const now = this.ctx.currentTime + 0.01;
         if (kind === 'pa') {
-          this.tone(523.25, now, 0.45, 0.075, 'sine');
-          this.tone(659.25, now + 0.28, 0.5, 0.07, 'sine');
-          this.tone(783.99, now + 0.56, 0.65, 0.065, 'sine');
+          this.tone(523.25, now, 0.45, 0.12, 'sine');
+          this.tone(659.25, now + 0.28, 0.5, 0.11, 'sine');
+          this.tone(783.99, now + 0.56, 0.65, 0.10, 'sine');
         } else {
-          this.tone(659.25, now, 0.35, 0.07, 'triangle');
-          this.tone(880.0, now + 0.24, 0.5, 0.065, 'triangle');
+          this.tone(659.25, now, 0.35, 0.11, 'triangle');
+          this.tone(880.0, now + 0.24, 0.5, 0.10, 'triangle');
         }
       },
 
@@ -2677,15 +3260,15 @@
         const filter = this.ctx.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.value = 1000;
-        filter.connect(this.master);
+        filter.connect(this.paGain);
         [311, 370].forEach((f) => {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'sawtooth';
           osc.frequency.value = f;
           gain.gain.setValueAtTime(0.0001, now);
-          gain.gain.exponentialRampToValueAtTime(0.045, now + 0.03);
-          gain.gain.setValueAtTime(0.045, now + 0.42);
+          gain.gain.exponentialRampToValueAtTime(0.06, now + 0.03);
+          gain.gain.setValueAtTime(0.06, now + 0.42);
           gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
           osc.connect(gain);
           gain.connect(filter);
@@ -2710,6 +3293,8 @@
   function ensureAudio() {
     if (!audio) initAudio();
     audio.start();
+    state.voiceUnlocked = true;
+    if (window.speechSynthesis) window.speechSynthesis.getVoices();
   }
 
   function playDoorChime(opening) {
@@ -2718,6 +3303,124 @@
 
   function playPAChime() {
     if (audio) audio.chime('pa');
+  }
+
+  const AUDIO_KEY = 'bts_audio_v1';
+
+  function loadAudioSettings() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(AUDIO_KEY) || 'null');
+      if (saved) {
+        if (typeof saved.engine === 'number') state.engineVolume = clamp(saved.engine, 0, 1);
+        if (typeof saved.pa === 'number') state.paVolume = clamp(saved.pa, 0, 1);
+        if (typeof saved.voice === 'boolean') state.voiceEnabled = saved.voice;
+        if (typeof saved.tourist === 'boolean') state.touristInfo = saved.tourist;
+        if (typeof saved.music === 'number') state.musicVolume = clamp(saved.music, 0, 1);
+        if (typeof saved.musicEnabled === 'boolean') state.musicEnabled = saved.musicEnabled;
+      }
+    } catch (e) { /* ignore storage failures */ }
+  }
+
+  function saveAudioSettings() {
+    try {
+      localStorage.setItem(AUDIO_KEY, JSON.stringify({
+        engine: state.engineVolume,
+        pa: state.paVolume,
+        voice: state.voiceEnabled,
+        tourist: state.touristInfo,
+        music: state.musicVolume,
+        musicEnabled: state.musicEnabled
+      }));
+    } catch (e) { /* ignore storage failures */ }
+  }
+
+  function pickSpeechVoice(prefix) {
+    if (!window.speechSynthesis) return null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    const wanted = prefix === 'th'
+      ? ['th-th', 'th']
+      : ['en-gb', 'en-us', 'en'];
+    for (const lang of wanted) {
+      const exact = voices.find((v) => v.lang && v.lang.toLowerCase() === lang);
+      if (exact) return exact;
+    }
+    return voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(prefix)) || null;
+  }
+
+  function speakAnnouncement(thText, enText) {
+    if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) return;
+    if (!('speechSynthesis' in window)) return;
+    const synth = window.speechSynthesis;
+    if (state.speechTimer) clearTimeout(state.speechTimer);
+    synth.cancel();
+    state.lastSpeech = thText + ' / ' + enText;
+    state.speechTimer = setTimeout(() => {
+      if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) return;
+      const th = new SpeechSynthesisUtterance(thText);
+      th.lang = 'th-TH';
+      const thVoice = pickSpeechVoice('th');
+      if (thVoice) th.voice = thVoice;
+      th.rate = 0.9;
+      th.pitch = 1.0;
+      th.volume = state.paVolume;
+
+      const en = new SpeechSynthesisUtterance(enText);
+      en.lang = 'en-GB';
+      const enVoice = pickSpeechVoice('en');
+      if (enVoice) en.voice = enVoice;
+      en.rate = 0.94;
+      en.pitch = 1.0;
+      en.volume = state.paVolume;
+
+      synth.speak(th);
+      synth.speak(en);
+    }, 720);
+  }
+
+  function stationAnnouncement(st, arrival) {
+    const lines = st.interchange.map((key) => INTERCHANGES[key].name).join(' and ');
+    const side = st.index % 2 === 0 ? 'left' : 'right';
+    const sideTh = side === 'left' ? 'ซ้าย' : 'ขวา';
+    let th = arrival ? 'ถึงสถานี ' + st.th + ' แล้ว' : 'สถานีต่อไป ' + st.th;
+    let en = arrival ? 'Now arriving at ' + st.en + '.' : 'Next station, ' + st.en + '.';
+    if (!arrival && state.firstAnnouncement) {
+      const bound = state.direction > 0 ? STATIONS[STATIONS.length - 1] : STATIONS[0];
+      th = 'ยินดีต้อนรับสู่รถไฟฟ้าบีทีเอส สายสุขุมวิท ขบวนนี้มุ่งหน้าไปยัง ' + bound.th + ' ' + th;
+      en = 'Welcome aboard the BTS Sukhumvit Line. This train is bound for ' + bound.en + '. ' + en;
+    }
+    if (st.interchange.length) {
+      th += ' เปลี่ยนรถไฟได้ที่สถานีนี้';
+      en += ' Change here for the ' + lines + '.';
+    }
+    if (state.touristInfo) {
+      th += ' สถานที่ใกล้เคียง ' + st.landmarkTh;
+      en += ' Nearby: ' + st.landmark + '.';
+    }
+    if (arrival) {
+      th += ' ประตูจะเปิดทางด้าน' + sideTh + ' กรุณาระวังช่องว่างระหว่างรถไฟกับชานชาลา';
+      en += ' Doors will open on the ' + side + '. Please mind the gap between the train and the platform.';
+    }
+    if (st.index === 0 || st.index === STATIONS.length - 1) {
+      th += ' สถานีปลายทาง ขอบคุณที่ใช้บริการรถไฟฟ้าบีทีเอส';
+      en += ' This is the terminus. Thank you for travelling with BTS.';
+    }
+    return { th, en };
+  }
+
+  function updateAudioMixerUI() {
+    if (!dom.engineVol) return;
+    dom.engineVol.value = String(Math.round(state.engineVolume * 100));
+    dom.engineVolVal.textContent = Math.round(state.engineVolume * 100) + '%';
+    dom.paVol.value = String(Math.round(state.paVolume * 100));
+    dom.paVolVal.textContent = Math.round(state.paVolume * 100) + '%';
+    dom.musicVol.value = String(Math.round(state.musicVolume * 100));
+    dom.musicVolVal.textContent = Math.round(state.musicVolume * 100) + '%';
+    dom.voiceToggle.textContent = state.voiceEnabled ? t('paVoiceOn') : t('paVoiceOff');
+    dom.voiceToggle.classList.toggle('is-off', !state.voiceEnabled);
+    dom.touristToggle.textContent = state.touristInfo ? t('touristOn') : t('touristOff');
+    dom.touristToggle.classList.toggle('is-off', !state.touristInfo);
+    dom.musicToggle.textContent = state.musicEnabled ? t('musicOn') : t('musicOff');
+    dom.musicToggle.classList.toggle('is-off', !state.musicEnabled);
   }
 
   /* ---------------------------------------------------------------------------
@@ -2807,7 +3510,6 @@
     if (!opts.silent) {
       toast(fill(t('jumpStation'), { station: st.en + ' (' + st.code + ')' }), 'gold');
       announceStation(true);
-      if (state.started) playPAChime();
     }
   }
 
@@ -2879,6 +3581,7 @@
     state.doorsOpen = true;
     state.atStation = true;
     if (auto) state.autoState = 'dwell';
+    if (state.started) spawnPassengerExchange();
     playDoorChime(true);
     toast(t('doorsOpening'), 'gold');
     updateHUD(true);
@@ -2890,6 +3593,7 @@
     state.doorsOpen = false;
     if (auto) state.autoState = 'closing';
     playDoorChime(false);
+    if (state.started) speakAnnouncement('ประตูกำลังปิด กรุณาถอยออกจากประตู', 'Doors closing. Please stand clear of the doors.');
     toast(t('doorsClosing'));
     updateHUD(true);
     return true;
@@ -2935,6 +3639,9 @@
   }
 
   function autoDrive(dt, distToNext) {
+    state.autoTarget = 0;
+    state.autoDist = distToNext;
+    state.autoDt = dt;
     const next = STATIONS[state.nextIndex];
 
     if (state.doorsOpen) {
@@ -2980,16 +3687,22 @@
     }
 
     let target = 0;
-    if (distToNext > 2.2) {
-      const safe = Math.sqrt(2 * AUTO_DECEL * Math.max(0, distToNext - 10)) * 3.6;
-      target = Math.min(AUTO_CRUISE, safe);
-      if (target < 2.5) target = 0;
+    if (distToNext > 2.5) {
+      if (distToNext < 15) {
+        // Low-speed creep so the train stops on the platform mark, not 10 m short.
+        target = Math.max(2.2, distToNext * 0.8);
+      } else {
+        const safe = Math.sqrt(2 * AUTO_DECEL * Math.max(0, distToNext - 12)) * 3.6;
+        target = Math.min(AUTO_CRUISE, safe);
+        if (target < 3) target = 3;
+      }
     }
+    state.autoTarget = target;
     if (state.speed < target) state.speed = Math.min(target, state.speed + ACCEL * dt);
     else state.speed = Math.max(target, state.speed - BRAKE_DECEL * dt);
     state.speed = clamp(state.speed, 0, MAX_SPEED);
 
-    if (distToNext < 1.6 && state.speed < 0.45) {
+    if (distToNext < 3.0 && state.speed < 0.45) {
       arriveAtStation(state.nextIndex);
     }
   }
@@ -3011,7 +3724,6 @@
       state.autoState = 'dwell';
     }
     if (state.started) {
-      playPAChime();
       announceArrival(index);
     }
     updateHUD(true);
@@ -3201,17 +3913,21 @@
       const p = stationPositions[si];
       const n = stationNormal(si);
       const tan = stationTangents[si];
-      const ahead = state.direction > 0 ? 20 : -20;
+      const ahead = state.direction > 0 ? 12 : -12;
       const targetPos = new THREE.Vector3(
-        p.x + n.x * 5.2 + tan.x * ahead,
-        TRACK_Y + 3.7,
-        p.z + n.z * 5.2 + tan.z * ahead
+        p.x + n.x * 4.6 + tan.x * ahead,
+        TRACK_Y + 3.2,
+        p.z + n.z * 4.6 + tan.z * ahead
       );
       camera.position.lerp(targetPos, 1 - Math.exp(-4.2 * dt));
-      const look = lead.position.clone().add(new THREE.Vector3(0, 1.25, 0));
+      const look = new THREE.Vector3(
+        p.x - tan.x * 60 * state.direction,
+        TRACK_Y + 1.15,
+        p.z - tan.z * 60 * state.direction
+      );
       camera.lookAt(look);
       const dist = Math.abs(STATIONS[si].chainage - state.distance);
-      setCameraFov(clamp(62 - dist * 0.022, 34, 62), dt);
+      setCameraFov(clamp(66 - dist * 0.018, 40, 66), dt);
     }
 
     if (state.introMode && state.view === 3) {
@@ -3240,8 +3956,10 @@
 
   function buildHUD() {
     minimapCtx = dom.minimap ? dom.minimap.getContext('2d') : null;
+    loadAudioSettings();
     renderStationList();
     updateControlsUI();
+    updateAudioMixerUI();
   }
 
   function renderStationList() {
@@ -3477,7 +4195,12 @@
         : zone.label + ' · ' + zone.desc;
     }
     dom.announce.classList.remove('is-alert');
-    if (state.started && !force) playPAChime();
+    if (state.started) {
+      playPAChime();
+      const line = stationAnnouncement(next, false);
+      speakAnnouncement(line.th, line.en);
+      state.firstAnnouncement = false;
+    }
   }
 
   function announceArrival(index) {
@@ -3488,6 +4211,11 @@
     dom.announceName.textContent = st.en + ' (' + st.code + ') · ' + st.th;
     dom.announceDetail.textContent = state.lang === 'th' ? zone.th + ' · ' + zone.thDesc : zone.label + ' · ' + zone.desc;
     dom.announce.classList.add('is-alert');
+    if (state.started) {
+      playPAChime();
+      const line = stationAnnouncement(st, true);
+      speakAnnouncement(line.th, line.en);
+    }
     if (state.announceTimer) clearTimeout(state.announceTimer);
     state.announceTimer = setTimeout(() => {
       dom.announce.classList.remove('is-alert');
@@ -3526,6 +4254,7 @@
     updateHUD(true);
     announceStation(true);
     updateControlsUI();
+    updateAudioMixerUI();
     if (!silent) toast(state.lang === 'th' ? 'เปลี่ยนภาษาเป็นไทย' : 'Language: English');
   }
 
@@ -3537,7 +4266,7 @@
     const modes = {
       day: {
         top: 0x0f5a8c, bottom: 0xb7d2d0, fog: 0xa9c3bf, fogNear: 380, fogFar: 2700,
-        hemi: 0.55, sun: 1.05, ambient: 0.16, exposure: 0.84,
+        hemi: 0.45, sun: 0.9, ambient: 0.12, exposure: 0.76,
         building: 0.055, glass: 0.12, neon: 0.82, head: 0.9, sunOpacity: 0.95, sunScale: 520
       },
       dusk: {
@@ -3584,6 +4313,7 @@
       dom.todBtn.textContent = mode === 'day' ? '☀' : mode === 'dusk' ? '🌆' : '🌙';
       dom.todBtn.title = t(mode === 'day' ? 'todDay' : mode === 'dusk' ? 'todDusk' : 'todNight');
     }
+    if (state.rain) applyStormLighting();
     if (!silent) toast(t(mode === 'day' ? 'todDay' : mode === 'dusk' ? 'todDusk' : 'todNight'));
   }
 
@@ -3608,6 +4338,7 @@
   function toggleMute() {
     state.muted = !state.muted;
     if (audio) audio.setMuted(state.muted);
+    if (state.muted && window.speechSynthesis) window.speechSynthesis.cancel();
     dom.audioBtn.textContent = state.muted ? '🔇' : '🔊';
     dom.audioBtn.classList.toggle('is-active', state.muted);
     toast(state.muted ? t('audioOff') : t('audioOn'));
@@ -3641,7 +4372,67 @@
     dom.introLang.addEventListener('click', toggleLanguage);
     dom.langBtn.addEventListener('click', toggleLanguage);
     dom.todBtn.addEventListener('click', cycleTimeOfDay);
+    dom.rainBtn.addEventListener('click', () => { ensureAudio(); setRain(!state.rain); });
     dom.audioBtn.addEventListener('click', () => { ensureAudio(); toggleMute(); });
+    dom.mixBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dom.audioMixer.hidden = !dom.audioMixer.hidden;
+      dom.mixBtn.classList.toggle('is-active', !dom.audioMixer.hidden);
+    });
+    dom.mixClose.addEventListener('click', () => {
+      dom.audioMixer.hidden = true;
+      dom.mixBtn.classList.remove('is-active');
+    });
+    document.addEventListener('click', (e) => {
+      if (dom.audioMixer.hidden) return;
+      if (dom.audioMixer.contains(e.target) || e.target === dom.mixBtn) return;
+      dom.audioMixer.hidden = true;
+      dom.mixBtn.classList.remove('is-active');
+    });
+    dom.engineVol.addEventListener('input', (e) => {
+      state.engineVolume = clamp(Number(e.target.value) / 100, 0, 1);
+      if (audio) audio.setEngineVolume(state.engineVolume);
+      updateAudioMixerUI();
+      saveAudioSettings();
+    });
+    dom.paVol.addEventListener('input', (e) => {
+      state.paVolume = clamp(Number(e.target.value) / 100, 0, 1);
+      if (audio) audio.setAnnounceVolume(state.paVolume);
+      if (state.paVolume <= 0.01 && window.speechSynthesis) window.speechSynthesis.cancel();
+      updateAudioMixerUI();
+      saveAudioSettings();
+    });
+    dom.voiceToggle.addEventListener('click', () => {
+      state.voiceEnabled = !state.voiceEnabled;
+      if (!state.voiceEnabled && window.speechSynthesis) window.speechSynthesis.cancel();
+      updateAudioMixerUI();
+      saveAudioSettings();
+      toast(state.voiceEnabled ? t('voiceOnToast') : t('voiceOffToast'), state.voiceEnabled ? 'gold' : '');
+    });
+    dom.touristToggle.addEventListener('click', () => {
+      state.touristInfo = !state.touristInfo;
+      updateAudioMixerUI();
+      saveAudioSettings();
+      toast(state.touristInfo ? t('touristOnToast') : t('touristOffToast'), state.touristInfo ? 'gold' : '');
+    });
+    dom.musicVol.addEventListener('input', (e) => {
+      state.musicVolume = clamp(Number(e.target.value) / 100, 0, 1);
+      if (audio) audio.setMusicVolume(state.musicVolume);
+      updateAudioMixerUI();
+      saveAudioSettings();
+    });
+    dom.musicToggle.addEventListener('click', () => {
+      state.musicEnabled = !state.musicEnabled;
+      if (audio) audio.setMusicEnabled(state.musicEnabled);
+      updateAudioMixerUI();
+      saveAudioSettings();
+      toast(state.musicEnabled ? t('musicOnToast') : t('musicOffToast'), state.musicEnabled ? 'gold' : '');
+    });
+    dom.testPA.addEventListener('click', () => {
+      ensureAudio();
+      playPAChime();
+      speakAnnouncement('สถานีต่อไป สยาม สถานที่ใกล้เคียง สกายวอล์คสยาม', 'Next station, Siam. Nearby: Siam Skywalk and Paragon.');
+    });
     dom.helpBtn.addEventListener('click', openHelp);
     dom.helpClose.addEventListener('click', closeHelp);
     dom.helpOk.addEventListener('click', closeHelp);
@@ -3746,6 +4537,7 @@
     if (k === 'l') { toggleLanguage(); return; }
     if (k === 'm') { ensureAudio(); toggleMute(); return; }
     if (k === 'f') { toggleFullscreen(); return; }
+    if (k === 'k') { ensureAudio(); setRain(!state.rain); return; }
     if (k === 'r') {
       if (terminusAhead() && state.speed < 1) reverseDirection();
       else toast(t('reverseHint'), 'gold');
@@ -3793,6 +4585,9 @@
     check('Minimap canvas context', () => !!minimapCtx);
     check('Web Audio engine', () => !!audio && typeof audio.chime === 'function' && typeof audio.horn === 'function');
     check('Four camera views', () => dom.viewButtons.length === 4);
+    check('Rain system ready', () => !!rainRoot && rainRoot.geometry.attributes.position.count === RAIN_COUNT * 2);
+    check('Passenger exchange pool', () => dynamicPeds.length >= 24);
+    check('Audio mixer methods', () => !!audio && typeof audio.setEngineVolume === 'function' && typeof audio.setMusicVolume === 'function' && typeof audio.setRain === 'function');
 
     const originalStation = state.currentIndex;
     const originalLang = state.lang;
@@ -3860,6 +4655,8 @@
     }
 
     updateTraffic(dt);
+    if (state.rain) updateRain(dt);
+    updateDynamicPassengers(dt);
     updateTrainTransform();
     updateCameras(dt);
     updateSignalLights();
@@ -3892,11 +4689,14 @@
     INTERCHANGES,
     cars,
     get audio() { return audio; },
+    get dynamicPeds() { return dynamicPeds; },
+    get rainRoot() { return rainRoot; },
     setStation,
     setView,
     setAuto,
     setLanguage,
     setTimeOfDay,
+    setRain,
     openDoors,
     closeDoors,
     toggleDoors,

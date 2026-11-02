@@ -9,7 +9,7 @@
 Drive a four-car Bangkok Skytrain along all **47 operational stations** of the Sukhumvit Line — from **Khu Khot (N24)** in the north to **Kheha (E23)** in Samut Prakan — through a procedurally built Bangkok of shop-house suburbs, the Siam skyscraper canyon, Sukhumvit neon and the southern delta.
 
 [![Live demo](https://img.shields.io/badge/live_demo-online-2ed47a?style=flat-square)](https://somphol.github.io/bts-sukhumvit-line-3d/)
-[![Self-tests](https://img.shields.io/badge/self--tests-33%2F33-00a651?style=flat-square)](#verification)
+[![Self-tests](https://img.shields.io/badge/self--tests-36%2F36-00a651?style=flat-square)](#verification)
 [![Stations](https://img.shields.io/badge/stations-47-f2c94c?style=flat-square)](#the-line)
 [![License: MIT](https://img.shields.io/badge/license-MIT-f2c94c?style=flat-square)](LICENSE)
 
@@ -24,7 +24,7 @@ BTS Sukhumvit Line 3D is a complete, self-contained 3D browser simulator built w
 The whole thing runs from three source files — `index.html`, `style.css` and `script.js`.
 
 <div align="center">
-<img src="screenshot-cab.png" alt="Driver cab view at 55 km/h approaching Thong Lo" width="100%" />
+<img src="screenshot-cab.png" alt="Driver cab view at 90 km/h approaching Thong Lo" width="100%" />
 <sub><b>Driver cab view</b> — live speed, next station, distance, ETA, zone and traction telemetry.</sub>
 </div>
 
@@ -42,6 +42,7 @@ The whole thing runs from three source files — `index.html`, `style.css` and `
 - [Landmarks](#landmarks)
 - [Controls](#controls)
 - [Time of day](#time-of-day)
+- [Rain and storm](#rain-and-storm)
 - [Mobile](#mobile)
 - [Run it locally](#run-it-locally)
 - [Project structure](#project-structure)
@@ -161,10 +162,11 @@ The HUD is a crisp transit overlay in BTS light green, dark green and gold.
 
 ## Train, doors and auto pilot
 
-- Four articulated BTS-style cars with white bodywork, BTS green waistline, gold pinstripe, dark window band, BTS roundels, roof air-conditioning units, bogies, wheels, current-collector shoes, headlights, tail lights and front destination displays.
+- Four articulated BTS-style cars with a blue lower body, white upper body, black window band, red-framed black cab mask, gold royal emblem, BTS roundel, roof air-conditioning units, bogies, wheels, current-collector shoes, headlights, tail lights and orange LED destination displays.
 - **Sliding doors** with two leaves per side, animated openings, warm interior door lights, door chime and a **door interlock** that blocks traction until the doors are closed.
-- **Throttle 0–80 km/h**, service brake, emergency brake and coasting.
-- **Auto pilot** (`A`) accelerates, brakes into every platform, opens the doors, dwells for six seconds, closes the doors, departs and reverses at the terminus.
+- **Passenger exchange** — alighting passengers walk from the train doors to the platform while boarding passengers walk from the platform into the train whenever the doors open.
+- **Throttle 0–100 km/h**, service brake, emergency brake and coasting.
+- **Auto pilot** (`A`) accelerates, brakes into every platform, creeps to the stop mark, opens the doors, waits for the passenger exchange, closes the doors, departs and reverses at the terminus.
 - **Terminus reversal** — at Kheha or Khu Khot the auto pilot flips direction and runs the line back; press `R` at a terminus when driving manually.
 - **Doors** (`D` / Space) only open at a platform and at near-zero speed. The HUD and cab display a persistent door warning.
 - **Horn** (`H`) synthesises a two-tone electric horn.
@@ -175,13 +177,15 @@ The HUD is a crisp transit overlay in BTS light green, dark green and gold.
 
 All audio is generated with the **Web Audio API**; there are no sound files.
 
-- Variable-pitch electric motor hum and inverter whine tied to speed.
+- Quiet high-frequency electric traction whine tied to speed, with no low-frequency drone.
 - Track-joint thuds at regular distance intervals.
 - Door opening/closing chime.
 - Three-note PA announcement chime.
 - Two-tone horn.
 - Brake squeal filtered noise when braking at speed.
-- Low city ambience.
+- Low city ambience and a soft original transit music loop.
+- Bilingual Thai/English PA voice: next station, interchange, nearby landmark, arrival, door side, mind-the-gap and doors closing.
+- Independent engine / announcement / music mixer, PA voice toggle and tourist-info toggle.
 - Mute (`M`) with a master gain fade.
 
 Audio starts on the first user gesture (the Start button or any control), as required by browser autoplay policy.
@@ -217,22 +221,40 @@ Audio starts on the first user gesture (the Start button or any control), as req
 | `L` | English ⇄ ไทย |
 | `M` | Mute / unmute |
 | `F` | Fullscreen |
+| `K` | Rain / storm on / off |
 | `R` | Reverse direction at a terminus |
 | `?` | Help / operator manual |
 | Drag (views 1 & 2) | Look around the cab or window |
 | Mouse / touch (view 3) | Orbit and zoom the train |
 
-On-screen controls mirror the keyboard: throttle slider, service brake, emergency, auto pilot, doors, horn, camera buttons and **Next Stop**.
+On-screen controls mirror the keyboard: throttle slider, service brake, emergency, auto pilot, doors, horn, camera buttons, **Next Stop**, rain toggle and the **audio mixer**.
 
 ---
 
 ## Time of day
 
-Cycle **Day → Golden Hour → Night** with the sun/moon button.
+Cycle **Day → Golden Hour → Night** with the sun/moon button, then add a storm with the rain button or `K`.
 
 - **Day** — blue Bangkok sky, light haze, glass towers.
 - **Golden hour** — warm horizon, longer shadows, windows beginning to glow.
 - **Night** — dark sky with stars, lit windows, neon billboards, station lights, headlights and a darker HUD.
+
+---
+
+## Rain and storm
+
+Toggle the rain with the cloud button or `K`.
+
+- 900 animated 3D rain streaks around the train, plus a screen-space rain overlay.
+- Dark storm sky, reduced sun, heavier fog, wet-looking glass and faster cab wipers.
+- Random lightning flashes with synthesized thunder.
+- Rain bed synthesized with filtered noise; no audio files.
+- Works with any time of day, including a night storm.
+
+<div align="center">
+<img src="screenshot-rain.png" alt="BTS Sukhumvit Line 3D in a Bangkok rainstorm" width="100%" />
+<sub><b>Bangkok storm</b> — rain, wet glass, lightning and thunder.</sub>
+</div>
 
 ---
 
@@ -268,6 +290,7 @@ The page loads Three.js r128 and OrbitControls from jsDelivr, and Orbitron / Raj
 | `view=1..4` | `?view=3` | Start in a camera view |
 | `station=N24` | `?station=E17` | Start at a station code |
 | `tod=day\|dusk\|night` | `?tod=night` | Start at a time of day |
+| `rain=1` | `?rain=1` | Start in the rain / thunderstorm |
 | `auto=1` | `?auto=1` | Start with auto pilot engaged |
 | `selftest=1` | `?selftest=1` | Run the 33-check harness and show results |
 
@@ -284,6 +307,7 @@ bts-sukhumvit-line-3d/
 ├── screenshot-cab.png         # Driver cab at 55 km/h
 ├── screenshot-platform.png    # Platform arrival cam
 ├── screenshot-night.png       # Night skyline
+├── screenshot-rain.png        # Rain / storm scene
 ├── screenshot-dusk.png        # Golden hour
 ├── screenshot-zone-a.png      # Khu Khot suburbs
 ├── screenshot-erawan.png      # Erawan elephant
@@ -304,7 +328,7 @@ bts-sukhumvit-line-3d/
 
 ## Verification
 
-The built-in harness runs at **`?selftest=1`** and reports **33/33 PASS** in headless Chrome.
+The built-in harness runs at **`?selftest=1`** and reports **36/36 PASS** in headless Chrome.
 
 Checks include:
 
@@ -319,7 +343,7 @@ Checks include:
 - Auto pilot engage/disengage, doors open/close and platform camera.
 - Zero uncaught runtime errors.
 
-Screenshots were captured at **1600 × 1000** desktop and **390 × 844** mobile from the running build with headless Chrome and SwiftShader WebGL.
+Screenshots were captured at **1600 × 1000** desktop and **390 × 844** mobile from the running build with headless Chrome and SwiftShader WebGL. Audio was verified silently with the master gain muted.
 
 ---
 
