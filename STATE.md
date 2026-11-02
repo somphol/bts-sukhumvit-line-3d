@@ -5,9 +5,9 @@
 | Project | BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator (`bts-sukhumvit-line-3d`) |
 | Session started | 2026-11-01 23:07:53 UTC |
 | Build started | 2026-11-01 23:14:10 UTC |
-| Packaged | 2026-11-02 03:13:05 UTC |
-| Build duration | **3h 58m 55s** (14,335 seconds) |
-| Full session duration | **4h 5m 12s** (14,712 seconds) |
+| Packaged | 2026-11-02 03:40:25 UTC |
+| Build duration | **4h 26m 15s** (15,975 seconds) |
+| Full session duration | **4h 32m 32s** (16,352 seconds) |
 | Harness | OpenCode 2.2.5 |
 | Model | DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`) |
 | Session | `ses_e66a17139ffeXGq2zj84mZEePL` |
@@ -18,15 +18,15 @@
 
 | Metric | Tokens |
 | --- | ---: |
-| Input | 2,073,548 |
-| Output | 226,287 |
-| Reasoning | 278,312 |
-| **Total (input + output + reasoning)** | **2,578,147** |
-| Cache read | 176,716,928 |
+| Input | 2,083,182 |
+| Output | 238,230 |
+| Reasoning | 302,929 |
+| **Total (input + output + reasoning)** | **2,624,341** |
+| Cache read | 195,063,168 |
 | Cache write | 1,467 |
-| Total including cache | 179,296,542 |
+| Total including cache | 197,688,976 |
 
-> Snapshot from the OpenCode session record at 2026-11-02 03:13:05 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
+> Snapshot from the OpenCode session record at 2026-11-02 03:40:25 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
 
 ## What was built
 
@@ -47,7 +47,10 @@ A complete, self-contained 3D Bangkok Skytrain simulator in three modular source
 - **Day / golden hour / night** — lit windows, neon signs, stars, headlights and a darker HUD at night.
 - **Rain / thunderstorm** — 3D rain, screen rain, wet glass, faster wipers, lightning, thunder and rain audio.
 - **Passenger exchange** — alighting and boarding passengers walk between train doors and platform.
-- **Audio mixer** — independent engine, announcement and music levels; PA voice and tourist commentary toggles.
+- **Audio mixer** — independent engine, announcement and music levels; PA voice and tourist commentary toggles; PA language selector.
+- **PA-first doors** — doors wait for the current announcement to finish; manual presses queue.
+- **Bundled Thai PA** — 145 Kanya-voice clips for next station, arrival, welcome and doors closing; English uses system TTS.
+- **Camera 3 default** — the free orbit camera starts active; press 1 for the driver cab.
 - **Mobile layout** — minimised telemetry, reflowed control dock and touch orbit at 390 × 844 with no horizontal overflow.
 - **Built-in self-test** — `?selftest=1`, 36/36 PASS.
 
@@ -68,8 +71,9 @@ Chatuchak Park & Market, Victory Monument, Siam Skywalk, Terminal 21 and the ASO
 | --- | ---: |
 | `index.html` | 20,443 bytes · 387 lines |
 | `style.css` | 56,640 bytes · 2,084 lines |
-| `script.js` | 211,288 bytes · 4,916 lines |
-| `README.md` | 18,357 bytes · 371 lines |
+| `script.js` | 212,428 bytes · 4,937 lines |
+| `README.md` | 18,733 bytes · 372 lines |
+| `audio/th/` | 145 files · 5.0 MB |
 | `screenshot.png` | 1.34 MB |
 | `screenshot-night.png` | 1.34 MB |
 | `screenshot-cab.png` | 1.28 MB |
@@ -94,4 +98,4 @@ Or use the live demo: <https://somphol.github.io/bts-sukhumvit-line-3d/>
 
 Built with **OpenCode 2.2.5** and **DeepSeek V4.1 Flash** (`opencode-go/deepseek-v4.1-flash`) in a single agent session. The game code, procedural city, 47 stations, train mesh, kinematics, bilingual HUD, minimap, audio synthesis, documentation and verification harness were generated for this project.
 
-Runtime libraries: [Three.js](https://threejs.org/) r128 (MIT) and [OrbitControls](https://threejs.org/) (MIT). Typefaces: **Orbitron**, **Rajdhani** and **Noto Sans Thai** from Google Fonts (SIL OFL 1.1). No image, texture, audio or 3D-model assets were used. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Runtime libraries: [Three.js](https://threejs.org/) r128 (MIT) and [OrbitControls](https://threejs.org/) (MIT). Typefaces: **Orbitron**, **Rajdhani** and **Noto Sans Thai** from Google Fonts (SIL OFL 1.1). Thai PA clips were generated locally with macOS **Kanya**; English PA uses the system voice. No third-party image, texture, 3D-model or music assets were used. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -1,29 +1,29 @@
 {
   "project": "bts-sukhumvit-line-3d",
   "title": "BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator",
-  "description": "A complete, self-contained interactive 3D Bangkok Skytrain simulator in vanilla HTML5/CSS3/ES6, rendered with Three.js r128 and OrbitControls. It models all 47 operational Sukhumvit Line stations from Khu Khot N24 to Kheha E23, four procedural city zones, elevated third-rail kinematics, a blue/white/red four-car BTS train with sliding doors and passenger exchange, an auto pilot, four cameras, a bilingual EN/TH transit HUD, bilingual PA announcements, an audio mixer and Web Audio synthesis, plus a rain/thunderstorm scene.",
+  "description": "A complete, self-contained interactive 3D Bangkok Skytrain simulator in vanilla HTML5/CSS3/ES6, rendered with Three.js r128 and OrbitControls. It models all 47 operational Sukhumvit Line stations from Khu Khot N24 to Kheha E23, four procedural city zones, elevated third-rail kinematics, a blue/white/red four-car BTS train with sliding doors and passenger exchange, an auto pilot, four cameras, a bilingual EN/TH transit HUD, PA-first door sequencing, 145 bundled Kanya-voice Thai PA clips with English system TTS, an audio mixer and Web Audio synthesis, plus a rain/thunderstorm scene.",
   "repository": "https://github.com/somphol/bts-sukhumvit-line-3d",
   "liveDemo": "https://somphol.github.io/bts-sukhumvit-line-3d/",
   "build": {
     "sessionStartedAt": "2026-11-01T23:07:53Z",
     "startedAt": "2026-11-01T23:14:10Z",
-    "packagedAt": "2026-11-02T03:13:05Z",
-    "durationSeconds": 14335,
-    "durationHuman": "3h 58m 55s",
-    "sessionDurationSeconds": 14712,
-    "sessionDurationHuman": "4h 5m 12s",
+    "packagedAt": "2026-11-02T03:40:25Z",
+    "durationSeconds": 15975,
+    "durationHuman": "4h 26m 15s",
+    "sessionDurationSeconds": 16352,
+    "sessionDurationHuman": "4h 32m 32s",
     "timezone": "UTC",
     "includes": "Initial Three.js foundation, route survey and viaduct, four-zone procedural city, 47 stations and platform furniture, Chatuchak, Victory Monument, Siam skywalk, Terminal 21, Benchasiri Park, Erawan elephant, Khu Khot depot, Kheha terminus, four-car blue/white/red BTS train with doors and interior, passenger boarding/alighting animation, bilingual telemetry HUD, minimap, station list, four cameras, auto pilot, door interlock, terminus reversal, quiet Web Audio traction, bilingual PA voice, transit music, audio mixer, rain/thunderstorm scene, time-of-day modes, mobile layout, 36-check self-test, documentation, screenshots and GitHub packaging."
   },
   "tokens": {
-    "input": 2073548,
-    "output": 226287,
-    "reasoning": 278312,
-    "cacheRead": 176716928,
+    "input": 2083182,
+    "output": 238230,
+    "reasoning": 302929,
+    "cacheRead": 195063168,
     "cacheWrite": 1467,
-    "total": 2578147,
-    "totalWithCache": 179296542,
-    "note": "Snapshot from the OpenCode session record at 2026-11-02T03:13:05Z. total = input + output + reasoning. Cache reads/writes are context-usage figures and are reported separately. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher."
+    "total": 2624341,
+    "totalWithCache": 197688976,
+    "note": "Snapshot from the OpenCode session record at 2026-11-02T03:40:25Z. total = input + output + reasoning. Cache reads/writes are context-usage figures and are reported separately. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher."
   },
   "cost": {
     "usd": 0.0,
@@ -43,15 +43,16 @@
   "stack": {
     "runtime": ["HTML5", "CSS3", "ES6 JavaScript"],
     "graphics": ["Three.js r128", "OrbitControls r128"],
-    "audio": ["Web Audio API synthesis"],
+    "audio": ["Web Audio API synthesis", "145 bundled Kanya-voice Thai PA clips", "System speech synthesis for English PA"],
     "storage": ["URL query parameters"],
     "fonts": ["Orbitron", "Rajdhani", "Noto Sans Thai"]
   },
   "files": [
     { "path": "index.html", "bytes": 20443, "lines": 387 },
     { "path": "style.css", "bytes": 56640, "lines": 2084 },
-    { "path": "script.js", "bytes": 211288, "lines": 4916 },
-    { "path": "README.md", "bytes": 18357, "lines": 371 }
+    { "path": "script.js", "bytes": 212428, "lines": 4937 },
+    { "path": "README.md", "bytes": 18733, "lines": 372 },
+    { "path": "audio/th", "files": 145, "bytes": 4928130 }
   ],
   "screenshots": [
     "screenshot.png",
@@ -84,6 +85,9 @@
     "Quiet high-frequency Web Audio traction whine, track thuds, door chime, PA chime, horn, brake squeal, city ambience, transit music, rain bed and thunder",
     "Bilingual Thai/English PA voice following the BTS pattern: next station, interchange, station-name arrival, right-side door warning, mind-the-gap, doors-closing and terminal announcements",
     "Station-specific nearby-place callouts for all 47 stations and the special Siam/Silom interchange announcement",
+    "145 bundled Kanya-voice Thai PA clips for next station, arrival, welcome and doors closing",
+    "PA-first door sequencing: doors wait for the current announcement to finish",
+    "Free orbit camera 3 as the default view",
     "Three-beep door-closing warning",
     "Audio mixer with independent engine, announcement and music levels plus PA voice and tourist-info toggles",
     "Passenger exchange animation: alighting and boarding passengers walk between train doors and platform",
@@ -117,6 +121,6 @@
     "builtWith": "OpenCode 2.2.5 + DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash)",
     "author": "Somphol Boonjing",
     "license": "MIT",
-    "thirdParty": "Three.js r128 (MIT), OrbitControls r128 (MIT), Orbitron / Rajdhani / Noto Sans Thai (SIL OFL 1.1)"
+    "thirdParty": "Three.js r128 (MIT), OrbitControls r128 (MIT), Orbitron / Rajdhani / Noto Sans Thai (SIL OFL 1.1). Thai PA clips generated locally with macOS Kanya."
   }
 }

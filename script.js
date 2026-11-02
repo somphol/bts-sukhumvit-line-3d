@@ -403,6 +403,7 @@
     speechBusy: false,
     pendingDoorAction: null,
     doorsClosingPending: false,
+    thaiAudio: null,
     lastSpeech: '',
     firstAnnouncement: false,
     rain: false,
@@ -610,7 +611,7 @@
     state.started = true;
     dom.intro.classList.add('is-hidden');
     controls.autoRotate = false;
-    setView(1, true);
+    setView(3, true);
     ensureAudio();
     state.firstAnnouncement = true;
     setAuto(true, true);
@@ -3389,7 +3390,39 @@
     return voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(prefix)) || null;
   }
 
-  function speakAnnouncement(thText, enText, onDone) {
+  function playThaiClip(key, onEnd, onFail) {
+    if (!key) { onFail(); return; }
+    if (state.muted || state.paVolume <= 0.01) { onEnd(); return; }
+    const el = new Audio('audio/th/' + key + '.m4a');
+    el.preload = 'auto';
+    el.volume = state.paVolume;
+    state.thaiAudio = el;
+    let finished = false;
+    const finish = (ok) => {
+      if (finished) return;
+      finished = true;
+      if (state.thaiAudio === el) state.thaiAudio = null;
+      if (ok) onEnd(); else onFail();
+    };
+    el.onended = () => finish(true);
+    el.onerror = () => finish(false);
+    const play = el.play();
+    if (play && play.catch) play.catch(() => finish(false));
+    setTimeout(() => { if (!finished && !el.ended) finish(false); }, 40000);
+  }
+
+  function makeSpeech(text, lang, rate) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    const voice = pickSpeechVoice(lang.startsWith('th') ? 'th' : 'en');
+    if (voice) u.voice = voice;
+    u.rate = rate;
+    u.pitch = 1.0;
+    u.volume = state.paVolume;
+    return u;
+  }
+
+  function speakAnnouncement(thText, enText, onDone, thaiKey) {
     const flushPendingDoor = () => {
       const action = state.pendingDoorAction;
       state.pendingDoorAction = null;
@@ -3413,10 +3446,11 @@
     }
     const synth = window.speechSynthesis;
     if (state.speechTimer) clearTimeout(state.speechTimer);
-    synth.cancel();
+    if (synth.speaking || synth.pending) synth.cancel();
     const token = ++state.speechToken;
     state.speechBusy = true;
     state.lastSpeech = thText + ' / ' + enText;
+
     state.speechTimer = setTimeout(() => {
       if (token !== state.speechToken) return;
       if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) {
@@ -3424,60 +3458,42 @@
         return;
       }
 
-      const th = new SpeechSynthesisUtterance(thText);
-      th.lang = 'th-TH';
-      const thVoice = pickSpeechVoice('th');
-      if (thVoice) th.voice = thVoice;
-      th.rate = 0.9;
-      th.pitch = 1.0;
-      th.volume = state.paVolume;
-
-      const en = new SpeechSynthesisUtterance(enText);
-      en.lang = 'en-GB';
-      const enVoice = pickSpeechVoice('en');
-      if (enVoice) en.voice = enVoice;
-      en.rate = 0.94;
-      en.pitch = 1.0;
-      en.volume = state.paVolume;
-
       const done = () => {
         if (token !== state.speechToken) return;
         finish();
       };
-      if (state.paLang === 'th') {
-        th.onend = done;
-        th.onerror = done;
-        synth.speak(th);
-        return;
-      }
-      if (state.paLang === 'en') {
-        en.onend = done;
-        en.onerror = done;
-        synth.speak(en);
-        return;
-      }
-
-      let englishSpoken = false;
       const speakEnglish = () => {
-        if (englishSpoken || token !== state.speechToken) return;
-        englishSpoken = true;
+        if (token !== state.speechToken) return;
         if (!state.voiceEnabled || state.muted) { done(); return; }
+        const en = makeSpeech(enText, 'en-GB', 0.94);
         en.onend = done;
         en.onerror = done;
         synth.speak(en);
       };
-      th.onend = speakEnglish;
-      th.onerror = speakEnglish;
-      synth.speak(th);
-      // Safety net for browsers that never fire onend for a missing Thai voice.
-      setTimeout(() => {
+
+      if (state.paLang === 'en') {
+        speakEnglish();
+        return;
+      }
+
+      const afterThai = () => {
         if (token !== state.speechToken) return;
-        if (!synth.speaking && !synth.pending) {
-          if (!englishSpoken) speakEnglish();
-          else done();
-        }
-      }, 7000);
-    }, 720);
+        if (state.paLang === 'th') { finish(); return; }
+        speakEnglish();
+      };
+
+      const fallbackThaiTTS = () => {
+        if (token !== state.speechToken) return;
+        if (!state.voiceEnabled || state.muted) { afterThai(); return; }
+        const th = makeSpeech(thText, 'th-TH', 0.9);
+        th.onend = afterThai;
+        th.onerror = afterThai;
+        synth.speak(th);
+      };
+
+      if (thaiKey) playThaiClip(thaiKey, afterThai, fallbackThaiTTS);
+      else fallbackThaiTTS();
+    }, 900);
   }
 
   function stationAnnouncement(st, arrival) {
@@ -3633,6 +3649,7 @@
     state.pendingDoorAction = null;
     state.doorsClosingPending = false;
     if (window.speechSynthesis) { state.speechToken++; window.speechSynthesis.cancel(); }
+    if (state.thaiAudio) { state.thaiAudio.pause(); state.thaiAudio = null; }
     state.currentIndex = index;
     state.direction = index === STATIONS.length - 1 ? -1 : 1;
     state.nextIndex = findNextIndex();
@@ -3759,7 +3776,7 @@
     if (auto) state.autoState = 'closingAnnounce';
     speakAnnouncement('โปรดระวัง ประตูรถกำลังจะปิด', 'Please stand clear of the doors.', () => {
       performCloseDoors(auto);
-    });
+    }, 'doors-close');
     return true;
   }
 
@@ -4375,7 +4392,9 @@
     if (state.started) {
       playPAChime();
       const line = stationAnnouncement(next, false);
-      speakAnnouncement(line.th, line.en);
+      const welcomeKey = state.firstAnnouncement && (next.code === 'N23' || next.code === 'E22');
+      const key = welcomeKey ? 'next-' + next.code + '-welcome' : (state.touristInfo ? 'next-' + next.code : 'next-' + next.code + '-brief');
+      speakAnnouncement(line.th, line.en, null, key);
       state.firstAnnouncement = false;
     }
   }
@@ -4392,7 +4411,7 @@
     if (state.started) {
       playPAChime();
       const line = stationAnnouncement(st, true);
-      speakAnnouncement(line.th, line.en);
+      speakAnnouncement(line.th, line.en, null, 'arr-' + st.code);
     }
     // Keep the arrival banner until the next station announcement after departure.
     // The old 5.2 s revert cancelled long Thai/English arrival announcements.
@@ -4518,6 +4537,7 @@
     state.muted = !state.muted;
     if (audio) audio.setMuted(state.muted);
     if (state.muted) {
+      if (state.thaiAudio) { state.thaiAudio.pause(); state.thaiAudio = null; }
       if (state.speechOnDone) {
         const done = state.speechOnDone;
         state.speechOnDone = null;
@@ -4587,6 +4607,7 @@
     dom.paVol.addEventListener('input', (e) => {
       state.paVolume = clamp(Number(e.target.value) / 100, 0, 1);
       if (audio) audio.setAnnounceVolume(state.paVolume);
+      if (state.thaiAudio) state.thaiAudio.volume = state.paVolume;
       if (state.paVolume <= 0.01 && window.speechSynthesis) window.speechSynthesis.cancel();
       updateAudioMixerUI();
       saveAudioSettings();
@@ -4630,7 +4651,7 @@
     dom.testPA.addEventListener('click', () => {
       ensureAudio();
       playPAChime();
-      speakAnnouncement('สถานีต่อไป สยาม สถานที่ใกล้เคียง สกายวอล์คสยาม', 'Next station, Siam. Nearby: Siam Skywalk and Paragon.');
+      speakAnnouncement('สถานีต่อไป สยาม สถานที่ใกล้เคียง สกายวอล์คสยาม', 'Next station, Siam. Nearby: Siam Skywalk and Paragon.', null, 'test');
     });
     dom.helpBtn.addEventListener('click', openHelp);
     dom.helpClose.addEventListener('click', closeHelp);

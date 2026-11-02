@@ -19,7 +19,7 @@ Drive a four-car Bangkok Skytrain along all **47 operational stations** of the S
 
 ---
 
-BTS Sukhumvit Line 3D is a complete, self-contained 3D browser simulator built with **vanilla HTML5, CSS3 and ES6 JavaScript**, rendered with **Three.js r128** and **OrbitControls**. There is no build step, no framework and no asset bundle. Every skyscraper, shop house, station, train car, sign, tree, passenger, texture and sound is generated in the browser.
+BTS Sukhumvit Line 3D is a complete, self-contained 3D browser simulator built with **vanilla HTML5, CSS3 and ES6 JavaScript**, rendered with **Three.js r128** and **OrbitControls**. There is no build step, no framework and no asset bundle. Every skyscraper, shop house, station, train car, sign, tree, passenger and English voice is generated in the browser; the Thai PA uses 145 bundled Kanya-voice clips under `audio/th/`.
 
 The whole thing runs from three source files — `index.html`, `style.css` and `script.js`.
 
@@ -54,7 +54,7 @@ The whole thing runs from three source files — `index.html`, `style.css` and `
 
 ## The sim
 
-You board a **four-car BTS train** at either terminus — Khu Khot (N24) or Kheha (E23) — with auto pilot on by default and a one-click **TAKE MANUAL** takeover, then take control of an elevated third-rail railway. The route is a continuous, gently curving viaduct with two running rails, a glowing third rail, concrete piers, parapets, ballastless track, track-side signals and 47 side-platform stations with canopies, name boards, benches, lifts and waiting passengers.
+You board a **four-car BTS train** at either terminus — Khu Khot (N24) or Kheha (E23) — with auto pilot on by default and a one-click **TAKE MANUAL** takeover, then take control of an elevated third-rail railway. The free orbit camera (3) is the default view; press 1 for the driver cab. The route is a continuous, gently curving viaduct with two running rails, a glowing third rail, concrete piers, parapets, ballastless track, track-side signals and 47 side-platform stations with canopies, name boards, benches, lifts and waiting passengers.
 
 The simulation keeps the **real station order, codes, Thai names, zone character and interchange information**, while compressing the 50+ km alignment into a playable route and scaling displayed distances. **N6 Sena Ruam**, an unopened infill station, is intentionally not included, which is why the operational count is 47.
 
@@ -176,7 +176,7 @@ The HUD is a crisp transit overlay in BTS light green, dark green and gold.
 
 ## Audio
 
-All audio is generated with the **Web Audio API**; there are no sound files.
+Most audio is synthesized with the **Web Audio API**. English PA uses the system speech voice; Thai PA uses 145 bundled **Kanya**-voice clips under `audio/th/` (about 5 MB).
 
 - Quiet high-frequency electric traction whine tied to speed, with no low-frequency drone.
 - Track-joint thuds at regular distance intervals.
@@ -252,7 +252,7 @@ Toggle the rain with the cloud button or `K`.
 - 900 animated 3D rain streaks around the train, plus a screen-space rain overlay.
 - Dark storm sky, reduced sun, heavier fog, wet-looking glass and faster cab wipers.
 - Random lightning flashes with synthesized thunder.
-- Rain bed synthesized with filtered noise; no audio files.
+- Rain bed synthesized with filtered noise.
 - Works with any time of day, including a night storm.
 
 <div align="center">
@@ -317,6 +317,7 @@ bts-sukhumvit-line-3d/
 ├── screenshot-erawan.png      # Erawan elephant
 ├── screenshot-intro.png       # Intro / splash
 ├── screenshot-mobile.png      # Mobile layout
+├── audio/th/                  # 145 Kanya-voice Thai PA clips
 ├── STATE.md                   # Build duration and token usage
 ├── state.json                 # Machine-readable build state
 ├── THIRD_PARTY_NOTICES.md
@@ -358,7 +359,7 @@ Screenshots were captured at **1600 × 1000** desktop and **390 × 844** mobile 
 - Game design, procedural city, 47 stations, train mesh, kinematics, auto pilot, bilingual HUD, minimap, audio synthesis, documentation and verification harness: generated for this project.
 - **Three.js r128** and **OrbitControls** — MIT.
 - **Orbitron**, **Rajdhani** and **Noto Sans Thai** — SIL Open Font License 1.1.
-- No image, texture, audio or 3D-model assets were used. Every visual and sound is generated in the browser.
+- No third-party image, texture, 3D-model or music assets. Thai PA clips were generated locally with macOS Kanya; English PA uses the system voice; everything else is synthesized in the browser.
 
 Author: **Somphol Boonjing**
 

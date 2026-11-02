@@ -1,8 +1,10 @@
 # Third-Party Notices
 
-BTS Sukhumvit Line 3D is self-contained: it does not ship any third-party image,
-audio, texture or 3D-model assets. The following runtime libraries and typefaces
-are loaded from public CDNs.
+BTS Sukhumvit Line 3D does not ship any third-party image, texture or 3D-model
+assets. It includes 145 Thai PA clips generated locally with the macOS **Kanya**
+voice; these are original generated recordings, not third-party audio files.
+English PA uses the browser/system speech voice. The following runtime libraries
+and typefaces are loaded from public CDNs.
 
 ## Runtime libraries
 
