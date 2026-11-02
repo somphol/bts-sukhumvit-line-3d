@@ -5,9 +5,9 @@
 | Project | BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator (`bts-sukhumvit-line-3d`) |
 | Session started | 2026-11-01 23:07:53 UTC |
 | Build started | 2026-11-01 23:14:10 UTC |
-| Packaged | 2026-11-02 05:57:11 UTC |
-| Build duration | **6h 43m 1s** (24,181 seconds) |
-| Full session duration | **6h 49m 18s** (24,558 seconds) |
+| Packaged | 2026-11-02 07:58:54 UTC |
+| Build duration | **8h 44m 44s** (31,484 seconds) |
+| Full session duration | **8h 51m 1s** (31,861 seconds) |
 | Harness | OpenCode 2.2.5 |
 | Model | DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`) |
 | Session | `ses_e66a17139ffeXGq2zj84mZEePL` |
@@ -18,15 +18,15 @@
 
 | Metric | Tokens |
 | --- | ---: |
-| Input | 3,627,735 |
-| Output | 279,239 |
-| Reasoning | 333,550 |
-| **Total (input + output + reasoning)** | **4,240,524** |
-| Cache read | 281,038,976 |
+| Input | 3,971,988 |
+| Output | 300,230 |
+| Reasoning | 367,938 |
+| **Total (input + output + reasoning)** | **4,640,156** |
+| Cache read | 302,345,088 |
 | Cache write | 1,467 |
-| Total including cache | 285,280,967 |
+| Total including cache | 306,986,711 |
 
-> Snapshot from the OpenCode session record at 2026-11-02 05:57:11 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
+> Snapshot from the OpenCode session record at 2026-11-02 07:58:54 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
 
 ## What was built
 
@@ -53,6 +53,7 @@ A complete, self-contained 3D Bangkok Skytrain simulator in three modular source
 - **Station information card** — zone, interchange, nearby landmark, Google Maps link and Jump Train Here.
 - **Camera 3 default** — the free orbit camera starts active; press 1 for the driver cab.
 - **Mobile layout** — minimised telemetry, reflowed control dock and touch orbit at 390 × 844 with no horizontal overflow.
+- **Depth-stable platform edge** — logarithmic depth buffer, 9 cm platform/deck clearance and embedded canopy-post bases remove the z-fighting patch under the leftmost post.
 - **Built-in self-test** — `?selftest=1`, 36/36 PASS.
 
 ### Landmarks
@@ -72,18 +73,18 @@ Chatuchak Park & Market, Victory Monument, Siam Skywalk, Terminal 21 and the ASO
 | --- | ---: |
 | `index.html` | 22,388 bytes · 421 lines |
 | `style.css` | 59,412 bytes · 2,210 lines |
-| `script.js` | 215,413 bytes · 4,976 lines |
+| `script.js` | 215,871 bytes · 4,983 lines |
 | `README.md` | 18,910 bytes · 373 lines |
 | `audio/th/` | 145 files · 5.0 MB |
-| `screenshot.png` | 1.34 MB |
-| `screenshot-night.png` | 1.34 MB |
-| `screenshot-cab.png` | 1.28 MB |
-| `screenshot-platform.png` | 1.43 MB |
-| `screenshot-zone-a.png` | 1.27 MB |
-| `screenshot-erawan.png` | 1.29 MB |
-| `screenshot-dusk.png` | 1.36 MB |
-| `screenshot-intro.png` | 936 KB |
-| `screenshot-mobile.png` | 1.04 MB |
+| `screenshot.png` | 1.28 MB |
+| `screenshot-night.png` | 1.28 MB |
+| `screenshot-cab.png` | 1.22 MB |
+| `screenshot-platform.png` | 1.33 MB |
+| `screenshot-zone-a.png` | 1.29 MB |
+| `screenshot-erawan.png` | 1.32 MB |
+| `screenshot-dusk.png` | 1.35 MB |
+| `screenshot-intro.png` | 956 KB |
+| `screenshot-mobile.png` | 990 KB |
 
 ## How to run
 

@@ -12,7 +12,7 @@
      Constants
      ------------------------------------------------------------------------ */
 
-  const VERSION = '1.4.4';
+  const VERSION = '1.4.7';
   const APP_NAME = 'BTS Sukhumvit Line 3D';
   const WORLD_PER_M = 0.25;             // world units per displayed metre
   const TRACK_Y = 5.2;                  // viaduct deck / rail height
@@ -649,7 +649,8 @@
       canvas,
       antialias: true,
       powerPreference: 'high-performance',
-      alpha: false
+      alpha: false,
+      logarithmicDepthBuffer: true
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -997,6 +998,15 @@
       walk.material.needsUpdate = true;
       scene.add(walk);
     }
+
+    // Dark underlay: if the asphalt ever loses a depth test, it exposes more
+    // asphalt rather than the green ground plane far below.
+    const roadBase = makeRibbon(15.4, 0.12, 0x1b201e, 1);
+    roadBase.name = 'RoadUnderlay';
+    roadBase.material.polygonOffset = true;
+    roadBase.material.polygonOffsetFactor = 1;
+    roadBase.material.polygonOffsetUnits = 1;
+    scene.add(roadBase);
 
     const road = makeRibbon(15, 0.28, 0xffffff, 1);
     road.name = 'SukhumvitRoad';
@@ -1790,17 +1800,17 @@
   }
 
   function buildStations() {
-    const platformGeo = new THREE.BoxGeometry(2.8, 0.32, 34);
+    const platformGeo = new THREE.BoxGeometry(2.8, 0.16, 34);
     const platformMat = new THREE.MeshLambertMaterial({ color: 0x8f9184 });
-    const tactileGeo = new THREE.BoxGeometry(0.28, 0.07, 34);
+    const tactileGeo = new THREE.BoxGeometry(0.28, 0.06, 34);
     const tactileMat = new THREE.MeshLambertMaterial({ color: 0xf2c94c, emissive: 0x4a3b00, emissiveIntensity: 0.35 });
     const canopySlatGeo = new THREE.BoxGeometry(3.6, 0.14, 3.0);
     const canopyMat = new THREE.MeshLambertMaterial({ color: 0x3a423e, emissive: 0x07150d, emissiveIntensity: 0.1 });
-    const columnGeo = new THREE.CylinderGeometry(0.11, 0.14, 3.9, 6);
+    const columnGeo = new THREE.CylinderGeometry(0.11, 0.14, 4.0, 6);
     const columnMat = new THREE.MeshLambertMaterial({ color: 0x8d9b90 });
     const benchGeo = new THREE.BoxGeometry(0.55, 0.09, 1.9);
     const benchMat = new THREE.MeshLambertMaterial({ color: 0x6f7d72 });
-    const lampPoleGeo = new THREE.CylinderGeometry(0.06, 0.08, 3.4, 5);
+    const lampPoleGeo = new THREE.CylinderGeometry(0.06, 0.08, 3.45, 5);
     const lampMat = new THREE.MeshLambertMaterial({ color: 0x59635c });
     const lampGlowGeo = new THREE.SphereGeometry(0.11, 6, 4);
     const lampGlowMat = new THREE.MeshBasicMaterial({ color: 0xffe6a3 });
@@ -1812,18 +1822,19 @@
     STATIONS.forEach((st, si) => {
       const group = new THREE.Group();
       group.name = 'Station_' + st.code;
-      group.position.copy(stationPositions[si]);
+      // Stations belong at viaduct level, not on the road below.
+      group.position.set(stationPositions[si].x, TRACK_Y, stationPositions[si].z);
       group.quaternion.setFromUnitVectors(FORWARD_Z, stationTangents[si]);
       const signTex = makeStationSign(st);
       const signMat = new THREE.MeshBasicMaterial({ map: signTex, side: THREE.FrontSide });
 
       for (const side of [-1, 1]) {
         const platform = new THREE.Mesh(platformGeo, platformMat);
-        platform.position.set(side * 3.72, 0.05, 0);
+        platform.position.set(side * 3.72, 0.17, 0);
         group.add(platform);
 
         const tactile = new THREE.Mesh(tactileGeo, tactileMat);
-        tactile.position.set(side * 2.56, 0.25, 0);
+        tactile.position.set(side * 2.56, 0.275, 0);
         group.add(tactile);
 
         // Slatted canopy: gaps keep the platform and road visible underneath
@@ -1850,7 +1861,7 @@
             new THREE.BoxGeometry(0.18, 0.2, 34),
             new THREE.MeshBasicMaterial({ color: ix.color })
           );
-          stripe.position.set(side * 5.3, 3.72, 0);
+          stripe.position.set(side * 5.3, 3.67, 0);
           group.add(stripe);
         }
 
@@ -1867,24 +1878,24 @@
 
         for (const z of [-13.5, 0, 13.5]) {
           const col = new THREE.Mesh(columnGeo, columnMat);
-          col.position.set(side * 4.9, 2.08, z);
+          col.position.set(side * 4.9, 2.15, z);
           group.add(col);
         }
         for (const z of [-12, 12]) {
           const pole = new THREE.Mesh(lampPoleGeo, lampMat);
-          pole.position.set(side * 4.86, 1.7, z);
+          pole.position.set(side * 4.86, 1.925, z);
           group.add(pole);
           const glow = new THREE.Mesh(lampGlowGeo, lampGlowMat);
-          glow.position.set(side * 4.86, 3.42, z);
+          glow.position.set(side * 4.86, 3.67, z);
           group.add(glow);
         }
         for (const z of [-6, 6]) {
           const bench = new THREE.Mesh(benchGeo, benchMat);
-          bench.position.set(side * 4.3, 0.64, z);
+          bench.position.set(side * 4.3, 0.72, z);
           group.add(bench);
           for (const dz of [-0.65, 0.65]) {
-            const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.42, 0.08), benchMat);
-            leg.position.set(side * 4.3, 0.43, z + dz);
+            const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.44, 0.08), benchMat);
+            leg.position.set(side * 4.3, 0.45, z + dz);
             group.add(leg);
           }
         }
@@ -1894,7 +1905,7 @@
         shaft.position.set(side * 6.4, -2.35, 12.5);
         group.add(shaft);
         const shaftRoof = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.25, 5.6), canopyMat);
-        shaftRoof.position.set(side * 6.4, 0.2, 12.5);
+        shaftRoof.position.set(side * 6.4, 0.35, 12.5);
         group.add(shaftRoof);
         const liftCore = new THREE.Mesh(new THREE.BoxGeometry(1.2, 4.4, 1.2), columnMat);
         liftCore.position.set(side * 6.4, -2.4, 12.5);
@@ -1917,7 +1928,7 @@
           peds.push({
             x: stationPositions[si].x + stationNormal(si).x * lx + stationTangents[si].x * lz,
             z: stationPositions[si].z + stationNormal(si).z * lx + stationTangents[si].z * lz,
-            y: TRACK_Y + 0.56,
+            y: TRACK_Y + 0.59,
             color: pick([0xe8e2d2, 0x2d4f6e, 0xb84a4a, 0x4d7c62, 0xd9b15e, 0x7a6a9a, 0xe2e8e4, 0x3b3f44]),
             scale: rand(0.88, 1.08)
           });
@@ -1926,9 +1937,9 @@
 
       // Track-side signal head.
       const signalGroup = new THREE.Group();
-      signalGroup.position.set(2.92, 0.55, -16.9);
-      const signalPole = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.07, 1.5, 5), columnMat);
-      signalPole.position.y = 0.75;
+      signalGroup.position.set(2.92, 0.25, -16.9);
+      const signalPole = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.07, 1.56, 5), columnMat);
+      signalPole.position.y = 0.72;
       signalGroup.add(signalPole);
       const head = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.82, 0.24), new THREE.MeshLambertMaterial({ color: 0x20251f }));
       head.position.y = 1.62;
@@ -1950,11 +1961,11 @@
       stationSignals[si] = { redMat, amberMat, greenMat };
 
       // A slim station clock / camera pole at the far end.
-      const cameraPole = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 2.6, 5), columnMat);
-      cameraPole.position.set(-4.9, 1.3, 16.2);
+      const cameraPole = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 2.66, 5), columnMat);
+      cameraPole.position.set(-4.9, 1.52, 16.2);
       group.add(cameraPole);
       const cameraBox = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.2, 0.45), new THREE.MeshLambertMaterial({ color: 0x2a302d }));
-      cameraBox.position.set(-4.9, 2.55, 16.0);
+      cameraBox.position.set(-4.9, 2.8, 16.0);
       group.add(cameraBox);
 
       scene.add(group);
@@ -2840,14 +2851,14 @@
       const car = cars[c];
       for (const z0 of [-1.15, 1.15]) {
         const door = car.localToWorld(new THREE.Vector3(doorX, 0, z0));
-        door.y = TRACK_Y + 0.24;
+        door.y = TRACK_Y + 0.25;
         const platform = car.localToWorld(new THREE.Vector3(platformX, 0, z0 + rand(-1.4, 1.4)));
-        platform.y = TRACK_Y + 0.24;
+        platform.y = TRACK_Y + 0.25;
         // Alighting passenger walks from the door to the platform.
         spawnPedestrian(door, platform, rand(1.5, 2.2));
         // Boarding passenger walks from the platform into the train.
         const platform2 = car.localToWorld(new THREE.Vector3(platformX + rand(0.2, 1.2), 0, z0 + rand(-1.2, 1.2)));
-        platform2.y = TRACK_Y + 0.24;
+        platform2.y = TRACK_Y + 0.25;
         spawnPedestrian(platform2, door, rand(1.6, 2.4));
       }
     }
@@ -4118,11 +4129,7 @@
         p.z + n.z * 4.6 + tan.z * ahead
       );
       camera.position.lerp(targetPos, 1 - Math.exp(-4.2 * dt));
-      const look = new THREE.Vector3(
-        p.x - tan.x * 60 * state.direction,
-        TRACK_Y + 1.15,
-        p.z - tan.z * 60 * state.direction
-      );
+      const look = lead.position.clone().add(new THREE.Vector3(0, 1.25, 0));
       camera.lookAt(look);
       const dist = Math.abs(STATIONS[si].chainage - state.distance);
       setCameraFov(clamp(66 - dist * 0.018, 40, 66), dt);
