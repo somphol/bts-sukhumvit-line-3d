@@ -148,9 +148,9 @@
     en: {
       introCopy: 'Climb into the cab of a four-car Bangkok Skytrain. Drive 47 elevated stations from Khu Khot to Kheha through shop-house suburbs, the Siam skyscraper canyon, Sukhumvit neon and the southern delta.',
       stations: 'STATIONS', zones: 'CITY ZONES', cameras: 'CAMERAS', railPower: 'RAIL POWER',
-      boardSiam: 'BOARD AT SIAM', startKhuKhot: 'START AT KHU KHOT',
+      boardSiam: 'BOARD AT SIAM', startKhuKhot: 'START AT KHU KHOT', startKheha: 'START AT KHEHA',
       builtWith: 'Built with OpenCode + DeepSeek V4.1 Flash',
-      introHint: 'Best with headphones · WASD / arrows to drive · 1–4 cameras',
+      introHint: 'Auto pilot is on by default · take manual control anytime · 1–4 cameras',
       brandSub: 'Bangkok Skytrain · Driver Simulator',
       nextStation: 'NEXT STATION', liveTelemetry: 'LIVE TELEMETRY', kmh: 'KM/H',
       manual: 'MANUAL', auto: 'AUTO PILOT', doorsClosed: 'DOORS CLOSED', doorsOpen: 'DOORS OPEN',
@@ -163,7 +163,7 @@
       platformView: 'PLATFORM', nextStop: 'NEXT STOP',
       helpTitle: 'How to drive the Sukhumvit Line', controls: 'CONTROLS',
       helpThrottle: 'Increase throttle', helpBrake: 'Service brake / reduce speed',
-      helpEmergency: 'Emergency brake', helpAuto: 'Auto pilot on / off',
+      helpEmergency: 'Emergency brake', helpAuto: 'Auto pilot on / off (on by default; move throttle to take over)',
       helpDoors: 'Open / close doors at a platform', helpHorn: 'Horn',
       helpCameras: 'Cab / window / orbit / platform camera', helpLang: 'English ⇄ ไทย',
       helpMute: 'Mute / unmute', helpFullscreen: 'Fullscreen', helpReverse: 'Reverse direction at a terminus', helpRain: 'Rain / storm',
@@ -177,6 +177,9 @@
       creditsTitle: 'CREDITS',
       creditsBody: 'Built with OpenCode 2.2.5 and DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash). Three.js r128 + OrbitControls (MIT). No image, audio or model assets: every building, train, sign and sound is generated in the browser.',
       close: 'CLOSE',
+      autoHint: 'AUTO PILOT ACTIVE · Move the throttle or press A to drive manually',
+      paLanguage: 'PA LANGUAGE', thaiVoice: 'Thai voice: {name}', thaiVoiceMissing: 'No Thai voice found — install a Thai system voice for Thai PA.',
+      takeManual: 'TAKE MANUAL', autoDefaultHint: 'Auto pilot is on by default. Take manual control anytime.',
       audioMixer: 'AUDIO MIXER', engineSound: 'ENGINE', announcements: 'ANNOUNCEMENTS', music: 'MUSIC',
       musicOn: 'MUSIC ON', musicOff: 'MUSIC OFF', musicOnToast: 'Transit music enabled.', musicOffToast: 'Transit music muted.',
       testPA: 'TEST PA', mixerHint: 'Bilingual Thai / English station announcements. Lower the engine to hear the PA clearly.',
@@ -201,9 +204,9 @@
     th: {
       introCopy: 'ขึ้นห้องคนขับรถไฟลอยฟ้า BTS สี่ตู้ วิ่ง 47 สถานีจากคูคตถึงเคหะฯ ผ่านชานเมืองร้านแถว ตึกระฟ้าสยาม ย่านสุขุมวิทนีออน และที่ราบปากน้ำ',
       stations: 'สถานี', zones: 'โซนเมือง', cameras: 'กล้อง', railPower: 'รางที่สาม',
-      boardSiam: 'ขึ้นรถที่สยาม', startKhuKhot: 'เริ่มที่คูคต',
+      boardSiam: 'ขึ้นรถที่สยาม', startKhuKhot: 'เริ่มที่คูคต', startKheha: 'เริ่มที่เคหะฯ',
       builtWith: 'สร้างด้วย OpenCode + DeepSeek V4.1 Flash',
-      introHint: 'แนะนำใส่หูฟัง · WASD / ลูกศร ขับรถ · ปุ่ม 1–4 กล้อง',
+      introHint: 'ค่าเริ่มต้นเป็นโหมดอัตโนมัติ · ขับเองได้ทุกเมื่อ · ปุ่ม 1–4 กล้อง',
       brandSub: 'รถไฟฟ้าบีทีเอส · โปรแกรมขับรถไฟ',
       nextStation: 'สถานีต่อไป', liveTelemetry: 'ข้อมูลสด', kmh: 'กม./ชม.',
       manual: 'ขับเอง', auto: 'อัตโนมัติ', doorsClosed: 'ประตูปิด', doorsOpen: 'ประตูเปิด',
@@ -216,7 +219,7 @@
       platformView: 'ชานชาลา', nextStop: 'สถานีถัดไป',
       helpTitle: 'วิธีขับรถไฟฟ้าสายสุขุมวิท', controls: 'ปุ่มควบคุม',
       helpThrottle: 'เพิ่มความเร็ว', helpBrake: 'เบรกบริการ / ลดความเร็ว',
-      helpEmergency: 'เบรกฉุกเฉิน', helpAuto: 'เปิด / ปิดโหมดอัตโนมัติ',
+      helpEmergency: 'เบรกฉุกเฉิน', helpAuto: 'เปิด / ปิดโหมดอัตโนมัติ (ค่าเริ่มต้นเปิด ขยับคันเร่งเพื่อขับเอง)',
       helpDoors: 'เปิด / ปิดประตูที่ชานชาลา', helpHorn: 'แตร',
       helpCameras: 'กล้องคนขับ / หน้าต่าง / รอบนอก / ชานชาลา', helpLang: 'English ⇄ ไทย',
       helpMute: 'ปิด / เปิดเสียง', helpFullscreen: 'เต็มจอ', helpReverse: 'กลับทิศทางที่สถานีปลายทาง', helpRain: 'ฝน / พายุ',
@@ -230,6 +233,9 @@
       creditsTitle: 'เครดิต',
       creditsBody: 'สร้างด้วย OpenCode 2.2.5 และ DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash) ใช้ Three.js r128 + OrbitControls (MIT) ไม่มีไฟล์ภาพ เสียง หรือโมเดลสำเร็จรูป ทุกอาคาร รถไฟ ป้าย และเสียงสร้างในเบราว์เซอร์',
       close: 'ปิด',
+      autoHint: 'อัตโนมัติกำลังขับ · ขยับคันเร่งหรือกด A เพื่อขับเอง',
+      paLanguage: 'ภาษาประกาศ', thaiVoice: 'เสียงไทย: {name}', thaiVoiceMissing: 'ไม่พบเสียงภาษาไทย — ติดตั้งเสียงไทยในระบบเพื่อฟังประกาศภาษาไทย',
+      takeManual: 'ขับเอง', autoDefaultHint: 'ค่าเริ่มต้นเป็นโหมดอัตโนมัติ สามารถขับเองได้ทุกเมื่อ',
       audioMixer: 'มิกซ์เสียง', engineSound: 'เสียงเครื่องยนต์', announcements: 'เสียงประกาศ', music: 'เพลงบรรเลง',
       musicOn: 'เพลงเปิด', musicOff: 'เพลงปิด', musicOnToast: 'เปิดเพลงบรรเลงแล้ว', musicOffToast: 'ปิดเพลงบรรเลงแล้ว',
       testPA: 'ทดสอบประกาศ', mixerHint: 'ประกาศสถานีสองภาษา ไทย / อังกฤษ ลดเสียงเครื่องยนต์เพื่อฟังประกาศให้ชัด',
@@ -328,15 +334,15 @@
           : 'rgba(0,0,0,' + (0.02 + Math.random() * 0.08).toFixed(3) + ')';
         ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
       }
-      ctx.fillStyle = 'rgba(225,225,205,0.62)';
+      ctx.fillStyle = 'rgba(225,225,205,0.48)';
       ctx.fillRect(8, 0, 5, h);
       ctx.fillRect(w - 13, 0, 5, h);
-      ctx.fillStyle = 'rgba(230,198,88,0.72)';
+      ctx.fillStyle = 'rgba(230,198,88,0.56)';
       ctx.fillRect(w / 2 - 7, 0, 4, h);
       ctx.fillRect(w / 2 + 3, 0, 4, h);
       for (const x of [w * 0.25, w * 0.75]) {
         for (let y = 0; y < h; y += 52) {
-          ctx.fillStyle = 'rgba(225,225,210,0.5)';
+          ctx.fillStyle = 'rgba(225,225,210,0.38)';
           ctx.fillRect(x - 2, y, 4, 26);
         }
       }
@@ -356,15 +362,15 @@
         ctx.fillStyle = v > 0.5 ? 'rgba(255,255,255,0.035)' : 'rgba(0,0,0,0.055)';
         ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
       }
-      ctx.strokeStyle = 'rgba(42,48,42,0.36)';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(42,48,42,0.2)';
+      ctx.lineWidth = 1.5;
       for (let x = 0; x <= w; x += 32) {
         ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
       }
       for (let y = 0; y <= h; y += 32) {
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
       }
-      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      ctx.fillStyle = 'rgba(255,255,255,0.03)';
       for (let y = 0; y <= h; y += 32) ctx.fillRect(0, y + 1, w, 1);
     }), 1, 1);
   }
@@ -384,6 +390,7 @@
     paVolume: 1.0,
     musicVolume: 0.18,
     musicEnabled: true,
+    paLang: 'both',
     voiceEnabled: true,
     touristInfo: true,
     voiceUnlocked: false,
@@ -456,10 +463,10 @@
 
   function cacheDom() {
     const ids = [
-      'loadingScreen', 'loadingBar', 'loadingCopy', 'intro', 'startSiam', 'startKhuKhot',
+      'loadingScreen', 'loadingBar', 'loadingCopy', 'intro', 'startKhuKhot', 'startKheha',
       'introLang', 'langBtn', 'todBtn', 'rainBtn', 'audioBtn', 'mixBtn', 'helpBtn', 'fullscreenBtn',
       'audioMixer', 'mixClose', 'engineVol', 'engineVolVal', 'paVol', 'paVolVal',
-      'musicVol', 'musicVolVal', 'voiceToggle', 'touristToggle', 'musicToggle', 'testPA', 'lightning',
+      'musicVol', 'musicVolVal', 'paLang', 'paVoiceStatus', 'voiceToggle', 'touristToggle', 'musicToggle', 'testPA', 'lightning', 'autoHint', 'autoHintText', 'takeManualBtn',
       'announce', 'announceKicker', 'announceName', 'announceDetail', 'announceDetailTh',
       'telemetry', 'telemetryToggle', 'speedRing', 'speedValue', 'modeChip', 'doorChip',
       'tractionBars', 'signalChip', 'nextCode', 'nextName', 'nextThai', 'distanceValue',
@@ -599,6 +606,7 @@
     setView(1, true);
     ensureAudio();
     state.firstAnnouncement = true;
+    setAuto(true, true);
     toast(fill(t('welcome'), { station: STATIONS[index].en + ' (' + STATIONS[index].code + ')' }), 'gold');
     announceStation(true);
     updateHUD(true);
@@ -961,9 +969,12 @@
     scene.add(coast);
 
     // Sidewalk / road corridor beneath the viaduct.
-    const sidewalk = makeRibbon(22, 0.02, 0xffffff, 1);
+    const sidewalk = makeRibbon(22, 0.16, 0xffffff, 1);
     sidewalk.name = 'Sidewalks';
-    sidewalk.material.map = makePavingTexture();
+    const pavingTex = makePavingTexture();
+    pavingTex.anisotropy = 8;
+    pavingTex.minFilter = THREE.LinearMipmapLinearFilter;
+    sidewalk.material.map = pavingTex;
     sidewalk.material.color.setHex(0xb0b1a5);
     sidewalk.material.polygonOffset = true;
     sidewalk.material.polygonOffsetFactor = -1;
@@ -971,9 +982,12 @@
     sidewalk.material.needsUpdate = true;
     scene.add(sidewalk);
 
-    const road = makeRibbon(15, 0.12, 0xffffff, 1);
+    const road = makeRibbon(15, 0.28, 0xffffff, 1);
     road.name = 'SukhumvitRoad';
-    road.material.map = makeAsphaltTexture();
+    const asphaltTex = makeAsphaltTexture();
+    asphaltTex.anisotropy = 8;
+    asphaltTex.minFilter = THREE.LinearMipmapLinearFilter;
+    road.material.map = asphaltTex;
     road.material.color.setHex(0xffffff);
     road.material.polygonOffset = true;
     road.material.polygonOffsetFactor = -2;
@@ -982,7 +996,7 @@
     scene.add(road);
 
     // Soft shade beneath the viaduct keeps the road from looking flat and glowing.
-    const underShade = makeRibbon(12, 0.17, 0x000000, 0.2);
+    const underShade = makeRibbon(12, 0.34, 0x000000, 0.2);
     underShade.material.depthWrite = false;
     underShade.material.polygonOffset = true;
     underShade.material.polygonOffsetFactor = -3;
@@ -1007,9 +1021,9 @@
       tan.normalize();
       const n = new THREE.Vector3(tan.z, 0, -tan.x);
       for (const side of [-1, 1]) {
-        dummy.position.set(p.x + n.x * side * 7.65, 0.22, p.z + n.z * side * 7.65);
+        dummy.position.set(p.x + n.x * side * 7.65, 0.42, p.z + n.z * side * 7.65);
         dummy.quaternion.setFromUnitVectors(FORWARD_Z, tan);
-        dummy.scale.set(0.34, 0.2, 6.1);
+        dummy.scale.set(0.34, 0.22, 6.1);
         dummy.updateMatrix();
         curbs.setMatrixAt(i * 2 + (side > 0 ? 1 : 0), dummy.matrix);
       }
@@ -3336,6 +3350,7 @@
         if (typeof saved.tourist === 'boolean') state.touristInfo = saved.tourist;
         if (typeof saved.music === 'number') state.musicVolume = clamp(saved.music, 0, 1);
         if (typeof saved.musicEnabled === 'boolean') state.musicEnabled = saved.musicEnabled;
+        if (['both','th','en'].includes(saved.paLang)) state.paLang = saved.paLang;
       }
     } catch (e) { /* ignore storage failures */ }
   }
@@ -3348,7 +3363,8 @@
         voice: state.voiceEnabled,
         tourist: state.touristInfo,
         music: state.musicVolume,
-        musicEnabled: state.musicEnabled
+        musicEnabled: state.musicEnabled,
+        paLang: state.paLang
       }));
     } catch (e) { /* ignore storage failures */ }
   }
@@ -3377,6 +3393,7 @@
     state.speechTimer = setTimeout(() => {
       if (token !== state.speechToken) return;
       if (!state.voiceEnabled || state.muted || state.paVolume <= 0.01 || !state.voiceUnlocked) return;
+
       const th = new SpeechSynthesisUtterance(thText);
       th.lang = 'th-TH';
       const thVoice = pickSpeechVoice('th');
@@ -3392,6 +3409,15 @@
       en.rate = 0.94;
       en.pitch = 1.0;
       en.volume = state.paVolume;
+
+      if (state.paLang === 'th') {
+        synth.speak(th);
+        return;
+      }
+      if (state.paLang === 'en') {
+        synth.speak(en);
+        return;
+      }
 
       let englishSpoken = false;
       const speakEnglish = () => {
@@ -3478,6 +3504,14 @@
     dom.touristToggle.classList.toggle('is-off', !state.touristInfo);
     dom.musicToggle.textContent = state.musicEnabled ? t('musicOn') : t('musicOff');
     dom.musicToggle.classList.toggle('is-off', !state.musicEnabled);
+    if (dom.paLang) dom.paLang.value = state.paLang;
+    if (dom.paVoiceStatus) {
+      const thVoice = pickSpeechVoice('th');
+      dom.paVoiceStatus.textContent = thVoice
+        ? fill(t('thaiVoice'), { name: thVoice.name })
+        : t('thaiVoiceMissing');
+      dom.paVoiceStatus.style.color = thVoice ? '' : 'var(--amber)';
+    }
   }
 
   /* ---------------------------------------------------------------------------
@@ -4156,6 +4190,11 @@
       ? t('atPlatform')
       : (state.doorsOpen ? t('doorsOpenAt').replace('{station}', next.en) : fill(t('arrivingIn'), { time: formatEta(eta) }));
 
+    if (dom.autoHint) {
+      dom.autoHint.hidden = !(state.auto && state.started);
+      if (dom.autoHintText) dom.autoHintText.textContent = t('autoHint');
+      if (dom.takeManualBtn) dom.takeManualBtn.textContent = t('takeManual');
+    }
     document.body.classList.toggle('is-moving', state.speed > 1);
     updateStationListClasses();
     updateControlsUI();
@@ -4438,8 +4477,8 @@
      ------------------------------------------------------------------------ */
 
   function bindEvents() {
-    dom.startSiam.addEventListener('click', () => startSimulation(23));
     dom.startKhuKhot.addEventListener('click', () => startSimulation(0));
+    dom.startKheha.addEventListener('click', () => startSimulation(STATIONS.length - 1));
     dom.introLang.addEventListener('click', toggleLanguage);
     dom.langBtn.addEventListener('click', toggleLanguage);
     dom.todBtn.addEventListener('click', cycleTimeOfDay);
@@ -4491,6 +4530,16 @@
       if (audio) audio.setMusicVolume(state.musicVolume);
       updateAudioMixerUI();
       saveAudioSettings();
+    });
+    dom.takeManualBtn.addEventListener('click', () => {
+      ensureAudio();
+      setAuto(false);
+    });
+    dom.paLang.addEventListener('change', (e) => {
+      state.paLang = ['both','th','en'].includes(e.target.value) ? e.target.value : 'both';
+      saveAudioSettings();
+      updateAudioMixerUI();
+      toast(state.paLang === 'th' ? 'PA: ไทย' : state.paLang === 'en' ? 'PA: English' : 'PA: ไทย + EN', 'gold');
     });
     dom.musicToggle.addEventListener('click', () => {
       state.musicEnabled = !state.musicEnabled;
@@ -4575,6 +4624,9 @@
       window.__BTS_ERRORS.push(String(e.message || e.error || 'unknown error'));
     });
     document.addEventListener('pointerdown', () => ensureAudio(), { once: true, passive: true });
+    if (window.speechSynthesis) {
+      window.speechSynthesis.addEventListener('voiceschanged', updateAudioMixerUI);
+    }
     document.addEventListener('visibilitychange', () => {
       if (document.hidden && audio && audio.ctx && audio.ctx.state === 'running') {
         audio.ctx.suspend();

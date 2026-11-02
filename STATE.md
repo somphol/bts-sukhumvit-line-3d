@@ -5,9 +5,9 @@
 | Project | BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator (`bts-sukhumvit-line-3d`) |
 | Session started | 2026-11-01 23:07:53 UTC |
 | Build started | 2026-11-01 23:14:10 UTC |
-| Packaged | 2026-11-02 01:49:59 UTC |
-| Build duration | **2h 35m 49s** (9,349 seconds) |
-| Full session duration | **2h 42m 6s** (9,726 seconds) |
+| Packaged | 2026-11-02 02:21:28 UTC |
+| Build duration | **3h 7m 18s** (11,238 seconds) |
+| Full session duration | **3h 13m 35s** (11,615 seconds) |
 | Harness | OpenCode 2.2.5 |
 | Model | DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`) |
 | Session | `ses_e66a17139ffeXGq2zj84mZEePL` |
@@ -18,15 +18,15 @@
 
 | Metric | Tokens |
 | --- | ---: |
-| Input | 720,514 |
-| Output | 198,262 |
-| Reasoning | 241,432 |
-| **Total (input + output + reasoning)** | **1,160,208** |
-| Cache read | 136,076,288 |
+| Input | 729,636 |
+| Output | 211,227 |
+| Reasoning | 254,301 |
+| **Total (input + output + reasoning)** | **1,195,164** |
+| Cache read | 152,195,584 |
 | Cache write | 1,467 |
-| Total including cache | 137,237,963 |
+| Total including cache | 153,392,215 |
 
-> Snapshot from the OpenCode session record at 2026-11-02 01:49:59 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
+> Snapshot from the OpenCode session record at 2026-11-02 02:21:28 UTC. Total cost reported by the session: **$0.00**. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher. Cache reads/writes are context-usage figures and are reported separately from the input/output/reasoning total.
 
 ## What was built
 
@@ -34,7 +34,8 @@ A complete, self-contained 3D Bangkok Skytrain simulator in three modular source
 
 ### Core requirements
 
-- **47 operational stations** — Khu Khot (N24) to Kheha (E23), with real station codes, English and Thai names, zone assignments and interchanges. N6 Sena Ruam is intentionally omitted because it is an unopened infill station.
+- **47 operational stations** — Khu Khot (N24) to Kheha (E23), with real station codes, English and Thai names, zone assignments and interchanges.
+- **Starts at either terminus** — Khu Khot N24 or Kheha E23, with auto pilot on by default and a visible TAKE MANUAL takeover. N6 Sena Ruam is intentionally omitted because it is an unopened infill station.
 - **Four city zones** — northern suburbs, central commercial core, Sukhumvit lifestyle corridor and the southern industrial/coastal delta, with zone-aware building density, height, palette, glass ratio, trees and landmarks.
 - **Elevated third-rail railway** — continuous viaduct, deck, parapets, concrete piers, ballastless track bed, running rails, glowing third rail, track-side signals and 47 side-platform stations with canopies, name boards, benches, lamps, lifts and waiting passengers.
 - **Four-car BTS train** — blue lower body, white upper body, black window band, red-framed black cab mask, gold royal emblem, BTS roundel, sliding doors with interior openings and door lights, interior seats and poles, bogies, wheels, current-collector shoes, headlights, tail lights and orange LED destination displays.
@@ -65,10 +66,10 @@ Chatuchak Park & Market, Victory Monument, Siam Skywalk, Terminal 21 and the ASO
 
 | File | Size |
 | --- | ---: |
-| `index.html` | 19,680 bytes · 371 lines |
-| `style.css` | 54,936 bytes · 2,006 lines |
-| `script.js` | 205,690 bytes · 4,785 lines |
-| `README.md` | 17,802 bytes · 369 lines |
+| `index.html` | 20,443 bytes · 387 lines |
+| `style.css` | 56,640 bytes · 2,084 lines |
+| `script.js` | 208,843 bytes · 4,837 lines |
+| `README.md` | 18,125 bytes · 370 lines |
 | `screenshot.png` | 1.34 MB |
 | `screenshot-night.png` | 1.34 MB |
 | `screenshot-cab.png` | 1.28 MB |

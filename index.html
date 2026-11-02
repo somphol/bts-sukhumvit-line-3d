@@ -70,20 +70,20 @@
           <div><strong>3rd</strong><span data-i18n="railPower">RAIL POWER</span></div>
         </div>
         <div class="intro-actions">
-          <button id="startSiam" class="btn btn-primary">
-            <span data-i18n="boardSiam">BOARD AT SIAM</span>
-            <em>CEN · สยาม</em>
-          </button>
-          <button id="startKhuKhot" class="btn btn-ghost">
+          <button id="startKhuKhot" class="btn btn-primary">
             <span data-i18n="startKhuKhot">START AT KHU KHOT</span>
-            <em>N24 · คูคต</em>
+            <em>N24 · คูคต · NORTH TERMINUS</em>
+          </button>
+          <button id="startKheha" class="btn btn-ghost">
+            <span data-i18n="startKheha">START AT KHEHA</span>
+            <em>E23 · เคหะฯ · SOUTH TERMINUS</em>
           </button>
         </div>
         <div class="intro-foot">
           <button id="introLang" class="chip" type="button">EN / ไทย</button>
           <span data-i18n="builtWith">Built with OpenCode + DeepSeek V4.1 Flash</span>
         </div>
-        <div class="intro-hint" data-i18n="introHint">Best with headphones · WASD / arrows to drive · 1–4 cameras</div>
+        <div class="intro-hint" data-i18n="introHint">Auto pilot is on by default · take manual control anytime · 1–4 cameras</div>
       </div>
     </div>
 
@@ -142,6 +142,15 @@
         <b id="musicVolVal">18%</b>
         <input id="musicVol" type="range" min="0" max="100" step="1" value="18" />
       </label>
+      <label class="mix-select" for="paLang">
+        <span data-i18n="paLanguage">PA LANGUAGE</span>
+        <select id="paLang">
+          <option value="both">ไทย + EN</option>
+          <option value="th">ไทย</option>
+          <option value="en">EN</option>
+        </select>
+      </label>
+      <p id="paVoiceStatus" class="mix-hint">Thai voice: checking…</p>
       <div class="mix-actions">
         <button id="voiceToggle" class="chip" type="button">PA VOICE ON</button>
         <button id="touristToggle" class="chip" type="button">TOURIST INFO ON</button>
@@ -307,6 +316,13 @@
       <button id="skipBtn" class="skip-btn" type="button" title="Jump to next station">
         ⏭ <span data-i18n="nextStop">NEXT STOP</span>
       </button>
+    </div>
+
+    <!-- Auto pilot takeover hint -->
+    <div id="autoHint" class="auto-hint glass" hidden>
+      <span class="auto-dot"></span>
+      <span id="autoHintText">AUTO PILOT ACTIVE · Move the throttle or press A to drive manually</span>
+      <button id="takeManualBtn" class="chip" type="button">TAKE MANUAL</button>
     </div>
 
     <!-- Toasts -->

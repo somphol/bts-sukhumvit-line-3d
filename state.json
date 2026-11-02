@@ -7,23 +7,23 @@
   "build": {
     "sessionStartedAt": "2026-11-01T23:07:53Z",
     "startedAt": "2026-11-01T23:14:10Z",
-    "packagedAt": "2026-11-02T01:49:59Z",
-    "durationSeconds": 9349,
-    "durationHuman": "2h 35m 49s",
-    "sessionDurationSeconds": 9726,
-    "sessionDurationHuman": "2h 42m 6s",
+    "packagedAt": "2026-11-02T02:21:28Z",
+    "durationSeconds": 11238,
+    "durationHuman": "3h 7m 18s",
+    "sessionDurationSeconds": 11615,
+    "sessionDurationHuman": "3h 13m 35s",
     "timezone": "UTC",
     "includes": "Initial Three.js foundation, route survey and viaduct, four-zone procedural city, 47 stations and platform furniture, Chatuchak, Victory Monument, Siam skywalk, Terminal 21, Benchasiri Park, Erawan elephant, Khu Khot depot, Kheha terminus, four-car blue/white/red BTS train with doors and interior, passenger boarding/alighting animation, bilingual telemetry HUD, minimap, station list, four cameras, auto pilot, door interlock, terminus reversal, quiet Web Audio traction, bilingual PA voice, transit music, audio mixer, rain/thunderstorm scene, time-of-day modes, mobile layout, 36-check self-test, documentation, screenshots and GitHub packaging."
   },
   "tokens": {
-    "input": 720514,
-    "output": 198262,
-    "reasoning": 241432,
-    "cacheRead": 136076288,
+    "input": 729636,
+    "output": 211227,
+    "reasoning": 254301,
+    "cacheRead": 152195584,
     "cacheWrite": 1467,
-    "total": 1160208,
-    "totalWithCache": 137237963,
-    "note": "Snapshot from the OpenCode session record at 2026-11-02T01:49:59Z. total = input + output + reasoning. Cache reads/writes are context-usage figures and are reported separately. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher."
+    "total": 1195164,
+    "totalWithCache": 153392215,
+    "note": "Snapshot from the OpenCode session record at 2026-11-02T02:21:28Z. total = input + output + reasoning. Cache reads/writes are context-usage figures and are reported separately. The final state-file commit, GitHub push, Pages deployment and closing response happen after this snapshot, so the live session totals will be marginally higher."
   },
   "cost": {
     "usd": 0.0,
@@ -48,10 +48,10 @@
     "fonts": ["Orbitron", "Rajdhani", "Noto Sans Thai"]
   },
   "files": [
-    { "path": "index.html", "bytes": 19680, "lines": 371 },
-    { "path": "style.css", "bytes": 54936, "lines": 2006 },
-    { "path": "script.js", "bytes": 205690, "lines": 4785 },
-    { "path": "README.md", "bytes": 17802, "lines": 369 }
+    { "path": "index.html", "bytes": 20443, "lines": 387 },
+    { "path": "style.css", "bytes": 56640, "lines": 2084 },
+    { "path": "script.js", "bytes": 208843, "lines": 4837 },
+    { "path": "README.md", "bytes": 18125, "lines": 370 }
   ],
   "screenshots": [
     "screenshot.png",
@@ -67,6 +67,9 @@
   ],
   "features": [
     "47 operational Sukhumvit Line stations, N24 Khu Khot to E23 Kheha (N6 Sena Ruam omitted as unopened)",
+    "Starts at either terminus: Khu Khot N24 or Kheha E23",
+    "Auto pilot on by default with a visible TAKE MANUAL takeover button",
+    "PA language selector: Thai + English, Thai only, or English only, with Thai voice status",
     "Four procedural city zones: northern suburbs, central core, Sukhumvit corridor and southern delta",
     "Zone-aware building density, heights, palettes, glass ratio, trees and landmarks",
     "Elevated viaduct with deck, parapets, piers, ballastless track, running rails and a glowing third rail",

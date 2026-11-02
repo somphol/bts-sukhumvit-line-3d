@@ -54,7 +54,7 @@ The whole thing runs from three source files — `index.html`, `style.css` and `
 
 ## The sim
 
-You board a **four-car BTS train** at Siam (CEN) or Khu Khot (N24) and take control of an elevated third-rail railway. The route is a continuous, gently curving viaduct with two running rails, a glowing third rail, concrete piers, parapets, ballastless track, track-side signals and 47 side-platform stations with canopies, name boards, benches, lifts and waiting passengers.
+You board a **four-car BTS train** at either terminus — Khu Khot (N24) or Kheha (E23) — with auto pilot on by default and a one-click **TAKE MANUAL** takeover, then take control of an elevated third-rail railway. The route is a continuous, gently curving viaduct with two running rails, a glowing third rail, concrete piers, parapets, ballastless track, track-side signals and 47 side-platform stations with canopies, name boards, benches, lifts and waiting passengers.
 
 The simulation keeps the **real station order, codes, Thai names, zone character and interchange information**, while compressing the 50+ km alignment into a playable route and scaling displayed distances. **N6 Sena Ruam**, an unopened infill station, is intentionally not included, which is why the operational count is 47.
 
@@ -166,7 +166,7 @@ The HUD is a crisp transit overlay in BTS light green, dark green and gold.
 - **Sliding doors** with two leaves per side, animated openings, warm interior door lights, door chime and a **door interlock** that blocks traction until the doors are closed.
 - **Passenger exchange** — alighting passengers walk from the train doors to the platform while boarding passengers walk from the platform into the train whenever the doors open.
 - **Throttle 0–100 km/h**, service brake, emergency brake and coasting.
-- **Auto pilot** (`A`) accelerates, brakes into every platform, creeps to the stop mark, opens the doors, waits for the passenger exchange, closes the doors, departs and reverses at the terminus.
+- **Auto pilot is on by default at both termini** (`A`). It accelerates, brakes into every platform, creeps to the stop mark, opens the doors, waits for the passenger exchange, closes the doors, departs and reverses at the terminus. Move the throttle or press **A** / **TAKE MANUAL** to drive yourself.
 - **Terminus reversal** — at Kheha or Khu Khot the auto pilot flips direction and runs the line back; press `R` at a terminus when driving manually.
 - **Doors** (`D` / Space) only open at a platform and at near-zero speed. The HUD and cab display a persistent door warning.
 - **Horn** (`H`) synthesises a two-tone electric horn.
@@ -188,6 +188,7 @@ All audio is generated with the **Web Audio API**; there are no sound files.
 - Station-specific nearby-place callouts for all 47 stations, including the special Siam/Silom interchange announcement.
 - Three-beep door-closing warning before the doors close.
 - Independent engine / announcement / music mixer, PA voice toggle and tourist-info toggle.
+- PA language selector: **ไทย + EN**, **ไทย only**, or **EN only**, with a Thai system-voice status line.
 - Mute (`M`) with a master gain fade.
 
 Audio starts on the first user gesture (the Start button or any control), as required by browser autoplay policy.
