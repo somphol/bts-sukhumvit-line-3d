@@ -12,7 +12,7 @@
      Constants
      ------------------------------------------------------------------------ */
 
-  const VERSION = '1.4.0';
+  const VERSION = '1.4.1';
   const APP_NAME = 'BTS Sukhumvit Line 3D';
   const WORLD_PER_M = 0.25;             // world units per displayed metre
   const TRACK_Y = 5.2;                  // viaduct deck / rail height
@@ -1790,8 +1790,8 @@
     const platformMat = new THREE.MeshLambertMaterial({ color: 0x8f9184 });
     const tactileGeo = new THREE.BoxGeometry(0.28, 0.07, 34);
     const tactileMat = new THREE.MeshLambertMaterial({ color: 0xf2c94c, emissive: 0x4a3b00, emissiveIntensity: 0.35 });
-    const canopyGeo = new THREE.BoxGeometry(5.4, 0.18, 34);
-    const canopyMat = new THREE.MeshLambertMaterial({ color: 0x1c3a2a, emissive: 0x07150d, emissiveIntensity: 0.2 });
+    const canopySlatGeo = new THREE.BoxGeometry(3.6, 0.14, 3.0);
+    const canopyMat = new THREE.MeshLambertMaterial({ color: 0x1b2b22, emissive: 0x07150d, emissiveIntensity: 0.14 });
     const columnGeo = new THREE.CylinderGeometry(0.11, 0.14, 3.9, 6);
     const columnMat = new THREE.MeshLambertMaterial({ color: 0x8d9b90 });
     const benchGeo = new THREE.BoxGeometry(0.55, 0.09, 1.9);
@@ -1822,9 +1822,16 @@
         tactile.position.set(side * 2.56, 0.25, 0);
         group.add(tactile);
 
-        const canopy = new THREE.Mesh(canopyGeo, canopyMat);
-        canopy.position.set(side * 3.72, 4.18, 0);
-        group.add(canopy);
+        // Slatted canopy: gaps keep the platform and road visible underneath
+        // instead of reading as one solid green slab.
+        for (let slat = 0; slat < 8; slat++) {
+          const roof = new THREE.Mesh(canopySlatGeo, canopyMat);
+          roof.position.set(side * 3.72, 4.18, -14.5 + slat * 4.25);
+          group.add(roof);
+        }
+        const ridge = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.12, 34), canopyMat);
+        ridge.position.set(side * 3.72, 4.3, 0);
+        group.add(ridge);
 
         const fascia = new THREE.Mesh(
           new THREE.BoxGeometry(0.16, 0.34, 34),
