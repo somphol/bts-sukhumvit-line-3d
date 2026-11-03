@@ -353,6 +353,17 @@ Screenshots were captured at **1600 × 1000** desktop and **390 × 844** mobile 
 
 ---
 
+## Documentation
+
+- [AGENTS.md](AGENTS.md) — handoff for the next maintainer or AI agent
+- [docs/REPRODUCTION.md](docs/REPRODUCTION.md) — rebuild and verification book
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — module map and algorithms
+- [docs/TESTING.md](docs/TESTING.md) — verified matrix and gaps
+- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) — Pages operations
+- [skills/bts-sukhumvit-line-3d/SKILL.md](skills/bts-sukhumvit-line-3d/SKILL.md) — reusable build skill
+
+---
+
 ## Credits
 
 **Built with [OpenCode](https://opencode.ai) 2.2.5 and DeepSeek V4.1 Flash** (`opencode-go/deepseek-v4.1-flash`) in a single agent session.

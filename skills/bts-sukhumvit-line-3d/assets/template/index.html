@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#04130d" />
+  <title>BTS Sukhumvit Line 3D — Authentic Bangkok City &amp; Driver Simulator</title>
+  <meta name="description" content="Drive the Bangkok BTS Sukhumvit Line from Khu Khot N24 to Kheha E23 through a procedural 3D Bangkok. 47 stations, four city zones, live bilingual telemetry, cab, window, orbit and platform cameras." />
+  <meta name="keywords" content="BTS, Sukhumvit Line, Bangkok, Skytrain, 3D simulator, Three.js, Thailand, transit" />
+  <meta name="author" content="Somphol Boonjing" />
+  <meta property="og:title" content="BTS Sukhumvit Line 3D — Authentic Bangkok City & Driver Simulator" />
+  <meta property="og:description" content="A complete 3D Bangkok Skytrain simulator: 47 stations, elevated third-rail kinematics, procedural city zones, bilingual HUD and four cameras." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://somphol.github.io/bts-sukhumvit-line-3d/" />
+  <meta property="og:image" content="https://somphol.github.io/bts-sukhumvit-line-3d/screenshot.png" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="1000" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BTS Sukhumvit Line 3D — Authentic Bangkok City &amp; Driver Simulator" />
+  <meta name="twitter:description" content="A 3D Bangkok Skytrain simulator with 47 stations, four cameras, bilingual HUD and Web Audio synthesis." />
+  <meta name="twitter:image" content="https://somphol.github.io/bts-sukhumvit-line-3d/screenshot.png" />
+  <link rel="canonical" href="https://somphol.github.io/bts-sukhumvit-line-3d/" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=1.4.7" />
+</head>
+<body>
+  <div id="app">
+    <div id="viewport" aria-hidden="true">
+      <canvas id="scene"></canvas>
+      <div class="scene-vignette"></div>
+      <div class="scene-grain"></div>
+      <div class="scene-rain"></div>
+    </div>
+
+    <div id="lightning" class="lightning" aria-hidden="true"></div>
+
+    <!-- Loading -->
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-card">
+        <div class="loading-mark">BTS<span>3D</span></div>
+        <div class="loading-title">SUKHUMVIT LINE</div>
+        <div class="loading-bar"><i id="loadingBar"></i></div>
+        <div class="loading-copy" id="loadingCopy">Laying the elevated viaduct…</div>
+        <div class="loading-sub">47 STATIONS · N24 KHU KHOT ↔ E23 KHEHA</div>
+      </div>
+    </div>
+
+    <!-- Intro / splash -->
+    <div id="intro" class="intro">
+      <div class="intro-card">
+        <div class="intro-top">
+          <div class="bts-mark"><span>BTS</span><i></i></div>
+          <div class="intro-line">
+            <b>SUKHUMVIT LINE</b>
+            <span>N24 KHU KHOT ↔ E23 KHEHA</span>
+          </div>
+          <div class="intro-live"><i></i> LIVE 3D</div>
+        </div>
+        <h1>BTS SUKHUMVIT<br /><em>LINE 3D</em></h1>
+        <p class="intro-sub">Authentic Bangkok City &amp; Driver Simulator</p>
+        <p class="intro-copy" data-i18n="introCopy">Climb into the cab of a four-car Bangkok Skytrain. Drive 47 elevated stations from Khu Khot to Kheha through shop-house suburbs, the Siam skyscraper canyon, Sukhumvit neon and the southern delta.</p>
+        <div class="intro-stats">
+          <div><strong>47</strong><span data-i18n="stations">STATIONS</span></div>
+          <div><strong>4</strong><span data-i18n="zones">CITY ZONES</span></div>
+          <div><strong>4</strong><span data-i18n="cameras">CAMERAS</span></div>
+          <div><strong>3rd</strong><span data-i18n="railPower">RAIL POWER</span></div>
+        </div>
+        <div class="intro-actions">
+          <button id="startKhuKhot" class="btn btn-primary">
+            <span data-i18n="startKhuKhot">START AT KHU KHOT</span>
+            <em>N24 · คูคต · NORTH TERMINUS</em>
+          </button>
+          <button id="startKheha" class="btn btn-ghost">
+            <span data-i18n="startKheha">START AT KHEHA</span>
+            <em>E23 · เคหะฯ · SOUTH TERMINUS</em>
+          </button>
+        </div>
+        <div class="intro-foot">
+          <button id="introLang" class="chip" type="button">EN / ไทย</button>
+          <span data-i18n="builtWith">Built with OpenCode + DeepSeek V4.1 Flash</span>
+        </div>
+        <div class="intro-hint" data-i18n="introHint">Auto pilot is on by default · take manual control anytime · 1–4 cameras</div>
+      </div>
+    </div>
+
+    <!-- Top bar -->
+    <header id="topbar" class="topbar">
+      <div class="brand glass">
+        <div class="brand-mark">BTS<i></i></div>
+        <div class="brand-text">
+          <h2>SUKHUMVIT <em>LINE 3D</em></h2>
+          <p data-i18n="brandSub">Bangkok Skytrain · Driver Simulator</p>
+        </div>
+      </div>
+
+      <div class="announce-wrap">
+        <div id="announce" class="announce glass">
+          <div class="announce-icon">◉</div>
+          <div class="announce-text">
+            <span id="announceKicker" data-i18n="nextStation">NEXT STATION</span>
+            <strong id="announceName">Siam (CEN) · สยาม</strong>
+            <em id="announceDetail">Interchange · MRT Blue Line</em>
+            <em id="announceDetailTh" class="announce-th">เปลี่ยนสาย · MRT Blue Line</em>
+          </div>
+          <div class="announce-wave"><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+
+      <div class="top-actions glass">
+        <button id="langBtn" class="icon-btn" type="button" title="English / ไทย (L)" aria-label="Switch language">TH</button>
+        <button id="todBtn" class="icon-btn" type="button" title="Time of day" aria-label="Time of day">☀</button>
+        <button id="rainBtn" class="icon-btn" type="button" title="Rain" aria-label="Toggle rain">🌧</button>
+        <button id="audioBtn" class="icon-btn" type="button" title="Sound (M)" aria-label="Toggle sound">🔊</button>
+        <button id="mixBtn" class="icon-btn" type="button" title="Audio mixer" aria-label="Audio mixer">🎚</button>
+        <button id="helpBtn" class="icon-btn" type="button" title="Help (?)" aria-label="Help">?</button>
+        <button id="fullscreenBtn" class="icon-btn" type="button" title="Fullscreen (F)" aria-label="Fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <!-- Audio mixer -->
+    <div id="audioMixer" class="audio-mixer glass" hidden>
+      <div class="mix-head">
+        <span data-i18n="audioMixer">AUDIO MIXER</span>
+        <button id="mixClose" class="icon-btn" type="button" aria-label="Close audio mixer">✕</button>
+      </div>
+      <label class="mix-slider" for="engineVol">
+        <span data-i18n="engineSound">ENGINE</span>
+        <b id="engineVolVal">15%</b>
+        <input id="engineVol" type="range" min="0" max="100" step="1" value="15" />
+      </label>
+      <label class="mix-slider" for="paVol">
+        <span data-i18n="announcements">ANNOUNCEMENTS</span>
+        <b id="paVolVal">100%</b>
+        <input id="paVol" type="range" min="0" max="100" step="1" value="100" />
+      </label>
+      <label class="mix-slider" for="musicVol">
+        <span data-i18n="music">MUSIC</span>
+        <b id="musicVolVal">18%</b>
+        <input id="musicVol" type="range" min="0" max="100" step="1" value="18" />
+      </label>
+      <label class="mix-select" for="paLang">
+        <span data-i18n="paLanguage">PA LANGUAGE</span>
+        <select id="paLang">
+          <option value="both">ไทย + EN</option>
+          <option value="th">ไทย</option>
+          <option value="en">EN</option>
+        </select>
+      </label>
+      <p id="paVoiceStatus" class="mix-hint">Thai voice: checking…</p>
+      <div class="mix-actions">
+        <button id="voiceToggle" class="chip" type="button">PA VOICE ON</button>
+        <button id="touristToggle" class="chip" type="button">TOURIST INFO ON</button>
+        <button id="musicToggle" class="chip" type="button">MUSIC ON</button>
+        <button id="testPA" class="chip" type="button" data-i18n="testPA">TEST PA</button>
+      </div>
+      <p class="mix-hint" data-i18n="mixerHint">Bilingual Thai / English station announcements.</p>
+    </div>
+
+    <!-- Left telemetry -->
+    <aside id="telemetry" class="telemetry glass" aria-label="Live train telemetry">
+      <div class="panel-head">
+        <span class="live-dot"></span>
+        <span data-i18n="liveTelemetry">LIVE TELEMETRY</span>
+        <span class="route-chip">SUKHUMVIT</span>
+        <span id="buildBadge" class="build-chip">v1.4.7</span>
+        <button id="telemetryToggle" class="panel-toggle" type="button" aria-label="Minimize telemetry" aria-expanded="true">−</button>
+      </div>
+
+      <div class="speed-row">
+        <div id="speedRing" class="speed-ring" style="--pct:0">
+          <div class="speed-inner">
+            <strong id="speedValue">0</strong>
+            <span data-i18n="kmh">KM/H</span>
+          </div>
+        </div>
+        <div class="speed-meta">
+          <div id="modeChip" class="mode-chip" data-i18n="manual">MANUAL</div>
+          <div id="doorChip" class="door-chip" data-i18n="doorsClosed">DOORS CLOSED</div>
+          <div class="traction-bars" id="tractionBars"><i></i><i></i><i></i><i></i><i></i></div>
+          <div id="signalChip" class="signal-chip">● CLEAR</div>
+        </div>
+      </div>
+
+      <div class="next-block">
+        <div class="next-kicker">
+          <span data-i18n="nextStation">NEXT STATION</span>
+          <span id="nextCode" class="code-chip">CEN</span>
+          <button id="stationInfoBtn" class="info-btn" type="button" title="Station information and Google Maps">ⓘ</button>
+        </div>
+        <div class="next-name" id="nextName">Siam</div>
+        <div class="next-th" id="nextThai">สยาม</div>
+        <div class="next-meta">
+          <div><span data-i18n="distance">DISTANCE</span><strong id="distanceValue">0 m</strong></div>
+          <div><span data-i18n="eta">ETA</span><strong id="etaValue">--</strong></div>
+          <div><span data-i18n="zone">ZONE</span><strong id="zoneValue">B</strong></div>
+        </div>
+        <div class="progress"><i id="routeProgress"></i></div>
+        <div class="progress-labels"><span>N24</span><span>CEN</span><span>E23</span></div>
+      </div>
+
+      <div class="zone-block">
+        <div id="zoneChip" class="zone-chip">ZONE B</div>
+        <p id="zoneDesc">Central core · skyscraper canyons &amp; Siam skywalks</p>
+      </div>
+
+      <div class="interchange-block">
+        <span data-i18n="interchange">INTERCHANGE</span>
+        <div id="interchangeChips" class="chips"></div>
+      </div>
+
+      <div class="landmark-block">
+        <span data-i18n="nearby">NEARBY</span>
+        <strong id="landmarkName">Siam Skywalk</strong>
+      </div>
+
+      <div class="minimap-wrap">
+        <canvas id="minimap" width="280" height="170"></canvas>
+        <span data-i18n="lineMap">LINE MAP</span>
+      </div>
+    </aside>
+
+    <!-- Right route panel -->
+    <aside id="routePanel" class="route-panel glass" aria-label="Sukhumvit line stations">
+      <div class="panel-head">
+        <span data-i18n="stations">STATIONS</span>
+        <span class="route-chip">47</span>
+        <button id="routeToggle" class="panel-toggle" type="button" aria-label="Minimize station list" aria-expanded="true">−</button>
+      </div>
+      <div class="route-legend">
+        <span><i style="--z:#8bc34a"></i>A</span>
+        <span><i style="--z:#00a651"></i>B</span>
+        <span><i style="--z:#f2c94c"></i>C</span>
+        <span><i style="--z:#2d9cdb"></i>D</span>
+      </div>
+      <div id="stationList" class="station-list"></div>
+      <div class="route-foot" data-i18n="clickStation">Click a station to jump the train.</div>
+    </aside>
+
+    <!-- Driver cab overlay -->
+    <div id="cabOverlay" class="cab-overlay" aria-hidden="true">
+      <div class="cab-glass"></div>
+      <div class="cab-rain"></div>
+      <div class="cab-wipers"><i></i><i></i></div>
+      <div class="cab-pillar left"></div>
+      <div class="cab-pillar right"></div>
+      <div class="cab-roof"></div>
+      <div class="cab-dash">
+        <div class="cab-brand"><b>BTS</b><span>SUKHUMVIT</span><em data-i18n="driverCab">DRIVER CAB</em></div>
+        <div class="cab-gauge">
+          <strong id="cabSpeed">0</strong>
+          <span>KM/H</span>
+        </div>
+        <div class="cab-lights">
+          <i id="cabSignal" class="green"></i>
+          <span id="cabSignalText">CLEAR</span>
+        </div>
+        <div id="cabDoor" class="cab-door" data-i18n="doorsClosed">DOORS CLOSED</div>
+        <div class="cab-traction"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div id="cabWarning" class="cab-warning" data-i18n="closeDoors">CLOSE DOORS TO DEPART</div>
+      <div class="cab-hint" data-i18n="cabHint">DRAG TO LOOK · 1–4 CAMERAS</div>
+    </div>
+
+    <!-- Passenger window overlay -->
+    <div id="passengerOverlay" class="passenger-overlay" aria-hidden="true">
+      <div class="window-frame"></div>
+      <div class="passenger-label">PASSENGER SCENIC VIEW · <span id="passengerStation">SIAM</span></div>
+      <div class="passenger-tip" data-i18n="passengerTip">Sit back · Bangkok rolls past the window</div>
+    </div>
+
+    <!-- Platform camera overlay -->
+    <div id="stationCamOverlay" class="stationcam-overlay" aria-hidden="true">
+      <div class="stationcam-badge">PLATFORM CAM · <span id="stationCamName">SIAM</span></div>
+      <div class="stationcam-eta" id="stationCamEta">ARRIVING IN --</div>
+      <div class="stationcam-frame"></div>
+    </div>
+
+    <!-- Bottom controls -->
+    <div id="controlDock" class="control-dock glass">
+      <div class="throttle-block">
+        <label for="throttle">
+          <span data-i18n="throttle">THROTTLE</span>
+          <strong id="throttleValue">0 km/h</strong>
+        </label>
+        <input id="throttle" type="range" min="0" max="100" step="1" value="0" />
+        <div class="throttle-ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+      </div>
+
+      <div class="control-buttons">
+        <button id="brakeBtn" class="ctl" type="button" title="Service brake (S)">
+          <span>🛑</span><b data-i18n="serviceBrake">SERVICE BRAKE</b><em>S</em>
+        </button>
+        <button id="emergencyBtn" class="ctl danger" type="button" title="Emergency brake (E)">
+          <span>⚠</span><b data-i18n="emergency">EMERGENCY</b><em>E</em>
+        </button>
+        <button id="autoBtn" class="ctl" type="button" title="Auto pilot (A)">
+          <span>🤖</span><b data-i18n="autoPilot">AUTO PILOT</b><em>A</em>
+        </button>
+        <button id="doorBtn" class="ctl" type="button" title="Doors (D)">
+          <span>🚪</span><b data-i18n="doors">DOORS</b><em>D</em>
+        </button>
+        <button id="hornBtn" class="ctl" type="button" title="Horn (H)">
+          <span>📯</span><b data-i18n="horn">HORN</b><em>H</em>
+        </button>
+      </div>
+
+      <div class="view-buttons">
+        <button class="view-btn is-active" data-view="1" type="button" title="Driver cab (1)"><b>1</b><span data-i18n="cabView">CAB</span></button>
+        <button class="view-btn" data-view="2" type="button" title="Passenger window (2)"><b>2</b><span data-i18n="windowView">WINDOW</span></button>
+        <button class="view-btn" data-view="3" type="button" title="Orbit camera (3)"><b>3</b><span data-i18n="orbitView">ORBIT</span></button>
+        <button class="view-btn" data-view="4" type="button" title="Platform camera (4)"><b>4</b><span data-i18n="platformView">PLATFORM</span></button>
+      </div>
+
+      <button id="skipBtn" class="skip-btn" type="button" title="Jump to next station">
+        ⏭ <span data-i18n="nextStop">NEXT STOP</span>
+      </button>
+    </div>
+
+    <!-- Auto pilot takeover hint -->
+    <div id="autoHint" class="auto-hint glass" hidden>
+      <span class="auto-dot"></span>
+      <span id="autoHintText">AUTO PILOT ACTIVE · Move the throttle or press A to drive manually</span>
+      <button id="takeManualBtn" class="chip" type="button">TAKE MANUAL</button>
+    </div>
+
+    <!-- Toasts -->
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+
+    <!-- Station information card -->
+    <div id="stationModal" class="modal" hidden>
+      <div class="modal-card station-card glass">
+        <div class="station-card-head">
+          <div class="station-card-title">
+            <span id="stationModalCode" class="code-chip">CEN</span>
+            <div>
+              <span class="station-card-kicker" data-i18n="stationInfo">STATION INFO</span>
+              <h2 id="stationModalName">Siam</h2>
+              <p id="stationModalThai">สยาม</p>
+            </div>
+          </div>
+          <button id="stationModalClose" class="icon-btn" type="button" aria-label="Close station info">✕</button>
+        </div>
+        <div class="station-card-grid">
+          <div><span data-i18n="zone">ZONE</span><strong id="stationModalZone">B · Central Commercial Core</strong></div>
+          <div><span data-i18n="interchange">INTERCHANGE</span><strong id="stationModalIx">BTS Silom · MRT Blue</strong></div>
+          <div class="wide"><span data-i18n="nearby">NEARBY</span><strong id="stationModalLandmark">Siam Paragon, Siam Square &amp; BACC</strong></div>
+        </div>
+        <div class="station-card-actions">
+          <a id="stationMapLink" class="btn btn-primary" href="https://www.google.com/maps/" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="openMaps">OPEN IN GOOGLE MAPS ↗</span>
+            <em id="stationMapQuery">BTS Siam Station CEN Bangkok</em>
+          </a>
+          <button id="stationJumpBtn" class="btn btn-ghost" type="button">
+            <span data-i18n="jumpHere">JUMP TRAIN HERE</span>
+            <em data-i18n="jumpHereHint">Move the train to this station</em>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help -->
+    <div id="helpModal" class="modal" hidden>
+      <div class="modal-card glass">
+        <div class="modal-head">
+          <div>
+            <span class="route-chip">OPERATOR MANUAL</span>
+            <h2 data-i18n="helpTitle">How to drive the Sukhumvit Line</h2>
+          </div>
+          <button id="helpClose" class="icon-btn" type="button" aria-label="Close">✕</button>
+        </div>
+        <div class="help-grid">
+          <div class="help-col">
+            <h3 data-i18n="controls">CONTROLS</h3>
+            <ul class="key-list">
+              <li><kbd>W</kbd><kbd>↑</kbd><span data-i18n="helpThrottle">Increase throttle</span></li>
+              <li><kbd>S</kbd><kbd>↓</kbd><span data-i18n="helpBrake">Service brake / reduce speed</span></li>
+              <li><kbd>E</kbd><span data-i18n="helpEmergency">Emergency brake</span></li>
+              <li><kbd>A</kbd><span data-i18n="helpAuto">Auto pilot on / off</span></li>
+              <li><kbd>D</kbd><span data-i18n="helpDoors">Open / close doors at a platform</span></li>
+              <li><kbd>H</kbd><span data-i18n="helpHorn">Horn</span></li>
+              <li><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><span data-i18n="helpCameras">Cab / window / orbit / platform camera</span></li>
+              <li><kbd>L</kbd><span data-i18n="helpLang">English ⇄ ไทย</span></li>
+              <li><kbd>M</kbd><span data-i18n="helpMute">Mute / unmute</span></li>
+              <li><kbd>F</kbd><span data-i18n="helpFullscreen">Fullscreen</span></li>
+              <li><kbd>K</kbd><span data-i18n="helpRain">Rain / storm</span></li>
+              <li><kbd>R</kbd><span data-i18n="helpReverse">Reverse direction at a terminus</span></li>
+            </ul>
+          </div>
+          <div class="help-col">
+            <h3 data-i18n="theLine">THE LINE</h3>
+            <p data-i18n="helpLine">The Sukhumvit Line runs 47 stations from Khu Khot (N24) in the north to Kheha (E23) in Samut Prakan. The simulation compresses the route into a continuous elevated viaduct and scales distances for playability. N6 Sena Ruam, an unopened infill station, is not included.</p>
+            <h3 data-i18n="zonesTitle">FOUR CITY ZONES</h3>
+            <div class="zone-list">
+              <div><i style="--z:#8bc34a"></i><b>A</b><span data-i18n="zoneA">Northern suburbs · shop houses, Chatuchak green</span></div>
+              <div><i style="--z:#00a651"></i><b>B</b><span data-i18n="zoneB">Central core · skyscrapers, Siam skywalks</span></div>
+              <div><i style="--z:#f2c94c"></i><b>C</b><span data-i18n="zoneC">Sukhumvit · condos, hotels, neon sois</span></div>
+              <div><i style="--z:#2d9cdb"></i><b>D</b><span data-i18n="zoneD">Southern delta · industry, coast, Erawan</span></div>
+            </div>
+            <h3 data-i18n="creditsTitle">CREDITS</h3>
+            <p class="credits-line" data-i18n="creditsBody">Built with OpenCode 2.2.5 and DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash). Three.js r128 + OrbitControls (MIT). No image, audio or model assets: every building, train, sign and sound is generated in the browser.</p>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <span>BTS SUKHUMVIT LINE 3D · <span id="versionLabel">v1.0.0</span></span>
+          <button id="helpOk" class="btn btn-primary" type="button" data-i18n="close">CLOSE</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="selftestOut" class="selftest" hidden></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="script.js?v=1.4.7"></script>
+</body>
+</html>
